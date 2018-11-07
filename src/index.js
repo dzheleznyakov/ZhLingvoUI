@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 
 import App from './App';
-import languageReducer from './store/reducers/reducer';
+import languageReducer from './store/reducers/language';
 import * as serviceWorker from './serviceWorker';
 
 const composeEnhancers = 

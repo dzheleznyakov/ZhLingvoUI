@@ -7,7 +7,7 @@ import NavigationItem from './NavigationItem';
 
 const navigationItems = (props) => {
   let learningPages = null;
-  if (props.languageChosen) {
+  if (props.selectedLanguage) {
     learningPages = (
       <React.Fragment>
         <NavigationItem link='/dictionary'>Dictionary</NavigationItem>
@@ -27,7 +27,7 @@ const navigationItems = (props) => {
 
 const mapStateToProps = state => {
   return {
-    languageChosen: state.language.languageChosen,
+    selectedLanguage: state.language.selectedLanguage,
   }
 };
 

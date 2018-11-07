@@ -1,0 +1,9 @@
+.LanguageIcon {
+  display: inline-block;
+  border-width: 0.125em ;
+  border-style: solid;
+  padding: 0.125em;
+  margin: 0 0.125em;
+  font-family: monospace;
+  font-weight: 700;
+}

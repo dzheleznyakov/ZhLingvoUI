@@ -8,7 +8,7 @@ const layout = (props) => (
   <React.Fragment>
     <Toolbar />
     <div className={styles.Content}>
-      This is my webpage content
+      {props.children}
     </div>
   </React.Fragment>
 );
