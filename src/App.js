@@ -6,7 +6,7 @@ import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import Layout from './hoc/Layout/Layout';
 
 const asyncLanguageChooser = asyncComponent(() => {
-  return import('./components/LanguageChooser/LanguageChooser');
+  return import('./components/Language/LanguageChooser/LanguageChooser');
 });
 
 const asyncDictionary = asyncComponent(() => {

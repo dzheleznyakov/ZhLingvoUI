@@ -4,14 +4,15 @@ import styles from './LanguageIcon.module.css';
 
 const languageIcon = (props) => {
   const style = { 
-    fontSize: props.fontSize ,
     color: props.color || 'black',
     borderColor: props.color || 'black',
   };
 
+  const classNames = [styles.LanguageIcon, styles[props.size]];
+
   return (
     <div 
-      className={styles.LanguageIcon}
+      className={classNames.join(' ')}
       style={style}
     >{props.children}</div>
   )

@@ -12,8 +12,10 @@ class Dropdown extends Component {
     this.setState({ dropped: !dropped })
   };
 
-  itemClickedHandler = (onClick) => {
-    onClick();
+  itemClickedHandler = (onclick) => {
+    if (onclick) {
+      onclick() 
+    }
     this.onDropDownButtonClicked();
   };
 
@@ -27,11 +29,10 @@ class Dropdown extends Component {
         <dt><div onClick={this.onDropDownButtonClicked}><span>Please select...</span></div></dt>
         <dd>
           <ul style={listDisplayStyle}>
-            {this.props.options.map((html, index) => 
-              <li 
+            {this.props.options.map((html, index) => <li 
                 key={index}
-                onClick={() => this.itemClickedHandler(html.props.languageSelected)}
-              >{html}</li>)}
+                onClick={() => this.itemClickedHandler(html.props.onclicked)}
+            >{html}</li>)}
           </ul>
         </dd>
       </dl>
