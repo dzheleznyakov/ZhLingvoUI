@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styles from './NavigationItems.module.css';
 
 import NavigationItem from './NavigationItem';
+import LanguageIcon from '../../Language/elements/LanguageIcon';
 
 const navigationItems = (props) => {
   let learningPages = null;
@@ -12,6 +13,7 @@ const navigationItems = (props) => {
       <React.Fragment>
         <NavigationItem link='/dictionary'>Dictionary</NavigationItem>
         <NavigationItem link='/tutor'>Tutor</NavigationItem>
+        <LanguageIcon size="Medium">{props.selectedLanguage.code}</LanguageIcon>
       </React.Fragment>
     );
   }
