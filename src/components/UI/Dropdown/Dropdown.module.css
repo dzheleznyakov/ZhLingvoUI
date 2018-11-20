@@ -1,8 +1,16 @@
+.Dropdown {
+  display: inline-block;
+}
+
 .Dropdown dd,
 .Dropdown dt,
 .Dropdown ul {
   margin: 0;
   padding: 0;
+}
+
+.Dropdown dd {
+  width: 100%;
 }
 
 .Dropdown dd {

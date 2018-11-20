@@ -9,6 +9,7 @@ import './index.css';
 
 import App from './App';
 import languageReducer from './store/reducers/language';
+import * as sagas from './store/sagas/';
 import * as serviceWorker from './serviceWorker';
 
 const composeEnhancers = 
@@ -22,6 +23,9 @@ const rootReducer = combineReducers({
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+
+Object.keys(sagas)
+  .forEach(watcher => sagaMiddleware.run(sagas[watcher]));
 
 const app = (
   <Provider store={store}>
