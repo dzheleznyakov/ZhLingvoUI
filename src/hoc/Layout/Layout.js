@@ -7,9 +7,9 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 const layout = (props) => (
   <React.Fragment>
     <Toolbar />
-    <div className={styles.Content}>
+    <main className={styles.Content}>
       {props.children}
-    </div>
+    </main>
   </React.Fragment>
 );
 

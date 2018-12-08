@@ -5,6 +5,7 @@ import Language from '../elements/Language';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 import Spinner from '../../UI/Spinner/Spinner';
 import * as actions from '../../../store/actions/';
+import styles from './LanguageChooser.module.css';
 
 class LanguageChooser extends Component {
   componentDidMount() {
@@ -45,10 +46,10 @@ class LanguageChooser extends Component {
     }
 
     return (
-      <React.Fragment>
+      <div className={styles.LanguageChooser}>
         {currentLanguageMessage}
         {this.renderDropdown()}
-      </React.Fragment>
+      </div>
     );
   };
 }

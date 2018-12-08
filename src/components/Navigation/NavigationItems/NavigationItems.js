@@ -20,7 +20,7 @@ const navigationItems = (props) => {
 
   return (
     <ul className={styles.NavigationItems}>
-      <NavigationItem link='/auth'>Auth</NavigationItem>
+      {/* <NavigationItem link='/auth'>Auth</NavigationItem> */}
       <NavigationItem link='/language'>Language</NavigationItem>
       {learningPages}
     </ul>

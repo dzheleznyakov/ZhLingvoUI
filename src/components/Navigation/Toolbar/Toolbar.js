@@ -4,7 +4,7 @@ import styles from './Toolbar.module.css';
 
 import NavigationItems from '../NavigationItems/NavigationItems';
 
-const toolbar = (props) => (
+const toolbar = () => (
   <header className={styles.Toolbar}>
     <div>Logo</div>
     <nav className={styles.DesktopOnly}>
