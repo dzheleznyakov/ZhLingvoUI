@@ -8,6 +8,6 @@ export const loadLanguagesFromServer = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(languages);
-    }, 1000);
+    }, 200);
   });
 };

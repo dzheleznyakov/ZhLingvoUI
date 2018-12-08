@@ -9,6 +9,7 @@ import './index.css';
 
 import App from './App';
 import languageReducer from './store/reducers/language';
+import dictionaryReducer from './store/reducers/dictionary';
 import * as sagas from './store/sagas/';
 import * as serviceWorker from './serviceWorker';
 
@@ -18,6 +19,7 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   language: languageReducer,
+  dictionary: dictionaryReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
