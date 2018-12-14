@@ -9,7 +9,7 @@ import styles from './LanguageChooser.module.css';
 
 class LanguageChooser extends Component {
   componentDidMount() {
-    this.props.onPageLoaded();
+    this.props.loadLanguages();
   }
 
   renderDropdown = () => {
@@ -63,7 +63,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispath => {
   return {
-    onPageLoaded: () => dispath(actions.loadLanguages()),
+    loadLanguages: () => dispath(actions.loadLanguages()),
     onLanguageSelected: ({ code, name }) => dispath(actions.selectLanguage(code, name)),
   };
 };

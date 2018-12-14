@@ -7,7 +7,7 @@ import DictionaryList from './DictionaryList/DictionaryList';
 
 class Dictionary extends Component {
   componentDidMount() {
-    this.props.onPageLoaded();
+    this.props.loadDictionary();
   }
 
   render() {
@@ -27,7 +27,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onPageLoaded: () => dispatch(actions.loadDictionary()),
+    loadDictionary: () => dispatch(actions.loadDictionary()),
   }
 };
 

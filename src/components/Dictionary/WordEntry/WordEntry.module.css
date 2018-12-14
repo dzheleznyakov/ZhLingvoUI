@@ -1,3 +1,7 @@
+.WordEntry {
+  padding: 2px 4px;
+}
+
 .WordEntry:focus {
   background-color: dodgerblue;
   color: white;
