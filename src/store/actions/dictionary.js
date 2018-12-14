@@ -18,3 +18,10 @@ export const removeDictionary = () => {
     type: actionTypes.REMOVE_DICTIONARY,
   };
 };
+
+export const selectWord = (index) => {
+  return {
+    type: actionTypes.SELECT_WORD,
+    index,
+  };
+};

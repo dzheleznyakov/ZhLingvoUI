@@ -1,7 +1,7 @@
 const resolveDictionary = (dictionary) => new Promise(resolve => {
   setTimeout(() => {
     resolve(dictionary);
-  }, 500);
+  }, 50);
 });
 
 export const loadDictionary = (languageCode) => {
@@ -11,7 +11,7 @@ export const loadDictionary = (languageCode) => {
         {
           word: 'book',
         }, {
-          word: 'boy',
+          word: 'box',
         }, {
           word: 'do',
         }, {

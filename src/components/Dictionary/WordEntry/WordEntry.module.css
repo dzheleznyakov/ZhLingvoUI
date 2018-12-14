@@ -1,0 +1,5 @@
+.WordEntry:focus {
+  background-color: dodgerblue;
+  color: white;
+  outline: none;
+}

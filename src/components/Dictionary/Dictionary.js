@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import styles from './Dictionary.module.css';
-
 import * as actions from '../../store/actions/';
 import Spinner from '../UI/Spinner/Spinner';
+import DictionaryList from './DictionaryList/DictionaryList';
 
 class Dictionary extends Component {
   componentDidMount() {
     this.props.onPageLoaded();
   }
 
-  renderDictionaryList() {
-    return (
-      <div className={styles.DictionaryListWrapper}>
-        <ul className={styles.DictionaryList}>
-          {this.props.dictionary
-            .map((entry, index) => 
-              <li key={index}>{entry.word}</li>)}
-        </ul>
-      </div>
-    );
-  }
-
   render() {
       let list = <Spinner />
       if (this.props.dictionary && this.props.dictionary.length) {
-        list = this.renderDictionaryList();
+        list = <DictionaryList dictionary={this.props.dictionary} />
       }
       return list;
   }

@@ -8,4 +8,5 @@ export {
   loadDictionary, 
   setDictionary,
   removeDictionary,
+  selectWord,
 } from './dictionary';
