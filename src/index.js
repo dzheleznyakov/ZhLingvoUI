@@ -7,6 +7,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import './index.css';
 
+import { loadConfig } from './store/actions/'
 import App from './App';
 import languageReducer from './store/reducers/language';
 import dictionaryReducer from './store/reducers/dictionary';
@@ -36,6 +37,8 @@ const app = (
     </BrowserRouter>
   </Provider>
 );
+
+store.dispatch(loadConfig());
 
 ReactDOM.render(
   app, document.getElementById('root')

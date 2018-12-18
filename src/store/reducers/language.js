@@ -6,7 +6,7 @@ const intialState = {
   selectedLanguage: null,
 };
 
-const selectLanguage = (state, action) => {
+const setSelectedLanguage = (state, action) => {
   return updateObject(state, { selectedLanguage: action.language } );
 };
 
@@ -17,7 +17,7 @@ const setLanguages = (state, action) => {
 const reducer = (state = intialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LANGUAGES: return setLanguages(state, action);
-    case actionTypes.SELECT_LANGUAGE: return selectLanguage(state, action);
+    case actionTypes.SET_SELECTED_LANGUAGE: return setSelectedLanguage(state, action);
     default: return state;
   }
 };

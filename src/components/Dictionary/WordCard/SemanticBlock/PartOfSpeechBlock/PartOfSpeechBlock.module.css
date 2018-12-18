@@ -1,0 +1,18 @@
+.PartOfSpeech {
+  color: rgb(21, 137, 24);
+}
+
+.MeaningWrapper {
+  list-style: none;
+  counter-reset: meanings-counter;
+  padding-left: 18px;
+}
+
+.MeaningWrapper li {
+  counter-increment: meanings-counter;
+}
+
+.MeaningWrapper li::before {
+  content: counter(meanings-counter) ") ";
+  font-weight: normal;
+}

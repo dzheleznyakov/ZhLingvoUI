@@ -1,7 +1,10 @@
 .DictionaryListWrapper {
   border: 1px solid black;
+  width: 200px;
   height: 100px;
   overflow: scroll;
+  grid-area: list;
+  justify-self: right;
 }
 
 .DictionaryList {

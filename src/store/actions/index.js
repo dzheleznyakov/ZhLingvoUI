@@ -1,7 +1,10 @@
+export { loadConfig } from './config';
+
 export {
   loadLanguages,
   setLanguages,
   selectLanguage,
+  setSelectedLanguage,
 } from './language';
 
 export { 

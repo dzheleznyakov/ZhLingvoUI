@@ -20,7 +20,8 @@ const asyncTutor = asyncComponent(() => {
 class App extends Component {
   getRoutes = () => {
     let routes;
-      if (this.props.selectedLanguage) {
+    const selectedLanguage = this.props.selectedLanguage;
+      if (selectedLanguage) {
         routes = (
           <Switch>
             <Route path='/dictionary' component={asyncDictionary} />

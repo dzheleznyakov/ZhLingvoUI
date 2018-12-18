@@ -13,9 +13,19 @@ export const setLanguages = (languages) => {
   };
 };
 
-export const selectLanguage = (code, name ) => {
+export const selectLanguage = (code, name) => {
   return {
     type: actionTypes.SELECT_LANGUAGE,
+    language: {
+      code,
+      name,
+    },
+  };
+};
+
+export const setSelectedLanguage = (code, name) => {
+  return {
+    type: actionTypes.SET_SELECTED_LANGUAGE,
     language: {
       code,
       name,
