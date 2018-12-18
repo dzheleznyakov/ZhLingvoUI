@@ -47,7 +47,29 @@ export const loadDictionary = (languageCode) => {
                   { translation: 'сейф' },
                 ],
               }],
-            }
+            },
+            verb: {
+              meanings: [{
+                translations: [
+                  { translation: 'класть в ящик или коробку' },
+                  { translation: 'упаковывать' },
+                  { translation: 'запирать в сундук' },
+                ],
+              }, {
+                remark: 'полигр.',
+                translations: [
+                  { translation: 'обрамлять, печатать в рамке' },
+                ],
+              }],
+            },
+          }, {
+            noun: {
+              meanings: [{
+                translations: [
+                  { translation: 'пощёчина' },
+                ],
+              }],
+            },
           }],
         }, {
           word: 'do',
@@ -75,10 +97,6 @@ export const loadDictionary = (languageCode) => {
         },
       ]);
     default:
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          reject(`No dictionary for language [${languageCode}] found`);
-        }, 500);
-      });
+      return resolveDictionary([]);
   }
 };

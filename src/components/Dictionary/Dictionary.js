@@ -14,7 +14,7 @@ class Dictionary extends Component {
   }
 
   renderDictionaryList = () => {
-    if (this.props.dictionary && this.props.dictionary.length) {
+    if (this.props.dictionary) {
       return <DictionaryList dictionary={this.props.dictionary} />
     }
     return <Spinner />;
