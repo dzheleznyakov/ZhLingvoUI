@@ -10,14 +10,14 @@
   list-style: none;
   counter-reset: p-of-s-block-counter;
   padding-left: 0;
-}
 
-.PartOfSpeechBlockList li {
-  counter-increment: p-of-s-block-counter;
-  margin-top: 4px;
-}
+  li {
+    counter-increment: p-of-s-block-counter;
+    margin-top: 4px;
 
-.PartOfSpeechBlockList li::before {
-  content: counter(p-of-s-block-counter) ". ";
-  font-weight: bold;
-}
+    &::before {
+      content: counter(p-of-s-block-counter) ". ";
+      font-weight: bold;
+    }
+  }
+} 
