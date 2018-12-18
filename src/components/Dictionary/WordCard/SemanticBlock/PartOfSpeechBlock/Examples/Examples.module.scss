@@ -1,0 +1,9 @@
+@import "../../../../../../static/styles/classes";
+
+.example {
+  color: grey;
+}
+
+.remark {
+  @include remark();
+}

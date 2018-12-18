@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import styles from './Dictionary.module.css';
+import styles from './Dictionary.module.scss';
 
 import * as actions from '../../store/actions/';
 import Spinner from '../UI/Spinner/Spinner';

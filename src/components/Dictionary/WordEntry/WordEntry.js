@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './WordEntry.module.css';
+import styles from './WordEntry.module.scss';
 
 import * as actions from '../../../store/actions/';
 

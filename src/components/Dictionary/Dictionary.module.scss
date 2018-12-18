@@ -1,6 +1,7 @@
 .Dictionary {
   display: grid;
-  grid-template-columns: 50% auto;
+  grid-template-columns: 40% auto;
+  grid-template-rows: auto;
   grid-template-areas: "list" "card";
   grid-gap: 1.5rem;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './SemanticBlock.module.css';
+import styles from './SemanticBlock.module.scss';
 
 import { toRoman } from '../../../../utils/utils';
 import PartOfSpeechBlock from './PartOfSpeechBlock/PartOfSpeechBlock';

@@ -1,0 +1,6 @@
+@import "./variables";
+
+@mixin remark() {
+  color: map-get($colors, remark);
+  font-style: italic;
+}

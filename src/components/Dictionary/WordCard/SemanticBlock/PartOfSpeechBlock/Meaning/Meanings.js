@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from './Meanings.module.css';
+import styles from './Meanings.module.scss';
 
 const meanings = (props) => {
   let remark = null;
   if (props.remark) {
-    remark = <span key='remark' className={styles.Remark}>{props.remark} </span>
+    remark = <span key='remark' className={styles.remark}>{props.remark} </span>
   }
 
   let meaning = null;
@@ -14,7 +14,7 @@ const meanings = (props) => {
       const length = tArray.length;
       const span = (<span key={`t${index}`}>
         {translation}
-        <span className={styles.Elaboration}>{elaboration ? ` (${elaboration})` : ''}</span>
+        <span className={styles.elaboration}>{elaboration ? ` (${elaboration})` : ''}</span>
         {index < length - 1 ? '; ' : ''}
       </span>);
       arr.push(span);

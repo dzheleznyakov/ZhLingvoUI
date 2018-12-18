@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './WordCard.module.css';
+import styles from './WordCard.module.scss';
 
 import SemanticBlock from './SemanticBlock/SemanticBlock';
 

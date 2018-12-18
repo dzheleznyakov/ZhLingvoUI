@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import styles from './DictionaryList.module.css';
+import styles from './DictionaryList.module.scss';
 
 import WordEntry from '../WordEntry/WordEntry';
 

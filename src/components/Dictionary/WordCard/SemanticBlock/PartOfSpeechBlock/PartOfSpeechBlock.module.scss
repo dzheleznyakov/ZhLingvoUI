@@ -1,5 +1,7 @@
+@import "../../../../../static/styles/variables";
+
 .PartOfSpeech {
-  color: rgb(21, 137, 24);
+  color: map-get($colors, remark);
 }
 
 .MeaningWrapper {
