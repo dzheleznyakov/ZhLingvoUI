@@ -1,0 +1,37 @@
+@import "../../../static/styles/variables";
+@import "./word-card-standards";
+
+.word-card-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.word-card-container {
+  position: relative;
+  z-index: 10;
+  border: $standard-border;
+  background-color: white;
+  width: $standard-width;
+  height: 500px;
+  overflow: scroll;
+  /* grid-area: card; */
+  grid-column: 2 / span 1;
+  justify-self: left;
+  overflow: scroll;
+  border-radius: 3px;
+}
+
+.word-card {
+  padding: 4px;
+  display: flex;
+  flex-flow: column;
+}
+
+.word {
+  font-weight: 700;
+  margin: 4px;
+}
+
+.transcription {
+  margin: 4px;
+}

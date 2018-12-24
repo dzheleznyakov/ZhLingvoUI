@@ -1,7 +1,8 @@
 import React from 'react';
 
-import styles from './WordCard.module.scss';
+import styles from './word-card.module.scss';
 
+import WordCardControl from './WordCardControl/WordCardControl';
 import SemanticBlock from './SemanticBlock/SemanticBlock';
 
 const wordCard = (props) => {
@@ -9,7 +10,7 @@ const wordCard = (props) => {
 
   let transcriptions = null;
   if (entry.transcriptions && entry.transcriptions.length) {
-    transcriptions = (<span className={styles.Transcription}>
+    transcriptions = (<span className={styles['transcription']}>
       {entry.transcriptions.map(tr => `[${tr}]`).join(' ')}
     </span>);
   }
@@ -21,11 +22,16 @@ const wordCard = (props) => {
   }
 
   return (
-    <div className={styles.WordCardContainer}>
-      <div className={styles.WordCard}>
-        <span className={styles.Word}>{entry.word}</span>
-        {transcriptions}
-        {semanticBlocks}
+    <div>
+      <div className={styles['word-card-wrapper']}>
+        <WordCardControl />
+        <div className={styles['word-card-container']}>
+          <div className={styles['word-card']}>
+            <span className={styles['word']}>{entry.word}</span>
+            {transcriptions}
+            {semanticBlocks}
+          </div>
+        </div>
       </div>
     </div>
   )

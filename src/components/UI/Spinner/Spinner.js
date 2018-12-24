@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './Spinner.module.css';
+import styles from './spinner.module.scss';
 
-const spinner = (props) => (
+const spinner = () => (
   <div className={styles.Spinner}></div>
 );
 

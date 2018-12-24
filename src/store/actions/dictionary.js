@@ -25,3 +25,10 @@ export const selectWord = (index) => {
     index,
   };
 };
+
+export const setEditMode = (editMode) => {
+  return {
+    type: actionTypes.SET_EDIT_MODE,
+    editMode,
+  };
+};

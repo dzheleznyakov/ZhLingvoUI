@@ -10,3 +10,4 @@ export const SET_DICTIONARY = 'SET_DICTIONARY';
 export const REMOVE_DICTIONARY = 'REMOVE_DICTIONARY';
 
 export const SELECT_WORD = 'SELECT_WORD';
+export const SET_EDIT_MODE = 'SET_EDIT_MODE';

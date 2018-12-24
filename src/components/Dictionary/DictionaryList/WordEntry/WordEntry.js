@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './WordEntry.module.scss';
 
-import * as actions from '../../../store/actions/';
+import * as actions from '../../../../store/actions/';
 
 const wordEntry = (props) => {
   const focusIfSelected = (li) => {

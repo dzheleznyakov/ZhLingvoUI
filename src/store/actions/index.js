@@ -12,4 +12,5 @@ export {
   setDictionary,
   removeDictionary,
   selectWord,
+  setEditMode,
 } from './dictionary';

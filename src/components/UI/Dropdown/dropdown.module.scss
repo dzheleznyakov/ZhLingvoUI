@@ -1,0 +1,47 @@
+.Dropdown {
+  display: inline-block;
+
+  dd, dt, ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  dd {
+    width: 100%;
+    position: relative;
+  }
+
+  dt div {
+    background: #e4dfcb url(../../../assets/arrow.png) no-repeat scroll right center;
+    display: inline-block; 
+    padding-right: 20px; 
+    border: 1px solid #d4ca9a;
+    font-size: 1rem;
+  }
+
+  dt a span {
+    cursor: pointer; 
+    display: block; 
+    padding: 5px;
+  }
+
+  dd ul { 
+    background: #e4dfcb none repeat scroll 0 0;
+    list-style: none; 
+    padding: 5px 0px; 
+    position: absolute; 
+    left: 0px; 
+    top: 2px; 
+    width: auto; 
+    min-width: 170px;
+  }
+
+  span.value { 
+    display: none;
+  }
+
+  dd ul li > * { 
+    padding: 5px; 
+    display: block;
+  }
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import styles from './DictionaryList.module.scss';
 
-import WordEntry from '../WordEntry/WordEntry';
+import WordEntry from './WordEntry/WordEntry';
 
 class DictionaryList extends Component {
   render() {

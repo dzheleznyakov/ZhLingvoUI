@@ -1,0 +1,35 @@
+@import "../../../../static/styles/variables";
+@import "../word-card-standards";
+
+.word-card-control {
+  background-color: white;
+  position: absolute;
+  left: 71%;
+  border: $standard-border;
+  height: 50px;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 3px;
+  transition: $standard-animation-time;
+}
+
+.word-card-control-entry {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > * {
+    margin: 4px;
+  }
+}
+
+.arrow-button-style {
+  position: absolute;
+  top: 0;
+  left: 102%;
+};
+
+.open {
+  transform: translateX(100%);
+}
