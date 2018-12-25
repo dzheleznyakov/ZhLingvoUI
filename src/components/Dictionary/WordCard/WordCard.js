@@ -5,6 +5,7 @@ import styles from './word-card.module.scss';
 
 import WordCardControl from './WordCardControl/WordCardControl';
 import WordName from './WordName/WordName';
+import Transcription from './Transcription/Transcription';
 import SemanticBlock from './SemanticBlock/SemanticBlock';
 import * as actions  from '../../../store/actions/';
 
@@ -13,9 +14,17 @@ const wordCard = (props) => {
 
   let transcriptions = null;
   if (entry.transcriptions && entry.transcriptions.length) {
-    transcriptions = (<span className={styles['transcription']}>
-      {entry.transcriptions.map(tr => `[${tr}]`).join(' ')}
-    </span>);
+    const transcriptionEdited = (index) => (value) => props.editTranscription(value, index);
+    transcriptions = (
+      <span className={styles['transcription']}>
+        {entry.transcriptions.map((tr, i) => 
+          <span key={`tr${i}`}>
+            [<Transcription editMode={props.editMode} edited={transcriptionEdited(i)}>
+              {tr}
+            </Transcription>]{' '}
+          </span>)}
+      </span>
+    );
   }
 
   let semanticBlocks = null;
@@ -24,21 +33,15 @@ const wordCard = (props) => {
       .map((sb, i) => <SemanticBlock key={i} num={i + 1} block={sb} />)
   }
 
-  const onWordEdited = (value) => {
-    props.editWordName(value);
-  };
-
   return (
     <div>
       <div className={styles['word-card-wrapper']}>
         <WordCardControl />
         <div className={styles['word-card-container']}>
           <div className={styles['word-card']}>
-            <WordName 
-              className={styles['word']}
-              editMode={props.editMode} 
-              edited={onWordEdited}
-            >{entry.word}</WordName>
+            <WordName className={styles['word']} editMode={props.editMode} edited={props.editWordName}>
+              {entry.word}
+            </WordName>
             {transcriptions}
             {semanticBlocks}
           </div>
@@ -57,6 +60,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     editWordName: (wordName) => dispatch(actions.editWordName(wordName)),
+    editTranscription: (transcription, index) => dispatch(actions.editTranscription(transcription, index)),
   };
 };
 

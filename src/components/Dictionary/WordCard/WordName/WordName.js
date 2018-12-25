@@ -6,7 +6,9 @@ const wordName = (props) => (
   <span 
     className={props.className} 
     onClick={props.clicked}
-  >{props.children}</span>
+  >
+    {props.children}
+  </span>
 );
 
 export default editable(wordName);

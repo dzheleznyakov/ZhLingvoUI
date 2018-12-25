@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../../utils/utils';
+import { updateObject, updateArray } from '../../utils/utils';
 
 const initialState = {
   loadedDictionary: [],
@@ -23,14 +23,27 @@ const setEditMode = (state, action) => {
   return updateObject(state, { editMode: action.editMode });
 };
 
-const setWordName = (state, action) => {
+const updateWord = (state, wordIndex, getUpdateWord) => {
   const dictionary = state.loadedDictionary;
-  const updatedWord = { ...dictionary[action.index], word: action.wordName };
-  const updatedDictionary = dictionary.slice(0, action.index);
-  updatedDictionary.push(updatedWord);
-  updatedDictionary.push(...dictionary.slice(action.index + 1));
+  const oldWord = dictionary[wordIndex];
+  const updatedWord = getUpdateWord(oldWord);
+  const updatedDictionary = updateArray(dictionary, wordIndex, updatedWord);
   return updateObject(state, { loadedDictionary: updatedDictionary });
 };
+
+const setWordName = (state, action) => updateWord(state, action.index, (oldWord) => ({
+  ...oldWord, 
+  word: action.wordName,
+}));
+
+const setTranscription = (state, action) => updateWord(state, action.wordIndex, (oldWord) => {
+  const { transcriptions } = oldWord;
+  const updatedTranscriptions = updateArray(transcriptions, action.index, action.transcription);
+  return {
+    ...oldWord,
+    transcriptions: updatedTranscriptions,
+  };
+});
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -39,6 +52,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SELECT_WORD: return selectWord(state, action);
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
+    case actionTypes.SET_TRANSCRIPTION: return setTranscription(state, action);
     default: return state;
   }
 };

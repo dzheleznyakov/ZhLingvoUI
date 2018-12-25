@@ -15,4 +15,6 @@ export {
   setEditMode,
   editWordName,
   setWordName,
+  editTranscription,
+  setTranscription,
 } from './dictionary';

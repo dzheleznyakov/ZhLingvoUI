@@ -15,6 +15,10 @@ const editable = (WrappedComponent) => class extends Component {
     this.focus();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ value: nextProps.children });
+  }
+
   onElementClicked = () => {
     this.setState({ active: true })
   };
@@ -32,7 +36,7 @@ const editable = (WrappedComponent) => class extends Component {
   onEnterTyped = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
-      this.edit();
+      this.onFocusOut();
     }
   };
 

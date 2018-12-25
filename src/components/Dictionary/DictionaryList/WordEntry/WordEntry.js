@@ -29,7 +29,10 @@ const wordEntry = (props) => {
     classes.push(styles.selected)
   }
 
-  console.log(styles)
+  const clicked = () => {
+    props.selectWord(props.pos);
+    props.setEditModeFalse();
+  };
 
   return (
     <li 
@@ -37,14 +40,15 @@ const wordEntry = (props) => {
       ref={focusIfSelected}
       tabIndex={props.pos}
       onKeyDown={onKeyDown}
-      onClick={() => props.onWordSelected(props.pos)}
+      onClick={clicked}
     >{props.word}</li>
   );
 };
 
 const mapStateToDispatch = dispatch => {
   return {
-    onWordSelected: (position) => dispatch(actions.selectWord(position)),
+    selectWord: (position) => dispatch(actions.selectWord(position)),
+    setEditModeFalse: () => dispatch(actions.setEditMode(false))
   };
 };
 

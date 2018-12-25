@@ -47,3 +47,20 @@ export const setWordName = (wordName, index) => {
     wordName,
   };
 };
+
+export const editTranscription = (transcription, index) => {
+  return {
+    type: actionTypes.EDIT_TRANSCRIPTION,
+    transcription,
+    index,
+  };
+};
+
+export const setTranscription = (transcription, index, wordIndex) => {
+  return {
+    type: actionTypes.SET_TRANSCRIPTION,
+    transcription,
+    index,
+    wordIndex,
+  };
+};
