@@ -17,4 +17,6 @@ export {
   setWordName,
   editTranscription,
   setTranscription,
+  createSemanticBlock,
+  addSemanticBlock,
 } from './dictionary';

@@ -2,7 +2,12 @@ import { takeEvery, takeLatest } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import { loadLanguagesSaga, selectLanguageSaga } from './language';
-import { loadDictionarySaga, editWordNameSaga, editTranscriptionSaga } from './dictionary';
+import { 
+  loadDictionarySaga, 
+  editWordNameSaga, 
+  editTranscriptionSaga,
+  createSemanticBlockSaga,
+} from './dictionary';
 import { loadConfigSaga } from './config';
 
 export function* watchLanguage() {
@@ -12,8 +17,11 @@ export function* watchLanguage() {
 export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_DICTIONARY, loadDictionarySaga);
   yield takeEvery(actionTypes.SELECT_LANGUAGE, selectLanguageSaga);
+
   yield takeLatest(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
   yield takeLatest(actionTypes.EDIT_TRANSCRIPTION, editTranscriptionSaga);
+  
+  yield takeEvery(actionTypes.CREATE_SEMANTIC_BLOCK, createSemanticBlockSaga);
 };
 
 export function* watchConfig() {

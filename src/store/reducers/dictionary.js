@@ -31,17 +31,26 @@ const updateWord = (state, wordIndex, getUpdateWord) => {
   return updateObject(state, { loadedDictionary: updatedDictionary });
 };
 
-const setWordName = (state, action) => updateWord(state, action.index, (oldWord) => ({
+const setWordName = (state, action) => updateWord(state, action.index, oldWord => ({
   ...oldWord, 
   word: action.wordName,
 }));
 
-const setTranscription = (state, action) => updateWord(state, action.wordIndex, (oldWord) => {
+const setTranscription = (state, action) => updateWord(state, action.wordIndex, oldWord => {
   const { transcriptions } = oldWord;
   const updatedTranscriptions = updateArray(transcriptions, action.index, action.transcription);
   return {
     ...oldWord,
     transcriptions: updatedTranscriptions,
+  };
+});
+
+const addSemanticBlock = (state, action) => updateWord(state, action.wordIndex, oldWord => {
+  const updatedSematicBlocks = oldWord.semanticBlocks || [];
+  updatedSematicBlocks.push({});
+  return {
+    ...oldWord,
+    semanticBlocks: updatedSematicBlocks,
   };
 });
 
@@ -53,6 +62,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
     case actionTypes.SET_TRANSCRIPTION: return setTranscription(state, action);
+    case actionTypes.ADD_SEMANTIC_BLOCK: return addSemanticBlock(state, action);
     default: return state;
   }
 };

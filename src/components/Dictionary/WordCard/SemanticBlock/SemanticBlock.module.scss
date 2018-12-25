@@ -1,5 +1,6 @@
 .SemanticBlock {
   margin: 4px;
+  border-top: 1px solid white;
 }
 
 .BlockNumber {
@@ -21,3 +22,7 @@
     }
   }
 } 
+
+.active {
+  border-top-color: #a39f9f;
+}

@@ -64,3 +64,16 @@ export const setTranscription = (transcription, index, wordIndex) => {
     wordIndex,
   };
 };
+
+export const createSemanticBlock = () => {
+  return {
+    type: actionTypes.CREATE_SEMANTIC_BLOCK,
+  };
+};
+
+export const addSemanticBlock = (wordIndex) => {
+  return {
+    type: actionTypes.ADD_SEMANTIC_BLOCK,
+    wordIndex,
+  };
+};

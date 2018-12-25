@@ -13,8 +13,13 @@ const semanticBlocks = (props) => {
     </ol>
   );
 
+  const classes = [styles.SemanticBlock];
+  if (props.editMode) {
+    classes.push(styles.active);
+  }
+
   return (
-    <div className={styles.SemanticBlock}>
+    <div className={classes.join(' ')}>
       <span className={styles.BlockNumber}>{toRoman(props.num)}</span>
       {partOfSpeechesBlocks}
     </div>

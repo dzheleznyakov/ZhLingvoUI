@@ -26,4 +26,11 @@ export function* editTranscriptionSaga(action) {
   const { transcription, index } = action;
   const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
   yield put(actions.setTranscription(transcription, index, selectedWordIndex));
+  yield* saveDictionarySaga();
+}
+
+export function* createSemanticBlockSaga() {
+  const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  yield put(actions.addSemanticBlock(selectedWordIndex));
+  yield* saveDictionarySaga();
 }

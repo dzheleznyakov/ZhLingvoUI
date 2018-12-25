@@ -7,6 +7,7 @@ import WordCardControl from './WordCardControl/WordCardControl';
 import WordName from './WordName/WordName';
 import Transcription from './Transcription/Transcription';
 import SemanticBlock from './SemanticBlock/SemanticBlock';
+import PlusButton from '../../UI/PlusButton/PlusButton';
 import * as actions  from '../../../store/actions/';
 
 const wordCard = (props) => {
@@ -16,7 +17,7 @@ const wordCard = (props) => {
   if (entry.transcriptions && entry.transcriptions.length) {
     const transcriptionEdited = (index) => (value) => props.editTranscription(value, index);
     transcriptions = (
-      <span className={styles['transcription']}>
+      <span className={styles['transcriptions']}>
         {entry.transcriptions.map((tr, i) => 
           <span key={`tr${i}`}>
             [<Transcription editMode={props.editMode} edited={transcriptionEdited(i)}>
@@ -27,10 +28,18 @@ const wordCard = (props) => {
     );
   }
 
-  let semanticBlocks = null;
+  let semanticBlocks = [];
   if (entry.semanticBlocks && entry.semanticBlocks.length) {
     semanticBlocks = entry.semanticBlocks
-      .map((sb, i) => <SemanticBlock key={i} num={i + 1} block={sb} />)
+      .map((sb, i) => <SemanticBlock key={i} num={i + 1} block={sb} editMode={props.editMode} />)
+  }
+  if (props.editMode) {
+    semanticBlocks.push(<div 
+      key="addSB" 
+      className={styles['plus-button-wrapper']}
+      >
+        <PlusButton clicked={props.createSemanticBlock} />
+      </div>)
   }
 
   return (
@@ -61,6 +70,7 @@ const mapDispatchToProps = dispatch => {
   return {
     editWordName: (wordName) => dispatch(actions.editWordName(wordName)),
     editTranscription: (transcription, index) => dispatch(actions.editTranscription(transcription, index)),
+    createSemanticBlock: () => dispatch(actions.createSemanticBlock()),
   };
 };
 

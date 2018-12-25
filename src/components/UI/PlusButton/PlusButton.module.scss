@@ -1,0 +1,38 @@
+@mixin stroke() {
+  position: absolute;
+  content: "";
+  height: 42%;
+  border: 1px solid black;
+}
+
+.PlusButton {
+  margin: 4px;
+  padding: 0;
+  background-color: #ccc;
+  cursor: pointer;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  &::before {
+    @include stroke();
+    top: 29%;
+    left: 50%;
+  }
+
+  &::after {
+    @include stroke();
+    transform: rotateZ(90deg);
+    top: 26%;
+  }
+
+  &:hover,
+  &:active {
+    background-color: rgba(204, 204, 204, 0.783);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
