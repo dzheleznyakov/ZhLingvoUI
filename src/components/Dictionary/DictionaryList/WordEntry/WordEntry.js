@@ -24,9 +24,16 @@ const wordEntry = (props) => {
     }
   };
 
+  const classes = [styles.WordEntry];
+  if (props.selected) {
+    classes.push(styles.selected)
+  }
+
+  console.log(styles)
+
   return (
     <li 
-      className={styles.WordEntry}
+      className={classes.join(' ')}
       ref={focusIfSelected}
       tabIndex={props.pos}
       onKeyDown={onKeyDown}

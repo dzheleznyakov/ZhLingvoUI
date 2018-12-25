@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import styles from './word-card.module.scss';
 
 import WordCardControl from './WordCardControl/WordCardControl';
+import WordName from './WordName/WordName';
 import SemanticBlock from './SemanticBlock/SemanticBlock';
+import * as actions  from '../../../store/actions/';
 
 const wordCard = (props) => {
   const entry = props.wordEntry;
@@ -21,13 +24,21 @@ const wordCard = (props) => {
       .map((sb, i) => <SemanticBlock key={i} num={i + 1} block={sb} />)
   }
 
+  const onWordEdited = (value) => {
+    props.editWordName(value);
+  };
+
   return (
     <div>
       <div className={styles['word-card-wrapper']}>
         <WordCardControl />
         <div className={styles['word-card-container']}>
           <div className={styles['word-card']}>
-            <span className={styles['word']}>{entry.word}</span>
+            <WordName 
+              className={styles['word']}
+              editMode={props.editMode} 
+              edited={onWordEdited}
+            >{entry.word}</WordName>
             {transcriptions}
             {semanticBlocks}
           </div>
@@ -37,4 +48,16 @@ const wordCard = (props) => {
   )
 };
 
-export default wordCard;
+const mapStateToProps = state => {
+  return {
+    editMode: state.dictionary.editMode,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    editWordName: (wordName) => dispatch(actions.editWordName(wordName)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(wordCard);

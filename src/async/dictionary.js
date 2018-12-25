@@ -1,13 +1,21 @@
-const resolveDictionary = (dictionary) => new Promise(resolve => {
+const ENGLISH_LOCAL_STORAGE_KEY = 'EnglishDictionary';
+
+const resolveDictionary = (savedDictionary,defaultDictionary) => new Promise(resolve => {
   setTimeout(() => {
-    resolve(dictionary);
+    if (savedDictionary) {
+      resolve(savedDictionary);
+    } else {
+      localStorage.setItem(ENGLISH_LOCAL_STORAGE_KEY, JSON.stringify(defaultDictionary));
+      resolve(defaultDictionary);
+    }
   }, 50);
 });
 
 export const loadDictionary = (languageCode) => {
   switch (languageCode) {
     case 'En':
-      return resolveDictionary([
+      const savedDictionary = JSON.parse(localStorage.getItem(ENGLISH_LOCAL_STORAGE_KEY));
+      return resolveDictionary(savedDictionary, [
         {
           word: 'a',
           transcriptions: ['ə', 'eɪ'],
@@ -98,5 +106,19 @@ export const loadDictionary = (languageCode) => {
       ]);
     default:
       return resolveDictionary([]);
+  }
+};
+
+const resolveSavingDictionary = (key, dictionary) => new Promise(resolve => {
+  setTimeout(() => {
+    localStorage.setItem(key, JSON.stringify(dictionary));
+    resolve();
+  }, 50);
+});
+
+export const saveDictionary = (languageCode, dictionary) => {
+  switch (languageCode) {
+    case 'En': return resolveSavingDictionary(ENGLISH_LOCAL_STORAGE_KEY, dictionary);
+    default: return Promise.resolve();
   }
 };

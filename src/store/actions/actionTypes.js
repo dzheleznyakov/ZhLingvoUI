@@ -11,3 +11,5 @@ export const REMOVE_DICTIONARY = 'REMOVE_DICTIONARY';
 
 export const SELECT_WORD = 'SELECT_WORD';
 export const SET_EDIT_MODE = 'SET_EDIT_MODE';
+export const EDIT_WORD_NAME = 'EDIT_WORD_NAME';
+export const SET_WORD_NAME = 'SET_WORD_NAME';

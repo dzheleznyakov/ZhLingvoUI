@@ -1,9 +1,17 @@
+@mixin select() {
+  background-color: dodgerblue;
+  color: white;
+  outline: none;
+}
+
 .WordEntry {
   padding: 2px 4px;
 
   &:focus {
-    background-color: dodgerblue;
-    color: white;
-    outline: none;
+    @include select();
   }
+}
+
+.selected {
+  @include select();
 }

@@ -32,3 +32,18 @@ export const setEditMode = (editMode) => {
     editMode,
   };
 };
+
+export const editWordName = (wordName) => {
+  return {
+    type: actionTypes.EDIT_WORD_NAME,
+    wordName,
+  }
+};
+
+export const setWordName = (wordName, index) => {
+  return {
+    type: actionTypes.SET_WORD_NAME,
+    index,
+    wordName,
+  };
+};

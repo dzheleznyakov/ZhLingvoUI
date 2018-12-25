@@ -1,5 +1,4 @@
 @import "../../../static/styles/variables";
-@import "./word-card-standards";
 
 .word-card-wrapper {
   position: relative;
@@ -11,7 +10,7 @@
   z-index: 10;
   border: $standard-border;
   background-color: white;
-  width: $standard-width;
+  width: 22rem;
   height: 500px;
   overflow: scroll;
   /* grid-area: card; */
@@ -30,6 +29,7 @@
 .word {
   font-weight: 700;
   margin: 4px;
+  padding: 2px;
 }
 
 .transcription {

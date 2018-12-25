@@ -1,8 +1,8 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import { loadLanguagesSaga, selectLanguageSaga } from './language';
-import { loadDictionarySaga } from './dictionary';
+import { loadDictionarySaga, editWordNameSaga } from './dictionary';
 import { loadConfigSaga } from './config';
 
 export function* watchLanguage() {
@@ -11,7 +11,8 @@ export function* watchLanguage() {
 
 export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_DICTIONARY, loadDictionarySaga);
-  yield takeEvery(actionTypes.SELECT_LANGUAGE, selectLanguageSaga)
+  yield takeEvery(actionTypes.SELECT_LANGUAGE, selectLanguageSaga);
+  yield takeLatest(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
 };
 
 export function* watchConfig() {

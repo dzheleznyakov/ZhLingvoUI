@@ -13,4 +13,6 @@ export {
   removeDictionary,
   selectWord,
   setEditMode,
+  editWordName,
+  setWordName,
 } from './dictionary';
