@@ -77,3 +77,18 @@ export const addSemanticBlock = (wordIndex) => {
     wordIndex,
   };
 };
+
+export const removeSemanticBlockAndSaveDictionary = (index) => {
+  return {
+    type: actionTypes.REMOVE_SEMANTIC_BLOCK_AND_SAVE_DICTIONARY,
+    index,
+  };
+};
+
+export const deleteSemanticBlock = (index, wordIndex) => {
+  return {
+    type: actionTypes.DELETE_SEMANTIC_BLOCK,
+    index,
+    wordIndex,
+  };
+};

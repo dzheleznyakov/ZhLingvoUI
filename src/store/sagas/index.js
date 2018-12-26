@@ -7,6 +7,7 @@ import {
   editWordNameSaga, 
   editTranscriptionSaga,
   createSemanticBlockSaga,
+  removeSemanticBlockAndSaveDictionarySaga,
 } from './dictionary';
 import { loadConfigSaga } from './config';
 
@@ -22,6 +23,7 @@ export function* watchDictionary() {
   yield takeLatest(actionTypes.EDIT_TRANSCRIPTION, editTranscriptionSaga);
   
   yield takeEvery(actionTypes.CREATE_SEMANTIC_BLOCK, createSemanticBlockSaga);
+  yield takeEvery(actionTypes.REMOVE_SEMANTIC_BLOCK_AND_SAVE_DICTIONARY, removeSemanticBlockAndSaveDictionarySaga);
 };
 
 export function* watchConfig() {

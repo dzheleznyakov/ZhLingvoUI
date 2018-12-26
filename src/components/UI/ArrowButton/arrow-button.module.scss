@@ -1,11 +1,5 @@
 @import "../../../static/styles/variables";
-
-@mixin stroke() {
-  position: absolute;
-  content: "";
-  height: 42%;
-  border: 1px solid black;
-}
+@import "../../../static/styles/classes";
 
 .arrow-button {
   padding: 0;

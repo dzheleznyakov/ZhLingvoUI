@@ -34,3 +34,14 @@ export function* createSemanticBlockSaga() {
   yield put(actions.addSemanticBlock(selectedWordIndex));
   yield* saveDictionarySaga();
 }
+
+export function* removeSemanticBlockAndSaveDictionarySaga(action) {
+  const { index } = action;
+  const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const word = yield select(store => store.dictionary.loadedDictionary[selectedWordIndex]);
+  const semanticBlock = word.semanticBlocks[index];
+  if (Object.keys(semanticBlock).length === 0) {
+    yield put(actions.deleteSemanticBlock(index, selectedWordIndex));
+  }
+  yield* saveDictionarySaga();
+}

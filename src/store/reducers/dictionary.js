@@ -54,6 +54,16 @@ const addSemanticBlock = (state, action) => updateWord(state, action.wordIndex, 
   };
 });
 
+const deleteSemanticBlock = (state, action) => updateWord(state, action.wordIndex, oldWord => {
+  const { index } = action;
+  const semanticBlocks = oldWord.semanticBlocks;
+  const updatedSemanticBlocks = semanticBlocks.slice(0, index).concat(semanticBlocks.slice(index + 1));
+  return {
+    ...oldWord,
+    semanticBlocks: updatedSemanticBlocks,
+  };
+});
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_DICTIONARY: return setDictionary(state, action);
@@ -63,6 +73,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
     case actionTypes.SET_TRANSCRIPTION: return setTranscription(state, action);
     case actionTypes.ADD_SEMANTIC_BLOCK: return addSemanticBlock(state, action);
+    case actionTypes.DELETE_SEMANTIC_BLOCK: return deleteSemanticBlock(state, action);
     default: return state;
   }
 };

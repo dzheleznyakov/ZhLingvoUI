@@ -4,3 +4,10 @@
   color: map-get($colors, remark);
   font-style: italic;
 }
+
+@mixin stroke() {
+  position: absolute;
+  content: "";
+  height: 42%;
+  border: 1px solid black;
+}

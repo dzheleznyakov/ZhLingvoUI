@@ -19,4 +19,6 @@ export {
   setTranscription,
   createSemanticBlock,
   addSemanticBlock,
+  removeSemanticBlockAndSaveDictionary,
+  deleteSemanticBlock,
 } from './dictionary';

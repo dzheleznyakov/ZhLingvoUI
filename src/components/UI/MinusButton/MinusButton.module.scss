@@ -1,22 +1,16 @@
 @import '../../../static/styles/classes';
 
-.PlusButton {
+.MinusButton {
   margin: 4px;
   padding: 0;
   background-color: #ccc;
   cursor: pointer;
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
 
   &::before {
-    @include stroke();
-    top: 29%;
-    left: 50%;
-  }
-
-  &::after {
     @include stroke();
     transform: rotateZ(90deg);
     top: 26%;
