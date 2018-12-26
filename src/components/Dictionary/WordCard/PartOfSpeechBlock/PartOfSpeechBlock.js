@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from './PartOfSpeechBlock.module.scss';
 
-import Meanings from './Meaning/Meanings';
-import Examples from './Examples/Examples';
+import Meanings from '../Meaning/Meanings';
+import Examples from '../Examples/Examples';
 
 const partOfSpeechBlock = (props) => (
   <li>

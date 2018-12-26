@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styles from './SemanticBlock.module.scss';
 
 import { toRoman } from '../../../../utils/utils';
-import PartOfSpeechBlock from './PartOfSpeechBlock/PartOfSpeechBlock';
+import PartOfSpeechBlock from '../PartOfSpeechBlock/PartOfSpeechBlock';
 import MinusButton from '../../../UI/MinusButton/MinusButton';
 import * as actions from '../../../../store/actions/';
 
