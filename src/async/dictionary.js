@@ -1,6 +1,6 @@
 const ENGLISH_LOCAL_STORAGE_KEY = 'EnglishDictionary';
 
-const resolveDictionary = (savedDictionary,defaultDictionary) => new Promise(resolve => {
+const resolveDictionary = (savedDictionary, defaultDictionary) => new Promise(resolve => {
   setTimeout(() => {
     if (savedDictionary) {
       resolve(savedDictionary);
@@ -25,60 +25,61 @@ export const loadDictionary = (languageCode) => {
         }, {
           word: 'box',
           transcriptions: ['bɒks'],
-          semanticBlocks: [{
-            noun: {
-              meanings: [{
-                translations: [
-                  { translation: 'коробка' },
-                  { translation: 'ящик' },
-                  { translation: 'сундук' },
-                  { translation: ' сумка, вместилище' },
-                ],
-              }, {
-                translations: [
-                  { translation: 'ящичек', elaboration: 'стола' },
-                  { translation: 'коробочка', elaboration: 'для всяких мелочей' },
-                  { translation: 'шкатулка' },
-                ],
-                examples: [
-                  { expression: 'witness box', explanation: 'место в суде, где сидят свидетели' },
-                  { expression: 'music box', explanation: 'музыкальная шкатулка', remark: 'амер.' },
-                ],
-              }, {
-                remark: 'рел.',
-                translations: [
-                  { translation: 'дарохранительница'},
-                  { translation: 'дароносица' },
-                ],
-              }, {
-                translations: [
-                  { translation: 'сейф' },
-                ],
-              }],
-            },
-            verb: {
-              meanings: [{
-                translations: [
-                  { translation: 'класть в ящик или коробку' },
-                  { translation: 'упаковывать' },
-                  { translation: 'запирать в сундук' },
-                ],
-              }, {
-                remark: 'полигр.',
-                translations: [
-                  { translation: 'обрамлять, печатать в рамке' },
-                ],
-              }],
-            },
+          semanticBlocks: [
+          [{
+            type: 'noun',
+            meanings: [{
+              translations: [
+                { translation: 'коробка' },
+                { translation: 'ящик' },
+                { translation: 'сундук' },
+                { translation: ' сумка, вместилище' },
+              ],
+            }, {
+              translations: [
+                { translation: 'ящичек', elaboration: 'стола' },
+                { translation: 'коробочка', elaboration: 'для всяких мелочей' },
+                { translation: 'шкатулка' },
+              ],
+              examples: [
+                { expression: 'witness box', explanation: 'место в суде, где сидят свидетели' },
+                { expression: 'music box', explanation: 'музыкальная шкатулка', remark: 'амер.' },
+              ],
+            }, {
+              remark: 'рел.',
+              translations: [
+                { translation: 'дарохранительница'},
+                { translation: 'дароносица' },
+              ],
+            }, {
+              translations: [
+                { translation: 'сейф' },
+              ],
+            }],
           }, {
-            noun: {
-              meanings: [{
-                translations: [
-                  { translation: 'пощёчина' },
-                ],
-              }],
-            },
-          }],
+            type: 'verb',
+            meanings: [{
+              translations: [
+                { translation: 'класть в ящик или коробку' },
+                { translation: 'упаковывать' },
+                { translation: 'запирать в сундук' },
+              ],
+            }, {
+              remark: 'полигр.',
+              translations: [
+                { translation: 'обрамлять, печатать в рамке' },
+              ],
+            }],
+          }], 
+          [{
+            type: 'noun',
+            meanings: [{
+              translations: [
+                { translation: 'пощёчина' },
+              ],
+            }],
+          }]
+        ],
         }, {
           word: 'do',
           transcriptions: ['duː'],
@@ -106,6 +107,21 @@ export const loadDictionary = (languageCode) => {
       ]);
     default:
       return resolveDictionary([]);
+  }
+};
+
+const resolvePartsOfSpeeches = (partsOfSpeeches) => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(partsOfSpeeches);
+  });
+});
+
+export const loadPartsOfSpeech = (languageCode) => {
+  switch (languageCode) {
+    case 'En':
+      return resolvePartsOfSpeeches(['noun', 'verb', 'adj']);
+    default: 
+      return resolvePartsOfSpeeches([]);
   }
 };
 

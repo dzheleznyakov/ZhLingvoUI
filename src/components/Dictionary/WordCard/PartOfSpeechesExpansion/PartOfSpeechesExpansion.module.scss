@@ -1,0 +1,28 @@
+.PartOfSpeechesExpansion {
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+  width: 70px;
+
+  dd {
+    padding: 0;
+    margin: 4px 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    background-color: #ccc;
+    border: 1px solid #999;
+  }
+
+  li {
+    margin: 2px 4px;
+  }
+
+  li::before {
+    content: "";
+  }
+}

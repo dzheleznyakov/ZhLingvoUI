@@ -19,6 +19,19 @@ export const removeDictionary = () => {
   };
 };
 
+export const loadPartsOfSpeeches = () => {
+  return {
+    type: actionTypes.LOAD_PARTS_OF_SPEECHES,
+  };
+};
+
+export const storePartsOfSpeech = (partsOfSpeech) => {
+  return {
+    type: actionTypes.STORE_PARTS_OF_SPEECHES,
+    partsOfSpeech,
+  };
+};
+
 export const selectWord = (index) => {
   return {
     type: actionTypes.SELECT_WORD,
@@ -90,5 +103,39 @@ export const deleteSemanticBlock = (index, wordIndex) => {
     type: actionTypes.DELETE_SEMANTIC_BLOCK,
     index,
     wordIndex,
+  };
+};
+
+export const addPartOfSpeech = (semanticBlockIndex, partOfSpeech) => {
+  return {
+    type: actionTypes.ADD_PART_OF_SPEECH,
+    semanticBlockIndex,
+    partOfSpeech,
+  };
+};
+
+export const setPartOfSpeech = (wordIndex, semanticBlockIndex, partOfSpeech) => {
+  return {
+    type: actionTypes.SET_PART_OF_SPEECH,
+    wordIndex,
+    semanticBlockIndex,
+    partOfSpeech,
+  };
+};
+
+export const removePartOfSpeechAndSaveDictionary = (semanticBlockIndex, partOfSpeech) => {
+  return {
+    type: actionTypes.REMOVE_PART_OF_SPEECH_AND_SAVE_DICTIONARY,
+    semanticBlockIndex,
+    partOfSpeech,
+  };
+};
+
+export const deletePartOfSpeech = (wordIndex, semanticBlockIndex, partOfSpeech) => {
+  return {
+    type: actionTypes.DELETE_PART_OF_SPEECH,
+    wordIndex,
+    semanticBlockIndex,
+    partOfSpeech,
   };
 };

@@ -16,11 +16,11 @@ const wordEntry = (props) => {
     if (event.keyCode === 38) {
       event.preventDefault();
       const prevPos = props.pos > 0 ? props.pos - 1 : props.numberOfPos - 1;
-      props.onWordSelected(prevPos);
+      props.selectWord(prevPos);
     } else if (event.keyCode === 40) {
       event.preventDefault();
       const nextPos = props.pos < props.numberOfPos - 1 ? props.pos + 1 : 0;
-      props.onWordSelected(nextPos);
+      props.selectWord(nextPos);
     }
   };
 

@@ -11,6 +11,12 @@ export const updateArray = (oldArray, elementIndex, newElement) => {
   return newArray;
 };
 
+export const removeFromArray = (oldArray, elementInex) => {
+  const prefix = oldArray.slice(0, elementInex);
+  const postfix = oldArray.slice(elementInex + 1);
+  return prefix.concat(postfix);
+};
+
 export const toRoman = (num) => {
   if (Number.isNaN(num)) {
     throw new Error(`[${num}] is not a number`);

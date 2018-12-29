@@ -11,6 +11,7 @@ import WordCard from './WordCard/WordCard';
 class Dictionary extends Component {
   componentDidMount() {
     this.props.loadDictionary();
+    this.props.loadPartsOfSpeeches();
   }
 
   renderDictionaryList = () => {
@@ -51,6 +52,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loadDictionary: () => dispatch(actions.loadDictionary()),
+    loadPartsOfSpeeches: () => dispatch(actions.loadPartsOfSpeeches()),
   }
 };
 

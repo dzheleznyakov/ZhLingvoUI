@@ -1,5 +1,15 @@
 @import "../../../../static/styles/variables";
 
+.PartOfSpeechWrapper {
+  position: relative;
+  border-bottom: 1px dashed white;
+  padding-bottom: 4px;
+}
+
+.EditMode {
+  border-bottom-color: black;
+}
+
 .PartOfSpeech {
   color: map-get($colors, remark);
 }
@@ -17,4 +27,11 @@
       font-weight: normal;
     }
   }
+}
+
+button.MinusButton {
+  position: absolute;
+  margin: 0;
+  right: 10px;
+  top: 0;
 }

@@ -11,6 +11,8 @@ export {
   loadDictionary, 
   setDictionary,
   removeDictionary,
+  loadPartsOfSpeeches,
+  storePartsOfSpeech,
   selectWord,
   setEditMode,
   editWordName,
@@ -21,4 +23,8 @@ export {
   addSemanticBlock,
   removeSemanticBlockAndSaveDictionary,
   deleteSemanticBlock,
+  addPartOfSpeech,
+  setPartOfSpeech,
+  removePartOfSpeechAndSaveDictionary,
+  deletePartOfSpeech,
 } from './dictionary';

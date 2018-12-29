@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import styles from './dropdown.module.scss';
 
+import DisplayList from './DisplayList/DisplayList';
+
 class Dropdown extends Component {
   state = {
     dropped: false,
@@ -20,11 +22,6 @@ class Dropdown extends Component {
   };
 
   render() {
-    const listDisplayStyle = {
-      display: this.state.dropped ? 'block' : 'none',
-      width: '100%',
-    };
-
     const selectMessage = 'Please select' +
       (this.props.select ? ` ${this.props.select}` : '...');
 
@@ -32,12 +29,11 @@ class Dropdown extends Component {
         <dl className={styles.Dropdown}>
           <dt><div onClick={this.onDropDownButtonClicked}><span>{selectMessage}</span></div></dt>
           <dd>
-            <ul style={listDisplayStyle}>
-              {this.props.options.map((html, index) => <li 
-                  key={index}
-                  onClick={() => this.itemClickedHandler(html.props.onclicked)}
-              >{html}</li>)}
-            </ul>
+            <DisplayList 
+              dropped={this.state.dropped} 
+              options={this.props.options} 
+              clicked={(html) => this.itemClickedHandler(html.props.onclicked)}
+            />
           </dd>
         </dl>
     );

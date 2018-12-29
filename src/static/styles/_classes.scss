@@ -11,3 +11,10 @@
   height: 42%;
   border: 1px solid black;
 }
+
+@mixin square($size) {
+  min-width: $size;
+  max-width: $size;
+  min-height: $size;
+  max-height: $size;
+}

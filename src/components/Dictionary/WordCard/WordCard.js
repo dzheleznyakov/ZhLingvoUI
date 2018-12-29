@@ -31,15 +31,15 @@ const wordCard = (props) => {
   let semanticBlocks = [];
   if (entry.semanticBlocks && entry.semanticBlocks.length) {
     semanticBlocks = entry.semanticBlocks
-      .map((sb, i) => <SemanticBlock key={i} num={i + 1} block={sb} editMode={props.editMode} />)
+      .map((sb, i) => <SemanticBlock key={i} index={i} editMode={props.editMode} />)
   }
   if (props.editMode) {
     semanticBlocks.push(<div 
       key="addSB" 
       className={styles['plus-button-wrapper']}
-      >
-        <PlusButton clicked={props.createSemanticBlock} />
-      </div>)
+    >
+      <PlusButton clicked={props.createSemanticBlock} />
+    </div>)
   }
 
   return (
@@ -48,7 +48,11 @@ const wordCard = (props) => {
         <WordCardControl />
         <div className={styles['word-card-container']}>
           <div className={styles['word-card']}>
-            <WordName className={styles['word']} editMode={props.editMode} edited={props.editWordName}>
+            <WordName 
+              className={styles['word']} 
+              editMode={props.editMode} 
+              edited={props.editWordName}
+            >
               {entry.word}
             </WordName>
             {transcriptions}

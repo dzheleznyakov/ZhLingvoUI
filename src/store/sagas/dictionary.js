@@ -1,12 +1,22 @@
 import { put, call, select } from 'redux-saga/effects';
 
-import { loadDictionary, saveDictionary } from '../../async/dictionary';
+import { 
+  loadDictionary, 
+  saveDictionary, 
+  loadPartsOfSpeech,
+} from '../../async/dictionary';
 import * as actions from '../actions/';
 
 export function* loadDictionarySaga() {
   const languageCode = yield select(store => store.language.selectedLanguage.code);
   const dictionary = yield call(loadDictionary, languageCode);
   yield put(actions.setDictionary(dictionary));
+}
+
+export function* loadPartsOfSpeechesSaga() {
+  const languageCode = yield select(store => store.language.selectedLanguage.code);
+  const partsOfSpeech = yield call(loadPartsOfSpeech, languageCode);
+  yield put(actions.storePartsOfSpeech(partsOfSpeech));
 }
 
 function* saveDictionarySaga() {
@@ -40,8 +50,27 @@ export function* removeSemanticBlockAndSaveDictionarySaga(action) {
   const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const word = yield select(store => store.dictionary.loadedDictionary[selectedWordIndex]);
   const semanticBlock = word.semanticBlocks[index];
-  if (Object.keys(semanticBlock).length === 0) {
+  if (!semanticBlock || semanticBlock.length === 0) {
     yield put(actions.deleteSemanticBlock(index, selectedWordIndex));
+    yield* saveDictionarySaga();
   }
+}
+
+export function* addPartOfSpeechSaga(action) {
+  const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const { semanticBlockIndex, partOfSpeech } = action;
+  yield put(actions.setPartOfSpeech(selectedWordIndex, semanticBlockIndex, partOfSpeech));
   yield* saveDictionarySaga();
+}
+
+export function* removePartOfSpeechAndSaveDicitonarySaga(action) {
+  const { semanticBlockIndex, partOfSpeech } = action;
+  const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const word = yield select(store => store.dictionary.loadedDictionary[selectedWordIndex]);
+  const semanticBlock = word.semanticBlocks[semanticBlockIndex];
+  const meanings = (semanticBlock.find(pos => pos.type === partOfSpeech) || {}).meanings;
+  if (!meanings || !meanings.length) {
+    yield put(actions.deletePartOfSpeech(selectedWordIndex, semanticBlockIndex, partOfSpeech));
+    yield* saveDictionarySaga();
+  }
 }
