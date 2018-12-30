@@ -1,9 +1,15 @@
 import React from 'react';
+import _ from 'lodash';
 
 import styles from './PlusButton.module.scss';
 
-const plusButton = (props) => (
-  <button className={styles.PlusButton} onClick={props.clicked} />
-);
+const plusButton = (props) => {
+  const size = props.size || 'large';
+  let classes = _.concat([styles.PlusButton, styles[size]], props.classes);
+  classes = _.compact(classes);
+  return (
+    <button className={classes.join(' ')} onClick={props.clicked} />
+  );
+};
 
 export default plusButton;

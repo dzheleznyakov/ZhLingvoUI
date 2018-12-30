@@ -138,6 +138,20 @@ export const deletePartOfSpeech = (wordIndex, sbIndex, partOfSpeech) => {
   };
 };
 
+export const addMeaning = (sbIndex, posIndex) => {
+  return {
+    type: actionTypes.ADD_MEANING,
+    branch: { sbIndex, posIndex }
+  };
+};
+
+export const createMeaning = ({ wordIndex, sbIndex, posIndex }) => {
+  return {
+    type: actionTypes.CREATE_MEANING,
+    branch: { wordIndex, sbIndex, posIndex },
+  };
+};
+
 export const editMeaningRemark = ({ sbIndex, posIndex, mIndex }, remark) => {
   return {
     type: actionTypes.EDIT_MEANING_REMARK,

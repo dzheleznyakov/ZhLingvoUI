@@ -27,6 +27,8 @@ export {
   setPartOfSpeech,
   removePartOfSpeechAndSaveDictionary,
   deletePartOfSpeech,
+  addMeaning,
+  createMeaning,
   editMeaningRemark,
   setMeaningRemark,
 } from './dictionary';

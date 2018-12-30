@@ -11,6 +11,7 @@ import {
   removeSemanticBlockAndSaveDictionarySaga,
   addPartOfSpeechSaga,
   removePartOfSpeechAndSaveDicitonarySaga,
+  addMeaningSaga,
   editMeaningRemarkSaga,
 } from './dictionary';
 import { loadConfigSaga } from './config';
@@ -33,6 +34,7 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.ADD_PART_OF_SPEECH, addPartOfSpeechSaga);
   yield takeEvery(actionTypes.REMOVE_PART_OF_SPEECH_AND_SAVE_DICTIONARY, removePartOfSpeechAndSaveDicitonarySaga);
 
+  yield takeEvery(actionTypes.ADD_MEANING, addMeaningSaga);
   yield takeEvery(actionTypes.EDIT_MEANING_REMARK, editMeaningRemarkSaga);
 };
 

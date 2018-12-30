@@ -7,6 +7,7 @@ import { updateObject } from '../../../../utils/utils';
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
 import MinusButton from '../../../UI/MinusButton/MinusButton';
+import PlusButton from '../../../UI/PlusButton/PlusButton';
 import * as actions from '../../../../store/actions/';
 
 const partOfSpeechBlock = (props) => {
@@ -27,21 +28,34 @@ const partOfSpeechBlock = (props) => {
 
   const updatedBranch = updateObject(props.branch, { posIndex: props.index });
 
+  const meaningEntries = meanings.map((meaning, i) => (
+    <li key={`m${i}`}>
+      <Meanings 
+        translations={meaning.translations} 
+        remark={meaning.remark} 
+        index={i}
+        branch={updatedBranch} />
+      <Examples examples={meaning.examples} />
+    </li>
+  ));
+  if (props.editMode) {
+    meaningEntries.push(
+      <li key='m-mb'>
+        <PlusButton 
+          classes={styles.PlusButton}
+          size="small"
+          clicked={() => props.addMeaning(updatedBranch)}
+        />
+      </li>
+    );
+  }
+
   return (
     <li className={wrapperClasses.join(' ')}>
       <span className={styles.PartOfSpeech}>{props.partOfSpeech}</span>
       {partOfSpeechMinusButton}
       <ol className={styles.MeaningWrapper}>
-        {meanings.map((meaning, i) => (
-          <li key={`m${i}`}>
-            <Meanings 
-              translations={meaning.translations} 
-              remark={meaning.remark} 
-              index={i}
-              branch={updatedBranch} />
-            <Examples examples={meaning.examples} />
-          </li>
-        ))}
+        {meaningEntries}
       </ol>
     </li>
   )
@@ -56,6 +70,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removePartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.removePartOfSpeechAndSaveDictionary(sbIndex, partOfSpeech)),
+    addMeaning: ({ sbIndex, posIndex }) => dispatch(actions.addMeaning(sbIndex, posIndex)),
   };
 };
 

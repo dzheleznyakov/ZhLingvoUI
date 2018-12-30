@@ -11,6 +11,7 @@ import * as actions from '../../../../store/actions/';
 
 const semanticBlock = (props) => {
   const block = props.loadedDictionary[props.wordIndex].semanticBlocks[props.index];
+  console.log(props.loadedDictionary[props.wordIndex].semanticBlocks)
   const partOfSpeeches = block.map((pos, i) => 
     <PartOfSpeechBlock 
       key={pos.type} 

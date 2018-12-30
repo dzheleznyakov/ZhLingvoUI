@@ -1,13 +1,16 @@
 @import '../../../static/styles/classes';
 
+$sizes: (
+  large: 32px,
+  small: 18px
+);
+
 .PlusButton {
   margin: 4px;
   padding: 0;
   background-color: #ccc;
   cursor: pointer;
   position: relative;
-  width: 32px;
-  height: 32px;
   border-radius: 50%;
 
   &::before {
@@ -30,4 +33,14 @@
   &:focus {
     outline: none;
   }
+}
+
+.large {
+  width: map-get($sizes, large);
+  height: map-get($sizes, large);
+}
+
+.small {
+  width: map-get($sizes, small);
+  height: map-get($sizes, small);
 }

@@ -75,6 +75,13 @@ export function* removePartOfSpeechAndSaveDicitonarySaga(action) {
   }
 }
 
+export function* addMeaningSaga(action) {
+  const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const branch = { ...action.branch, wordIndex };
+  yield put(actions.createMeaning(branch));
+  yield* saveDictionarySaga();
+}
+
 export function* editMeaningRemarkSaga(action) {
   if (!action.remark || action.remark.trim().length === 0) {
     return;

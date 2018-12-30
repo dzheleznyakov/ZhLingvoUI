@@ -16,8 +16,8 @@ const getWordPath = ({ wordIndex }) =>
 const getSemanticBlockPath = ({ wordIndex, sbIndex }) =>
   `[${wordIndex}].semanticBlocks[${sbIndex}]`;
 
-// const getPartOfSpeechPath = ({ wordIndex, sbIndex, posIndex }) =>
-//   `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}]`;
+const getPartOfSpeechPath = ({ wordIndex, sbIndex, posIndex }) =>
+  `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}]`;
 
 const getMeaningPath = ({ wordIndex, sbIndex, posIndex, mIndex }) =>
   `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}].meanings[${mIndex}]`;
@@ -70,7 +70,7 @@ const setTranscription = (state, action) =>  {
 
 const addSemanticBlock = (state, action) => {
   const semanticBlocksPath = getWordPath(action.branch) + '.semanticBlocks';
-  return updateInDictionary(state, semanticBlocksPath, (sBlocks => _.concat(sBlocks, [[]])))
+  return updateInDictionary(state, semanticBlocksPath, (sBlocks) => _.concat(sBlocks || [], [[]]));
 };
 
 const deleteSemanticBlock = (state, action) => {
@@ -86,6 +86,11 @@ const setPartOfSpeech = (state, action) => {
 const deletePartOfSpeech = (state, action) => {
   const partOfSpeechesPath = getSemanticBlockPath(action.branch);
   return updateInDictionary(state, partOfSpeechesPath, (sb) => _.remove(sb, pos => pos.type === action.partOfSpeech));
+};
+
+const createMeaning = (state, action) => {
+  const partOfSpeechPath = getPartOfSpeechPath(action.branch) + '.meanings';
+  return updateInDictionary(state, partOfSpeechPath, (m) => _.concat(m || [], { translations: [] }));
 };
 
 const setMeaningRemark = (state, action) => {
@@ -106,6 +111,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DELETE_SEMANTIC_BLOCK: return deleteSemanticBlock(state, action);
     case actionTypes.SET_PART_OF_SPEECH: return setPartOfSpeech(state, action);
     case actionTypes.DELETE_PART_OF_SPEECH: return deletePartOfSpeech(state, action);
+    case actionTypes.CREATE_MEANING: return createMeaning(state, action);
     case actionTypes.SET_MEANING_REMARK: return setMeaningRemark(state, action);
     default: return state;
   }
