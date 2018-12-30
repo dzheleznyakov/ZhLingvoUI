@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject, updateArray, removeFromArray } from '../../utils/utils';
+import { updateObject, removeFromArray } from '../../utils/utils';
 
 const initialState = {
   loadedDictionary: [],
@@ -7,6 +9,18 @@ const initialState = {
   selectedWordIndex: -1,
   editMode: false,
 };
+
+const getWordPath = ({ wordIndex }) =>
+  `[${wordIndex}]`;
+
+const getSemanticBlockPath = ({ wordIndex, sbIndex }) =>
+  `[${wordIndex}].semanticBlocks[${sbIndex}]`;
+
+// const getPartOfSpeechPath = ({ wordIndex, sbIndex, posIndex }) =>
+//   `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}]`;
+
+const getMeaningPath = ({ wordIndex, sbIndex, posIndex, mIndex }) =>
+  `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}].meanings[${mIndex}]`;
 
 const setDictionary = (state, action) => {
   return updateObject(state, { loadedDictionary: action.dictionary });
@@ -32,54 +46,52 @@ const setEditMode = (state, action) => {
   return updateObject(state, { editMode: action.editMode });
 };
 
-const updateWord = (state, wordIndex, getUpdateWord) => {
-  const dictionary = state.loadedDictionary;
-  const oldWord = dictionary[wordIndex];
-  const updatedWord = getUpdateWord(oldWord);
-  const updatedDictionary = updateArray(dictionary, wordIndex, updatedWord);
-  return updateObject(state, { loadedDictionary: updatedDictionary });
+const setInDictionary = (state, path, value) => {
+  const updatedLoadedDictionary = _.cloneDeep(state.loadedDictionary);
+  _.set(updatedLoadedDictionary, path, value);
+  return updateObject(state, { loadedDictionary: updatedLoadedDictionary });
 };
 
-const setWordName = (state, action) => updateWord(state, action.index, oldWord => 
-  updateObject(oldWord, { word: action.wordName })
-);
+const updateInDictionary = (state, path, updater) => {
+  const updatedLoadedDictionary = _.cloneDeep(state.loadedDictionary);
+  _.update(updatedLoadedDictionary, path, updater);
+  return updateObject(state, { loadedDictionary: updatedLoadedDictionary });
+}
 
-const setTranscription = (state, action) => updateWord(state, action.wordIndex, oldWord => {
-  const { transcriptions } = oldWord;
-  const updatedTranscriptions = updateArray(transcriptions, action.index, action.transcription);
-  return updateObject(oldWord, { transcriptions: updatedTranscriptions });
-});
+const setWordName = (state, action) => {
+  const wordNamePath = getWordPath(action.branch) + '.word';
+  return setInDictionary(state, wordNamePath, action.wordName);
+};
 
-const addSemanticBlock = (state, action) => updateWord(state, action.wordIndex, oldWord => {
-  const updatedSematicBlocks = oldWord.semanticBlocks || [];
-  updatedSematicBlocks.push([]);
-  return updateObject(oldWord, { semanticBlocks: updatedSematicBlocks });
-});
+const setTranscription = (state, action) =>  {
+  const transcriptionsPath = getWordPath(action.branch) + `.transcriptions[${action.index}]`;
+  return setInDictionary(state, transcriptionsPath, action.transcription);
+};
 
-const deleteSemanticBlock = (state, action) => updateWord(state, action.wordIndex, oldWord => {
-  const { index } = action;
-  const semanticBlocks = oldWord.semanticBlocks;
-  const updatedSemanticBlocks = removeFromArray(semanticBlocks, index);
-  return updateObject(oldWord, { semanticBlocks: updatedSemanticBlocks });
-});
+const addSemanticBlock = (state, action) => {
+  const semanticBlocksPath = getWordPath(action.branch) + '.semanticBlocks';
+  return updateInDictionary(state, semanticBlocksPath, (sBlocks => _.concat(sBlocks, [[]])))
+};
 
-const setPartOfSpeech = (state, action) => updateWord(state, action.wordIndex, oldWord => {
-  const { semanticBlockIndex, partOfSpeech } = action;
-  const updatedSemanticBlocks = [...oldWord.semanticBlocks];
-  const updatedBlock = updatedSemanticBlocks[semanticBlockIndex];
-  updatedBlock.push({ type: partOfSpeech });
-  updatedSemanticBlocks[semanticBlockIndex] = updatedBlock;
-  return updateObject(oldWord, { semanticBlocks: updatedSemanticBlocks });
-});
+const deleteSemanticBlock = (state, action) => {
+  const semanticBlocksPath = getWordPath(action.branch) + '.semanticBlocks';
+  return updateInDictionary(state, semanticBlocksPath, (sBlocks => removeFromArray(sBlocks, action.index)));
+};
 
-const deletePartOfSpeech = (state, action) => updateWord(state, action.wordIndex, oldWord => {
-  const { semanticBlockIndex, partOfSpeech } = action;
-  const semanticBlock = oldWord.semanticBlocks[semanticBlockIndex];
-  const posIndex = semanticBlock.findIndex(pos => pos.type === partOfSpeech);
-  const updatedSB = removeFromArray(semanticBlock, posIndex);
-  const updatedSBs = updateArray(oldWord.semanticBlocks, semanticBlockIndex, updatedSB);
-  return updateObject(oldWord, { semanticBlocks: updatedSBs });
-});
+const setPartOfSpeech = (state, action) => {
+  const partOfSpeechesPath = getSemanticBlockPath(action.branch);
+  return updateInDictionary(state, partOfSpeechesPath, (sb) => _.concat(sb, { type: action.partOfSpeech }));
+};
+
+const deletePartOfSpeech = (state, action) => {
+  const partOfSpeechesPath = getSemanticBlockPath(action.branch);
+  return updateInDictionary(state, partOfSpeechesPath, (sb) => _.remove(sb, pos => pos.type === action.partOfSpeech));
+};
+
+const setMeaningRemark = (state, action) => {
+  const remarkPath = getMeaningPath(action.branch) + '.remark';
+  return setDictionary(state, remarkPath, action.remark);
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -94,6 +106,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DELETE_SEMANTIC_BLOCK: return deleteSemanticBlock(state, action);
     case actionTypes.SET_PART_OF_SPEECH: return setPartOfSpeech(state, action);
     case actionTypes.DELETE_PART_OF_SPEECH: return deletePartOfSpeech(state, action);
+    case actionTypes.SET_MEANING_REMARK: return setMeaningRemark(state, action);
     default: return state;
   }
 };

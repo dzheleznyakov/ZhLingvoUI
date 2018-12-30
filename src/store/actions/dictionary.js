@@ -53,10 +53,10 @@ export const editWordName = (wordName) => {
   }
 };
 
-export const setWordName = (wordName, index) => {
+export const setWordName = (wordName, wordIndex) => {
   return {
     type: actionTypes.SET_WORD_NAME,
-    index,
+    branch: { wordIndex },
     wordName,
   };
 };
@@ -72,9 +72,9 @@ export const editTranscription = (transcription, index) => {
 export const setTranscription = (transcription, index, wordIndex) => {
   return {
     type: actionTypes.SET_TRANSCRIPTION,
-    transcription,
+    branch: { wordIndex },
     index,
-    wordIndex,
+    transcription,
   };
 };
 
@@ -87,7 +87,7 @@ export const createSemanticBlock = () => {
 export const addSemanticBlock = (wordIndex) => {
   return {
     type: actionTypes.ADD_SEMANTIC_BLOCK,
-    wordIndex,
+    branch: { wordIndex },
   };
 };
 
@@ -101,8 +101,8 @@ export const removeSemanticBlockAndSaveDictionary = (index) => {
 export const deleteSemanticBlock = (index, wordIndex) => {
   return {
     type: actionTypes.DELETE_SEMANTIC_BLOCK,
+    branch: { wordIndex },
     index,
-    wordIndex,
   };
 };
 
@@ -114,11 +114,10 @@ export const addPartOfSpeech = (semanticBlockIndex, partOfSpeech) => {
   };
 };
 
-export const setPartOfSpeech = (wordIndex, semanticBlockIndex, partOfSpeech) => {
+export const setPartOfSpeech = (wordIndex, sbIndex, partOfSpeech) => {
   return {
     type: actionTypes.SET_PART_OF_SPEECH,
-    wordIndex,
-    semanticBlockIndex,
+    branch: { wordIndex, sbIndex },
     partOfSpeech,
   };
 };
@@ -131,11 +130,26 @@ export const removePartOfSpeechAndSaveDictionary = (semanticBlockIndex, partOfSp
   };
 };
 
-export const deletePartOfSpeech = (wordIndex, semanticBlockIndex, partOfSpeech) => {
+export const deletePartOfSpeech = (wordIndex, sbIndex, partOfSpeech) => {
   return {
     type: actionTypes.DELETE_PART_OF_SPEECH,
-    wordIndex,
-    semanticBlockIndex,
+    branch: { wordIndex, sbIndex },
     partOfSpeech,
+  };
+};
+
+export const editMeaningRemark = ({ sbIndex, posIndex, mIndex }, remark) => {
+  return {
+    type: actionTypes.EDIT_MEANING_REMARK,
+    branch: { sbIndex, posIndex, mIndex },
+    remark,
+  }
+};
+
+export const setMeaningRemark = ({ wordIndex, sbIndex, posIndex, mIndex}, remark) => {
+  return {
+    type: actionTypes.SET_MEANING_REMARK,
+    branch: { wordIndex, sbIndex, posIndex, mIndex },
+    remark,
   };
 };

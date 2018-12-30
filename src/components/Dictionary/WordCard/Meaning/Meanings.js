@@ -1,12 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import styles from './Meanings.module.scss';
 
+import Remark from '../Remark/Remark';
+import * as actions from '../../../../store/actions/';
+
 const meanings = (props) => {
-  let remark = null;
-  if (props.remark) {
-    remark = <span key='remark' className={styles.remark}>{props.remark} </span>
-  }
+  const { sbIndex, posIndex } = props.branch;
+  const remark = props.remark ? <Remark 
+    key={'remark'}
+    editMode={props.editMode}
+    edited={(remark) => props.editRemark({ sbIndex, posIndex, mIndex: props.index }, remark)}
+  >{props.remark}</Remark> : null;
 
   let meaning = null;
   if (props.translations) {
@@ -19,10 +25,22 @@ const meanings = (props) => {
       </span>);
       arr.push(span);
       return arr;
-    }, remark ? [remark] : []);
+    }, (remark ? [remark] : []));
   }
   
   return <span>{meaning}</span>;
 };
 
-export default meanings;
+const mapStateToProps = state => {
+  return {
+    editMode: state.dictionary.editMode,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    editRemark: (branch, remark) => dispatch(actions.editMeaningRemark(branch, remark)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(meanings);

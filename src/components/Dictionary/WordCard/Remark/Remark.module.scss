@@ -1,0 +1,5 @@
+@import "../../../../static/styles/classes";
+
+.Remark {
+  @include remark();
+}

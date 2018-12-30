@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import styles from './PartOfSpeechBlock.module.scss';
+import { updateObject } from '../../../../utils/utils';
 
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
@@ -20,9 +21,11 @@ const partOfSpeechBlock = (props) => {
   if (props.editMode) {
     partOfSpeechMinusButton = <MinusButton 
       classes={styles.MinusButton}
-      clicked={() => props.removePartOfSpeech(props.sbIndex, props.partOfSpeech)}
+      clicked={() => props.removePartOfSpeech(props.branch.sbIndex, props.partOfSpeech)}
     />;
   }
+
+  const updatedBranch = updateObject(props.branch, { posIndex: props.index });
 
   return (
     <li className={wrapperClasses.join(' ')}>
@@ -31,7 +34,11 @@ const partOfSpeechBlock = (props) => {
       <ol className={styles.MeaningWrapper}>
         {meanings.map((meaning, i) => (
           <li key={`m${i}`}>
-            <Meanings translations={meaning.translations} remark={meaning.remark} />
+            <Meanings 
+              translations={meaning.translations} 
+              remark={meaning.remark} 
+              index={i}
+              branch={updatedBranch} />
             <Examples examples={meaning.examples} />
           </li>
         ))}
