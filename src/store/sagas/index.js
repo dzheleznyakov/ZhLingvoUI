@@ -5,7 +5,7 @@ import { loadLanguagesSaga, selectLanguageSaga } from './language';
 import { 
   loadDictionarySaga,
   loadPartsOfSpeechesSaga,
-  editWordNameSaga, 
+  editWordNameSaga,
   editTranscriptionSaga,
   createSemanticBlockSaga,
   removeSemanticBlockAndSaveDictionarySaga,

@@ -5,28 +5,13 @@ import styles from './word-card.module.scss';
 
 import WordCardControl from './WordCardControl/WordCardControl';
 import WordName from './WordName/WordName';
-import Transcription from './Transcription/Transcription';
+import Transcriptions from './Transcriptions/Transcriptions';
 import SemanticBlock from './SemanticBlock/SemanticBlock';
 import PlusButton from '../../UI/PlusButton/PlusButton';
 import * as actions  from '../../../store/actions/';
 
 const wordCard = (props) => {
   const entry = props.wordEntry;
-
-  let transcriptions = null;
-  if (entry.transcriptions && entry.transcriptions.length) {
-    const transcriptionEdited = (index) => (value) => props.editTranscription(value, index);
-    transcriptions = (
-      <span className={styles['transcriptions']}>
-        {entry.transcriptions.map((tr, i) => 
-          <span key={`tr${i}`}>
-            [<Transcription editMode={props.editMode} edited={transcriptionEdited(i)}>
-              {tr}
-            </Transcription>]{' '}
-          </span>)}
-      </span>
-    );
-  }
 
   let semanticBlocks = [];
   if (entry.semanticBlocks && entry.semanticBlocks.length) {
@@ -55,7 +40,7 @@ const wordCard = (props) => {
             >
               {entry.word}
             </WordName>
-            {transcriptions}
+            <Transcriptions transcriptions={entry.transcriptions} />
             {semanticBlocks}
           </div>
         </div>
@@ -73,7 +58,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     editWordName: (wordName) => dispatch(actions.editWordName(wordName)),
-    editTranscription: (transcription, index) => dispatch(actions.editTranscription(transcription, index)),
     createSemanticBlock: () => dispatch(actions.createSemanticBlock()),
   };
 };

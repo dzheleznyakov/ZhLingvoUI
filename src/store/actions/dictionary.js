@@ -61,6 +61,20 @@ export const setWordName = (wordName, wordIndex) => {
   };
 };
 
+export const addTranscription = () => {
+  return {
+    type: actionTypes.ADD_TRANSCRIPTION,
+  };
+};
+
+export const deleteTranscription = (index, wordIndex) => {
+  return {
+    type: actionTypes.DELETE_TRANSCRIPTION,
+    index,
+    branch: { wordIndex },
+  };
+};
+
 export const editTranscription = (transcription, index) => {
   return {
     type: actionTypes.EDIT_TRANSCRIPTION,

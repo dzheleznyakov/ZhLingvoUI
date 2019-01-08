@@ -17,6 +17,8 @@ export {
   setEditMode,
   editWordName,
   setWordName,
+  addTranscription,
+  deleteTranscription,
   editTranscription,
   setTranscription,
   createSemanticBlock,

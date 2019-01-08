@@ -63,9 +63,20 @@ const setWordName = (state, action) => {
   return setInDictionary(state, wordNamePath, action.wordName);
 };
 
+const addTranscription = (state) => {
+  const branch = { wordIndex: state.selectedWordIndex };
+  const transcriptionsPath = getWordPath(branch) + '.transcriptions';
+  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], [[]]));
+};
+
+const deleteTranscription = (state, action) => {
+  const transcriptionsBranch = getWordPath(action.branch) + '.transcriptions';
+  return updateInDictionary(state, transcriptionsBranch, (tr) => removeFromArray(tr, action.index));
+};
+
 const setTranscription = (state, action) =>  {
-  const transcriptionsPath = getWordPath(action.branch) + `.transcriptions[${action.index}]`;
-  return setInDictionary(state, transcriptionsPath, action.transcription);
+  const transcriptionPath = getWordPath(action.branch) + `.transcriptions[${action.index}]`;
+  return setInDictionary(state, transcriptionPath, action.transcription);
 };
 
 const addSemanticBlock = (state, action) => {
@@ -106,6 +117,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SELECT_WORD: return selectWord(state, action);
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
+    case actionTypes.ADD_TRANSCRIPTION: return addTranscription(state, action);
+    case actionTypes.DELETE_TRANSCRIPTION: return deleteTranscription(state, action);
     case actionTypes.SET_TRANSCRIPTION: return setTranscription(state, action);
     case actionTypes.ADD_SEMANTIC_BLOCK: return addSemanticBlock(state, action);
     case actionTypes.DELETE_SEMANTIC_BLOCK: return deleteSemanticBlock(state, action);

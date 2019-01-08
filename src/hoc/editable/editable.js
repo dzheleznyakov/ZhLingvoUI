@@ -58,7 +58,6 @@ const editable = (WrappedComponent) => class extends Component {
 
   render() {
     if (this.props.editMode && this.state.active) {
-    // if (true) {
       const classes = [styles['input']];
       if (this.props.className) {
         classes.push(this.props.className)

@@ -35,7 +35,11 @@ export function* editWordNameSaga(action) {
 export function* editTranscriptionSaga(action) {
   const { transcription, index } = action;
   const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
-  yield put(actions.setTranscription(transcription, index, selectedWordIndex));
+  if (transcription) {
+    yield put(actions.setTranscription(transcription, index, selectedWordIndex));
+  } else {
+    yield put(actions.deleteTranscription(index, selectedWordIndex));
+  }
   yield* saveDictionarySaga();
 }
 
