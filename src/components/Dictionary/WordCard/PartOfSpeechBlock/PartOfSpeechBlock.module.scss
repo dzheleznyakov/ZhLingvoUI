@@ -39,3 +39,15 @@ button.MinusButton {
 button.PlusButton {
   margin: 0;
 }
+
+.MeaningEntry {
+  position: relative;
+}
+
+.PartOfSpeechEdit {
+  position: absolute;
+  margin: 0;
+  top: -4px;
+  right: 20px;
+  display: flex;
+}

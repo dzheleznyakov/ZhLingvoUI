@@ -7,7 +7,7 @@ import { updateObject } from '../../../../utils/utils';
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
 import MinusButton from '../../../UI/MinusButton/MinusButton';
-import PlusButton from '../../../UI/PlusButton/PlusButton';
+import RoundButton from '../../../UI/RoundButton/RoundButton';
 import * as actions from '../../../../store/actions/';
 
 const partOfSpeechBlock = (props) => {
@@ -18,18 +18,22 @@ const partOfSpeechBlock = (props) => {
 
   const meanings = props.meanings || [];
 
-  let partOfSpeechMinusButton = null
+  let partOfSpeechEdit = null
   if (props.editMode) {
-    partOfSpeechMinusButton = <MinusButton 
-      classes={styles.MinusButton}
+    const posEditButton = <RoundButton>E</RoundButton>;
+    const posRemoveButton = <MinusButton 
       clicked={() => props.removePartOfSpeech(props.branch.sbIndex, props.partOfSpeech)}
     />;
+    partOfSpeechEdit = (
+      <div className={styles.PartOfSpeechEdit}>
+        {posEditButton}{posRemoveButton}
+      </div>
+    );
   }
 
   const updatedBranch = updateObject(props.branch, { posIndex: props.index });
-
   const meaningEntries = meanings.map((meaning, i) => (
-    <li key={`m${i}`}>
+    <li className={styles.MeaningEntry} key={`m${i}`}>
       <Meanings 
         translations={meaning.translations} 
         remark={meaning.remark} 
@@ -38,22 +42,11 @@ const partOfSpeechBlock = (props) => {
       <Examples examples={meaning.examples} />
     </li>
   ));
-  if (props.editMode) {
-    meaningEntries.push(
-      <li key='m-mb'>
-        <PlusButton 
-          classes={styles.PlusButton}
-          size="small"
-          clicked={() => props.addMeaning(updatedBranch)}
-        />
-      </li>
-    );
-  }
 
   return (
     <li className={wrapperClasses.join(' ')}>
       <span className={styles.PartOfSpeech}>{props.partOfSpeech}</span>
-      {partOfSpeechMinusButton}
+      {partOfSpeechEdit}
       <ol className={styles.MeaningWrapper}>
         {meaningEntries}
       </ol>
@@ -70,7 +63,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removePartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.removePartOfSpeechAndSaveDictionary(sbIndex, partOfSpeech)),
-    addMeaning: ({ sbIndex, posIndex }) => dispatch(actions.addMeaning(sbIndex, posIndex)),
   };
 };
 

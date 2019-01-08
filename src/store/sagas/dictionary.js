@@ -69,8 +69,9 @@ export function* removePartOfSpeechAndSaveDicitonarySaga(action) {
   const word = yield select(store => store.dictionary.loadedDictionary[selectedWordIndex]);
   const semanticBlock = word.semanticBlocks[semanticBlockIndex];
   const meanings = (semanticBlock.find(pos => pos.type === partOfSpeech) || {}).meanings;
-  if (!meanings || !meanings.length) {
-    yield put(actions.deletePartOfSpeech(selectedWordIndex, semanticBlockIndex, partOfSpeech));
+  if (!meanings || meanings.length === 0) {
+    const posIndex = semanticBlock.findIndex(pos => pos.type === partOfSpeech);
+    yield put(actions.deletePartOfSpeech(selectedWordIndex, semanticBlockIndex, posIndex, partOfSpeech));
     yield* saveDictionarySaga();
   }
 }

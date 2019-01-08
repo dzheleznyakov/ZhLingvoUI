@@ -130,10 +130,11 @@ export const removePartOfSpeechAndSaveDictionary = (semanticBlockIndex, partOfSp
   };
 };
 
-export const deletePartOfSpeech = (wordIndex, sbIndex, partOfSpeech) => {
+export const deletePartOfSpeech = (wordIndex, sbIndex, posIndex, partOfSpeech) => {
   return {
     type: actionTypes.DELETE_PART_OF_SPEECH,
     branch: { wordIndex, sbIndex },
+    posIndex,
     partOfSpeech,
   };
 };

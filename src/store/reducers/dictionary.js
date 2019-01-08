@@ -85,12 +85,12 @@ const setPartOfSpeech = (state, action) => {
 
 const deletePartOfSpeech = (state, action) => {
   const partOfSpeechesPath = getSemanticBlockPath(action.branch);
-  return updateInDictionary(state, partOfSpeechesPath, (sb) => _.remove(sb, pos => pos.type === action.partOfSpeech));
+  return updateInDictionary(state, partOfSpeechesPath, (sb) => removeFromArray(sb, action.posIndex));
 };
 
 const createMeaning = (state, action) => {
-  const partOfSpeechPath = getPartOfSpeechPath(action.branch) + '.meanings';
-  return updateInDictionary(state, partOfSpeechPath, (m) => _.concat(m || [], { translations: [] }));
+  const meaningsPath = getPartOfSpeechPath(action.branch) + '.meanings';
+  return updateInDictionary(state, meaningsPath, (m) => _.concat(m || [], { translations: [] }));
 };
 
 const setMeaningRemark = (state, action) => {
