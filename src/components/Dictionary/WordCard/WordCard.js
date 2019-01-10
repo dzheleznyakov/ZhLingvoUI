@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './word-card.module.scss';
+import styles from './WordCard.module.scss';
 
 import WordCardControl from './WordCardControl/WordCardControl';
 import WordName from './WordName/WordName';
@@ -33,13 +33,7 @@ const wordCard = (props) => {
         <WordCardControl />
         <div className={styles['word-card-container']}>
           <div className={styles['word-card']}>
-            <WordName 
-              className={styles['word']} 
-              editMode={props.editMode} 
-              edited={props.editWordName}
-            >
-              {entry.word}
-            </WordName>
+            <WordName>{entry.word}</WordName>
             <Transcriptions transcriptions={entry.transcriptions} />
             {semanticBlocks}
           </div>
@@ -57,7 +51,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editWordName: (wordName) => dispatch(actions.editWordName(wordName)),
     createSemanticBlock: () => dispatch(actions.createSemanticBlock()),
   };
 };

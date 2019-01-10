@@ -1,14 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import editable from '../../../../hoc/editable/editable';
+import classes from './WordName.module.scss';
 
-const wordName = (props) => (
-  <span 
-    className={props.className} 
-    onClick={props.clicked}
-  >
-    {props.children}
-  </span>
-);
+import EditableSpan from '../../../UI/EditableSpan/EditableSpan';
+import * as actions from '../../../../store/actions/';
 
-export default editable(wordName);
+const wordName = (props) => <EditableSpan 
+  cssClasses={classes.WordName}
+  value={props.children}
+  edited={props.editWordName} />;
+
+const mapDispatchToProps = dispatch => ({
+  editWordName: (wordName) => dispatch(actions.editWordName(wordName)),
+});
+
+export default connect(null, mapDispatchToProps)(wordName);

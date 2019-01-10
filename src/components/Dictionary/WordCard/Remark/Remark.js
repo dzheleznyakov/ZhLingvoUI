@@ -1,14 +1,12 @@
 import React from 'react';
 
-import styles from './Remark.module.scss';
+import classes from './Remark.module.scss';
 
-import editable from '../../../../hoc/editable/editable';
+import EditableSpan from '../../../UI/EditableSpan/EditableSpan';
 
-const remark = (props) => <span 
-  className={styles.Remark}
-  onClick={props.clicked}
->
-  {props.children}{' '}
-</span>;
+const remark = (props) => <EditableSpan
+  cssClasses={classes.Remark}
+  value={props.children}
+  edited={props.edited} />
 
-export default editable(remark);
+export default remark;

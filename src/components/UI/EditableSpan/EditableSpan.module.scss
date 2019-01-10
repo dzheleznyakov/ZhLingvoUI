@@ -1,0 +1,46 @@
+$initial-cursor-opacity: 0.75;
+
+.Interceptor {
+  position: absolute;
+  top: -100;
+  left: -100;
+  opacity: 0;
+}
+
+.EditableSpan {
+  padding-right: 3px;
+}
+
+.Active {
+  outline: 5px auto cornflowerblue;
+  outline-offset: -2px;
+}
+
+.ActiveCursor {
+  position: relative;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    right: 0;
+    border: 1px solid black;
+    opacity: $initial-cursor-opacity;
+    animation: flash 0.4s infinite alternate none;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: $initial-cursor-opacity;
+  }
+  10% {
+    opacity: $initial-cursor-opacity;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

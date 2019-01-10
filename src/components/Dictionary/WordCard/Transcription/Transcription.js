@@ -1,16 +1,11 @@
 import React from 'react';
 
-import editable from '../../../../hoc/editable/editable';
+import EditableSpan from '../../../UI/EditableSpan/EditableSpan';
+import classes from './transcription.module.scss';
 
-import styles from './transcription.module.scss';
+const transcription = (props) => <EditableSpan
+  cssClasses={classes.Transcription}
+  value={props.children}
+  edited={props.edited} />;
 
-const transcription = (props) => (
-  <span
-    className={styles['transcription']}
-    onClick={props.clicked}
-  >
-    {props.children}
-  </span>)
-;
-
-export default editable(transcription);
+export default transcription;

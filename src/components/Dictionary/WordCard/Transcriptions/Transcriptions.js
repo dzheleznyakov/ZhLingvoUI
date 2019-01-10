@@ -19,7 +19,7 @@ const transcriptions = (props) => {
     <span className={styles.Transcriptions}>
       {transcriptionEntries.map((tr, i) => 
         <span key={`tr${i}`}>
-          [<Transcription editMode={props.editMode} edited={transcriptionEdited(i)}>
+          [<Transcription edited={transcriptionEdited(i)}>
             {tr}
           </Transcription>]{' '}
         </span>)}

@@ -106,7 +106,7 @@ const createMeaning = (state, action) => {
 
 const setMeaningRemark = (state, action) => {
   const remarkPath = getMeaningPath(action.branch) + '.remark';
-  return setDictionary(state, remarkPath, action.remark);
+  return setInDictionary(state, remarkPath, action.remark);
 };
 
 const reducer = (state = initialState, action) => {
