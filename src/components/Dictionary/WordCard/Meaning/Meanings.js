@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './Meanings.module.scss';
-
 import Remark from '../Remark/Remark';
+import Translation from '../Translation/Translation';
+import Elaboration from '../Elaboration/Elaboration';
 import * as actions from '../../../../store/actions/';
 
 const meanings = (props) => {
+  const updatedBranch = { ...props.branch, mIndex: props.index };
   const { sbIndex, posIndex } = props.branch;
   const remark = props.remark ? <Remark 
     key={'remark'}
@@ -16,11 +17,12 @@ const meanings = (props) => {
 
   let meaning = null;
   if (props.translations) {
+    const onTranslationEdited = (index) => (value) => props.editTranslation(updatedBranch, index, value);
     meaning = props.translations.reduce((arr, { translation, elaboration }, index, tArray) => {
       const length = tArray.length;
       const span = (<span key={`t${index}`}>
-        {translation}
-        <span className={styles.elaboration}>{elaboration ? ` (${elaboration})` : ''}</span>
+        <Translation edited={onTranslationEdited(index)}>{translation}</Translation>
+        {elaboration ? <Elaboration>{elaboration}</Elaboration> : null}
         {index < length - 1 ? '; ' : ''}
       </span>);
       arr.push(span);
@@ -40,6 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     editRemark: (branch, remark) => dispatch(actions.editMeaningRemark(branch, remark)),
+    editTranslation: (branch, index, translation) => dispatch(actions.editTranslation(branch, index, translation)),
   };
 };
 

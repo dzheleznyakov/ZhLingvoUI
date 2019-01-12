@@ -7,6 +7,7 @@ import EditableSpan from '../../../UI/EditableSpan/EditableSpan';
 const remark = (props) => <EditableSpan
   cssClasses={classes.Remark}
   value={props.children}
-  edited={props.edited} />
+  edited={props.edited}
+  postfix=' ' />
 
 export default remark;

@@ -31,8 +31,8 @@ export {
   deletePartOfSpeech,
   addMeaning,
   createMeaning,
-  // removeMeaningAndSaveDictionary,
-  // deleteMeaning,
   editMeaningRemark,
   setMeaningRemark,
+  editTranslation,
+  setTranslation,
 } from './dictionary';

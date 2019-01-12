@@ -7,7 +7,6 @@ import { updateObject } from '../../../../utils/utils';
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
 import MinusButton from '../../../UI/MinusButton/MinusButton';
-import RoundButton from '../../../UI/RoundButton/RoundButton';
 import * as actions from '../../../../store/actions/';
 
 const partOfSpeechBlock = (props) => {
@@ -20,13 +19,12 @@ const partOfSpeechBlock = (props) => {
 
   let partOfSpeechEdit = null
   if (props.editMode) {
-    const posEditButton = <RoundButton>E</RoundButton>;
     const posRemoveButton = <MinusButton 
       clicked={() => props.removePartOfSpeech(props.branch.sbIndex, props.partOfSpeech)}
     />;
     partOfSpeechEdit = (
       <div className={styles.PartOfSpeechEdit}>
-        {posEditButton}{posRemoveButton}
+        {posRemoveButton}
       </div>
     );
   }

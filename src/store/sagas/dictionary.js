@@ -96,3 +96,13 @@ export function* editMeaningRemarkSaga(action) {
   yield put(actions.setMeaningRemark(branch, action.remark));
   yield* saveDictionarySaga();
 }
+
+export function* editTranslationSaga(action) {
+  if (!action.translation || action.translation.trim().length === 0) {
+    return;
+  }
+  const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const branch = { ...action.branch, wordIndex };
+  yield put(actions.setTranslation(branch, action.index, action.translation));
+  yield* saveDictionarySaga();
+}

@@ -109,6 +109,11 @@ const setMeaningRemark = (state, action) => {
   return setInDictionary(state, remarkPath, action.remark);
 };
 
+const setTranslation = (state, action) => {
+  const translationPath = getMeaningPath(action.branch) + `.translations[${action.index}].translation`;
+  return setInDictionary(state, translationPath, action.translation);
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_DICTIONARY: return setDictionary(state, action);
@@ -126,6 +131,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DELETE_PART_OF_SPEECH: return deletePartOfSpeech(state, action);
     case actionTypes.CREATE_MEANING: return createMeaning(state, action);
     case actionTypes.SET_MEANING_REMARK: return setMeaningRemark(state, action);
+    case actionTypes.SET_TRANSLATION: return setTranslation(state, action);
     default: return state;
   }
 };

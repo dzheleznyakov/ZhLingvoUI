@@ -19,9 +19,9 @@ const transcriptions = (props) => {
     <span className={styles.Transcriptions}>
       {transcriptionEntries.map((tr, i) => 
         <span key={`tr${i}`}>
-          [<Transcription edited={transcriptionEdited(i)}>
+          <Transcription edited={transcriptionEdited(i)}>
             {tr}
-          </Transcription>]{' '}
+          </Transcription>
         </span>)}
         {addTranscriptionButton}
     </span>
