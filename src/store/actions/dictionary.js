@@ -198,3 +198,17 @@ export const setTranslation = ({ wordIndex, sbIndex, posIndex, mIndex }, index, 
   index,
   translation,
 });
+
+export const editElaboration = ({ sbIndex, posIndex, mIndex }, index, elaboration) => ({
+  type: actionTypes.EDIT_ELABORATION,
+  branch: { sbIndex, posIndex, mIndex },
+  index,
+  elaboration,
+});
+
+export const setElaboration = ({ wordIndex, sbIndex, posIndex, mIndex }, index, elaboration) => ({
+  type: actionTypes.SET_ELABORATION,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
+  index,
+  elaboration,
+});

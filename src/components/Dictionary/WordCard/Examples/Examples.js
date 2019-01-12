@@ -1,6 +1,8 @@
 import React from 'react';
 
-import styles from './Examples.module.scss';
+import classes from './Examples.module.scss';
+
+import Remark from '../Remark/Remark';
 
 const emDash = '\u2014';
 
@@ -8,9 +10,9 @@ const examples = (props) => {
   let exampleBlock = null;
   if (props.examples) {
     exampleBlock = props.examples.map((example, index) => (
-      <div key={`ex${index}`} className={styles.example}>
+      <div key={`ex${index}`} className={classes.example}>
         {example.expression}
-        {example.remark ? <span className={styles.remark}> {example.remark}</span> : null}
+        {example.remark ? <Remark prefix=' '>{example.remark}</Remark> : null}
         {` ${emDash} `}
         {example.explanation}
       </div>

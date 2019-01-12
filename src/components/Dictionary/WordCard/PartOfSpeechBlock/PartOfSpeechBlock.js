@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import styles from './PartOfSpeechBlock.module.scss';
-import { updateObject } from '../../../../utils/utils';
 
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
@@ -29,15 +28,13 @@ const partOfSpeechBlock = (props) => {
     );
   }
 
-  const updatedBranch = updateObject(props.branch, { posIndex: props.index });
   const meaningEntries = meanings.map((meaning, i) => (
     <li className={styles.MeaningEntry} key={`m${i}`}>
       <Meanings 
         translations={meaning.translations} 
         remark={meaning.remark} 
-        index={i}
-        branch={updatedBranch} />
-      <Examples examples={meaning.examples} />
+        branch={{ ...props.branch, mIndex: i }} />
+      <Examples branch={{ ...props.branch, mIndex: i }} index={i} examples={meaning.examples} />
     </li>
   ));
 

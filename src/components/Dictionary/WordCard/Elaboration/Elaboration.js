@@ -7,6 +7,7 @@ import EditableSpan from '../../../UI/EditableSpan/EditableSpan';
 const elaboration = (props) => <EditableSpan
   cssClasses={classes.Elaboration}
   value={props.children}
+  edited={props.edited}
   prefix=' ('
   postfix=')' />;
 

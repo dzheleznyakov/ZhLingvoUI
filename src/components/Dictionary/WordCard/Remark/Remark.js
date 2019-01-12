@@ -8,6 +8,7 @@ const remark = (props) => <EditableSpan
   cssClasses={classes.Remark}
   value={props.children}
   edited={props.edited}
-  postfix=' ' />
+  prefix={props.prefix}
+  postfix={props.postfix} />
 
 export default remark;

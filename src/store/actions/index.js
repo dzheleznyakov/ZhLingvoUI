@@ -35,4 +35,6 @@ export {
   setMeaningRemark,
   editTranslation,
   setTranslation,
+  editElaboration,
+  setElaboration,
 } from './dictionary';
