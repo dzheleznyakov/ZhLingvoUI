@@ -25,7 +25,7 @@ class EditableSpan extends Component {
   };
 
   onSpanClicked = () => {
-    this.setState({ active: true })
+    this.setState({ active: true, cursorPosition: this.state.value.length })
   };
 
   onBlur = () => {
@@ -57,12 +57,45 @@ class EditableSpan extends Component {
     const moveCursorToEnd = () => {
       this.setState({ cursorPosition: this.state.value.length });
     };
+    const jumpOverWordToLeft = () => {
+      let i = Math.max(0, this.state.cursorPosition - 1);
+      let char;
+      do {
+        char = this.state.value.charAt(i);
+      } while (i-- >= 0 && char === ' ');
+
+      while (i >= 0) {
+        char = this.state.value.charAt(i);
+        if (char === ' ') {
+          break;
+        }
+        i--;
+      }
+      this.setState({ cursorPosition: Math.min(i + 1, this.state.value.length) });
+    };
+    const jumpOverWordToRight = () => {
+      let i = Math.max(0, this.state.cursorPosition - 1);
+      let char;
+      do {
+        char = this.state.value.charAt(i);
+      } while (i++ < this.state.value.length && char === ' ');
+
+      while (i < this.state.value.length && char !== ' ') {
+        char = this.state.value.charAt(i);
+        i++;
+      }
+      this.setState({ cursorPosition: Math.min(i, this.state.value.length) });
+    };
 
     if (event.keyCode === 13) {
       event.preventDefault();
       this.interceptor.blur();
+    } else if (event.keyCode === 37 && event.altKey) {
+      jumpOverWordToLeft();
     } else if (event.keyCode === 37) {
       moveCursorLeft();
+    } else if (event.keyCode === 39 && event.altKey) {
+      jumpOverWordToRight();
     } else if (event.keyCode === 39) {
       moveCursorRight();
     } else if (event.keyCode === 38) {
