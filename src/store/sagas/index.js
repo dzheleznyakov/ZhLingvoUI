@@ -15,6 +15,7 @@ import {
   editMeaningRemarkSaga,
   editTranslationSaga,
   editElaborationSaga,
+  editExampleRemarkSaga,
 } from './dictionary';
 import { loadConfigSaga } from './config';
 
@@ -40,6 +41,7 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.EDIT_MEANING_REMARK, editMeaningRemarkSaga);
   yield takeEvery(actionTypes.EDIT_TRANSLATION, editTranslationSaga);
   yield takeEvery(actionTypes.EDIT_ELABORATION, editElaborationSaga);
+  yield takeEvery(actionTypes.EDIT_EXAMPLE_REMARK, editExampleRemarkSaga);
 };
 
 export function* watchConfig() {

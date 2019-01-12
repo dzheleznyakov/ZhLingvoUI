@@ -119,6 +119,11 @@ const setElaboration = (state, action) => {
   return setInDictionary(state, elaborationPath, action.elaboration);
 };
 
+const setExampleRemark = (state, action) => {
+  const exampleRemarkPath = getMeaningPath(action.branch) + `examples[${action.index}].remark`;
+  return setInDictionary(state, exampleRemarkPath, action.remark);
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_DICTIONARY: return setDictionary(state, action);
@@ -138,6 +143,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SET_MEANING_REMARK: return setMeaningRemark(state, action);
     case actionTypes.SET_TRANSLATION: return setTranslation(state, action);
     case actionTypes.SET_ELABORATION: return setElaboration(state, action);
+    case actionTypes.SET_EXAMPLE_REMARK: return setExampleRemark(state, action);
     default: return state;
   }
 };

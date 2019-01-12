@@ -9,7 +9,6 @@ import * as actions from '../../../../store/actions/';
 const meanings = (props) => {
   const remark = props.remark ? <Remark 
     key={'remark'}
-    editMode={props.editMode}
     edited={(remark) => props.editRemark(props.branch, remark)}
     postfix=' '>{props.remark}</Remark> : null;
 

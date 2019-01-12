@@ -1,9 +1,3 @@
-@import "../../../../static/styles/classes";
-
-.example {
+.Example {
   color: grey;
-}
-
-.remark {
-  @include remark();
 }

@@ -212,3 +212,17 @@ export const setElaboration = ({ wordIndex, sbIndex, posIndex, mIndex }, index, 
   index,
   elaboration,
 });
+
+export const editExampleRemark = ({ sbIndex, posIndex, mIndex}, index, remark) => ({
+  type: actionTypes.EDIT_EXAMPLE_REMARK,
+  branch: { sbIndex, posIndex, mIndex},
+  index,
+  remark,
+});
+
+export const setExampleRemark = ({ wordIndex, sbIndex, posIndex, mIndex}, index, remark) => ({
+  type: actionTypes.SET_EXAMPLE_REMARK,
+  branch: { wordIndex, sbIndex, posIndex, mIndex},
+  index,
+  remark,
+});

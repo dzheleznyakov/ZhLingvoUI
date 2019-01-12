@@ -116,3 +116,14 @@ export function* editElaborationSaga(action) {
   yield put(actions.setElaboration(branch, action.index, action.elaboration));
   yield* saveDictionarySaga();
 }
+
+export function* editExampleRemarkSaga(action) {
+  console.log(action)
+  if (!action.remark || action.remark.trim().length === 0) {
+    return;
+  }
+  const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const branch = { ...action.branch, wordIndex };
+  yield put(actions.setExampleRemark(branch, action.index, action.remark));
+  yield* saveDictionarySaga();
+}
