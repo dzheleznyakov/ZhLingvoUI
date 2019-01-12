@@ -236,3 +236,17 @@ export const setExampleExpression = (branch, index, expression) => ({
   index,
   expression,
 });
+
+export const editExampleExplanation = (branch, index, explanation) => ({
+  type: actionTypes.EDIT_EXAMPLE_EXPLANATION,
+  branch,
+  index,
+  explanation,
+});
+
+export const setExampleExplanation = (branch, index, explanation) => ({
+  type: actionTypes.SET_EXAMPLE_EXPLANATION,
+  branch,
+  index,
+  explanation,
+});

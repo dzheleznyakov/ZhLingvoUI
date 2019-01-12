@@ -136,3 +136,13 @@ export function* editExampleExpressionSaga(action) {
   yield put(actions.setExampleExpression(branch, action.index, action.expression));
   yield* saveDictionarySaga();
 }
+
+export function* editExampleExplanationSaga(action) {
+  if (!action.explanation || action.explanation.trim().length === 0) {
+    return;
+  }
+  const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const branch = { ...action.branch, wordIndex };
+  yield put(actions.setExampleExplanation(branch, action.index, action.explanation));
+  yield* saveDictionarySaga();
+}

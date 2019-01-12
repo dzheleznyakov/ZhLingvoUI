@@ -14,13 +14,14 @@ const examples = (props) => {
   if (props.examples) {
     const onRemarkEdited = (index) => (value) => props.editRemark(props.branch, index, value);
     const onExpressionEdited = (index) => (value) => props.editExpression(props.branch, index, value);
+    const onExplanationEdited = (index) => (value) => props.editExplantion(props.branch, index, value);
 
     exampleBlock = props.examples.map(({ expression, explanation, remark}, index) => (
       <div key={`ex${index}`} className={classes.Example}>
         <EditableSpan edited={onExpressionEdited(index)} value={expression} />
         {remark ? <Remark edited={onRemarkEdited(index)} prefix=' '>{remark}</Remark> : null}
         {` ${emDash} `}
-        <EditableSpan value={explanation} />
+        <EditableSpan edited={onExplanationEdited(index)} value={explanation} />
       </div>
     ));
   }
@@ -29,7 +30,8 @@ const examples = (props) => {
 
 const mapDispatchToProps = dispatch => ({
   editRemark: (branch, index, remark) => dispatch(actions.editExampleRemark(branch, index, remark)),
-  editExpression: (branch, index, remark) => dispatch(actions.editExampleExpression(branch, index, remark)),
+  editExpression: (branch, index, expression) => dispatch(actions.editExampleExpression(branch, index, expression)),
+  editExplantion: (branch, index, elaboration) => dispatch(actions.editExampleExplanation(branch, index, elaboration)),
 });
 
 export default connect(null, mapDispatchToProps)(examples);

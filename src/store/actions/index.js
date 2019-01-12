@@ -41,4 +41,6 @@ export {
   setExampleRemark,
   editExampleExpression,
   setExampleExpression,
+  editExampleExplanation,
+  setExampleExplanation,
 } from './dictionary';
