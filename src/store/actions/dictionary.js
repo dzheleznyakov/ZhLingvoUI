@@ -175,22 +175,18 @@ export const editMeaningRemark = ({ sbIndex, posIndex, mIndex }, remark) => {
   }
 };
 
-export const setMeaningRemark = ({ wordIndex, sbIndex, posIndex, mIndex }, remark) => {
-  return {
-    type: actionTypes.SET_MEANING_REMARK,
-    branch: { wordIndex, sbIndex, posIndex, mIndex },
-    remark,
-  };
-};
+export const setMeaningRemark = ({ wordIndex, sbIndex, posIndex, mIndex }, remark) => ({
+  type: actionTypes.SET_MEANING_REMARK,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
+  remark,
+});
 
-export const editTranslation = ({ sbIndex, posIndex, mIndex}, index, translation) => {
-  return {
-    type: actionTypes.EDIT_TRANSLATION,
-    branch: { sbIndex, posIndex, mIndex },
-    index,
-    translation,
-  };
-};
+export const editTranslation = ({ sbIndex, posIndex, mIndex}, index, translation) => ({
+  type: actionTypes.EDIT_TRANSLATION,
+  branch: { sbIndex, posIndex, mIndex },
+  index,
+  translation,
+});
 
 export const setTranslation = ({ wordIndex, sbIndex, posIndex, mIndex }, index, translation) => ({
   type: actionTypes.SET_TRANSLATION,
@@ -225,4 +221,18 @@ export const setExampleRemark = ({ wordIndex, sbIndex, posIndex, mIndex}, index,
   branch: { wordIndex, sbIndex, posIndex, mIndex},
   index,
   remark,
+});
+
+export const editExampleExpression = (branch, index, expression) => ({
+  type: actionTypes.EDIT_EXAMPLE_EXPRESSION,
+  branch,
+  index,
+  expression,
+});
+
+export const setExampleExpression = (branch, index, expression) => ({
+  type: actionTypes.SET_EXAMPLE_EXPRESSION,
+  branch,
+  index,
+  expression,
 });

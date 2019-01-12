@@ -118,12 +118,21 @@ export function* editElaborationSaga(action) {
 }
 
 export function* editExampleRemarkSaga(action) {
-  console.log(action)
   if (!action.remark || action.remark.trim().length === 0) {
     return;
   }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
   yield put(actions.setExampleRemark(branch, action.index, action.remark));
+  yield* saveDictionarySaga();
+}
+
+export function* editExampleExpressionSaga(action) {
+  if (!action.expression || action.expression.trim().length === 0) {
+    return;
+  }
+  const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
+  const branch = { ...action.branch, wordIndex };
+  yield put(actions.setExampleExpression(branch, action.index, action.expression));
   yield* saveDictionarySaga();
 }
