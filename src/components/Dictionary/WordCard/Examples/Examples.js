@@ -18,10 +18,10 @@ const examples = (props) => {
 
     exampleBlock = props.examples.map(({ expression, explanation, remark}, index) => (
       <div key={`ex${index}`} className={classes.Example}>
-        <EditableSpan edited={onExpressionEdited(index)} value={expression} />
+        {expression ? <EditableSpan edited={onExpressionEdited(index)} value={expression} /> : null}
         {remark ? <Remark edited={onRemarkEdited(index)} prefix=' '>{remark}</Remark> : null}
         {` ${emDash} `}
-        <EditableSpan edited={onExplanationEdited(index)} value={explanation} />
+        {explanation? <EditableSpan edited={onExplanationEdited(index)} value={explanation} /> : null}
       </div>
     ));
   }

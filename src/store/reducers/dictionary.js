@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject, removeFromArray } from '../../utils/utils';
+import { getWordPath, getSemanticBlockPath, getPartOfSpeechPath, getMeaningPath } from '../../utils/branches';
 
 const initialState = {
   loadedDictionary: [],
@@ -9,18 +10,6 @@ const initialState = {
   selectedWordIndex: -1,
   editMode: false,
 };
-
-const getWordPath = ({ wordIndex }) =>
-  `[${wordIndex}]`;
-
-const getSemanticBlockPath = ({ wordIndex, sbIndex }) =>
-  `[${wordIndex}].semanticBlocks[${sbIndex}]`;
-
-const getPartOfSpeechPath = ({ wordIndex, sbIndex, posIndex }) =>
-  `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}]`;
-
-const getMeaningPath = ({ wordIndex, sbIndex, posIndex, mIndex }) =>
-  `[${wordIndex}].semanticBlocks[${sbIndex}][${posIndex}].meanings[${mIndex}]`;
 
 const setDictionary = (state, action) => {
   return updateObject(state, { loadedDictionary: action.dictionary });
@@ -66,7 +55,7 @@ const setWordName = (state, action) => {
 const addTranscription = (state) => {
   const branch = { wordIndex: state.selectedWordIndex };
   const transcriptionsPath = getWordPath(branch) + '.transcriptions';
-  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], [[]]));
+  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], ''));
 };
 
 const deleteTranscription = (state, action) => {
@@ -109,29 +98,64 @@ const setMeaningRemark = (state, action) => {
   return setInDictionary(state, remarkPath, action.remark);
 };
 
+const deleteMeaningRemark = (state, action) => {
+  const meaningPath = getMeaningPath(action.branch);
+  return updateInDictionary(state, meaningPath, meaning => _.omit(meaning, 'remark'));
+}
+
 const setTranslation = (state, action) => {
   const translationPath = getMeaningPath(action.branch) + `.translations[${action.index}].translation`;
   return setInDictionary(state, translationPath, action.translation);
 };
+
+const deleteTranslation = (state, action) => {
+  const translationsPath = getMeaningPath(action.branch) + '.translations';
+  return updateInDictionary(state, translationsPath, translations => removeFromArray(translations, action.index));
+}
 
 const setElaboration = (state, action) => {
   const elaborationPath = getMeaningPath(action.branch) + `translations[${action.index}].elaboration`;
   return setInDictionary(state, elaborationPath, action.elaboration);
 };
 
+const deleteElaboration = (state, action) => {
+  const translationPath = getMeaningPath(action.branch) + `translations[${action.index}]`;
+  return updateInDictionary(state, translationPath, translation => _.omit(translation, 'elaboration'));
+}
+
 const setExampleRemark = (state, action) => {
   const exampleRemarkPath = getMeaningPath(action.branch) + `examples[${action.index}].remark`;
   return setInDictionary(state, exampleRemarkPath, action.remark);
 };
+
+const deleteExampleRemark = (state, action) => {
+  const examplePath = getMeaningPath(action.branch) + `examples[${action.index}]`;
+  return updateInDictionary(state, examplePath, example => _.omit(example, 'remark'));
+}
 
 const setExampleExpression = (state, action) => {
   const expressionPath = getMeaningPath(action.branch) + `examples[${action.index}].expression`;
   return setInDictionary(state, expressionPath, action.expression);
 };
 
+const deleteExampleExpression = (state, action) => {
+  const examplePath = getMeaningPath(action.branch) + `examples[${action.index}]`;
+  return updateInDictionary(state, examplePath, example => _.omit(example, 'expression'));
+}
+
 const setExampleExplanation = (state, action) => {
   const explanationPath = getMeaningPath(action.branch) + `examples[${action.index}].explanation`;
   return setInDictionary(state, explanationPath, action.explanation);
+};
+
+const deleteExampleExplanation = (state, action) => {
+  const examplePath = getMeaningPath(action.branch) + `examples[${action.index}]`;
+  return updateInDictionary(state, examplePath, example => _.omit(example, 'explanation'));
+}
+
+const deleteExample = (state, action) => {
+  const examplesPath = getMeaningPath(action.branch) + 'examples';
+  return updateInDictionary(state, examplesPath, examples => removeFromArray(examples, action.index));
 };
 
 const reducer = (state = initialState, action) => {
@@ -151,11 +175,18 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DELETE_PART_OF_SPEECH: return deletePartOfSpeech(state, action);
     case actionTypes.CREATE_MEANING: return createMeaning(state, action);
     case actionTypes.SET_MEANING_REMARK: return setMeaningRemark(state, action);
+    case actionTypes.DELETE_MEANING_REMARK: return deleteMeaningRemark(state, action);
     case actionTypes.SET_TRANSLATION: return setTranslation(state, action);
+    case actionTypes.DELETE_TRANSLATION: return deleteTranslation(state, action);
     case actionTypes.SET_ELABORATION: return setElaboration(state, action);
+    case actionTypes.DELETE_ELABORATION: return deleteElaboration(state, action);
     case actionTypes.SET_EXAMPLE_REMARK: return setExampleRemark(state, action);
+    case actionTypes.DELETE_EXAMPLE_REMARK: return deleteExampleRemark(state, action);
     case actionTypes.SET_EXAMPLE_EXPRESSION: return setExampleExpression(state, action);
+    case actionTypes.DELETE_EXAMPLE_EXPRESSION: return deleteExampleExpression(state, action);
     case actionTypes.SET_EXAMPLE_EXPLANATION: return setExampleExplanation(state, action);
+    case actionTypes.DELETE_EXAMPLE_EXPLANATION: return deleteExampleExplanation(state, action);
+    case actionTypes.DELETE_EXAMPLE: return deleteExample(state, action);
     default: return state;
   }
 };

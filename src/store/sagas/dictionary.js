@@ -1,11 +1,15 @@
 import { put, call, select } from 'redux-saga/effects';
+import _ from 'lodash';
 
 import { 
   loadDictionary, 
   saveDictionary, 
   loadPartsOfSpeech,
 } from '../../async/dictionary';
+import { getExamplePath } from '../../utils/branches';
 import * as actions from '../actions/';
+
+const isBlank = (s) => !s || s.trim().length === 0;
 
 export function* loadDictionarySaga() {
   const languageCode = yield select(store => store.language.selectedLanguage.code);
@@ -88,61 +92,79 @@ export function* addMeaningSaga(action) {
 }
 
 export function* editMeaningRemarkSaga(action) {
-  if (!action.remark || action.remark.trim().length === 0) {
-    return;
-  }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.setMeaningRemark(branch, action.remark));
+  if (action.remark && action.remark.trim().length > 0) {
+    yield put(actions.setMeaningRemark(branch, action.remark));
+  } else {
+    yield put(actions.deleteMeaningRemark(branch));
+  }
   yield* saveDictionarySaga();
 }
 
 export function* editTranslationSaga(action) {
-  if (!action.translation || action.translation.trim().length === 0) {
-    return;
-  }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.setTranslation(branch, action.index, action.translation));
+  if (action.translation && action.translation.trim().length > 0) {
+    yield put(actions.setTranslation(branch, action.index, action.translation));
+  } else {
+    yield put(actions.deleteTranslation(branch, action.index));
+  }
   yield* saveDictionarySaga();
 }
 
 export function* editElaborationSaga(action) {
-  if (!action.elaboration || action.elaboration.trim().length === 0) {
-    return;
-  }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.setElaboration(branch, action.index, action.elaboration));
+  if (action.elaboration && action.elaboration.trim().length > 0) {
+    yield put(actions.setElaboration(branch, action.index, action.elaboration));
+  } else {
+    yield put(actions.deleteElaboration(branch, action.index));
+  }
   yield* saveDictionarySaga();
 }
 
 export function* editExampleRemarkSaga(action) {
-  if (!action.remark || action.remark.trim().length === 0) {
-    return;
-  }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.setExampleRemark(branch, action.index, action.remark));
+  if (action.remark && action.remark.trim().length > 0) {
+    yield put(actions.setExampleRemark(branch, action.index, action.remark));
+  } else {
+    yield put(actions.deleteExampleRemark(branch, action.index));
+  }
   yield* saveDictionarySaga();
 }
 
 export function* editExampleExpressionSaga(action) {
-  if (!action.expression || action.expression.trim().length === 0) {
-    return;
-  }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.setExampleExpression(branch, action.index, action.expression));
+  const { expression } = action;
+  if (!isBlank(expression)) {
+    yield put(actions.setExampleExpression(branch, action.index, expression));
+  } else {
+    yield put(actions.deleteExampleExpression(branch, action.index));
+  }
+  const explanationPath = getExamplePath({ ...branch, exIndex: action.index }) + '.explanation';
+  const explanation = yield select(store => _.get(store.dictionary.loadedDictionary, explanationPath));
+  if (isBlank(expression) && isBlank(explanation)) {
+    yield put(actions.deleteExample(branch, action.index));
+  }
   yield* saveDictionarySaga();
 }
 
 export function* editExampleExplanationSaga(action) {
-  if (!action.explanation || action.explanation.trim().length === 0) {
-    return;
-  }
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.setExampleExplanation(branch, action.index, action.explanation));
+  const { explanation } = action;
+  if (!isBlank(explanation)) {
+    yield put(actions.setExampleExplanation(branch, action.index, explanation));
+  } else {
+    yield put(actions.deleteExampleExplanation(branch, action.index));
+  }
+  const expressionPath = getExamplePath({ ...branch, exIndex: action.index }) + '.expression';
+  const expression = yield select(store => _.get(store.dictionary.loadedDictionary, expressionPath));
+  if (isBlank(expression) && isBlank(explanation)) {
+    yield put(actions.deleteExample(branch, action.index));
+  }
   yield* saveDictionarySaga();
 }

@@ -181,6 +181,11 @@ export const setMeaningRemark = ({ wordIndex, sbIndex, posIndex, mIndex }, remar
   remark,
 });
 
+export const deleteMeaningRemark = ({ wordIndex, sbIndex, posIndex, mIndex }) => ({
+  type: actionTypes.DELETE_MEANING_REMARK,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
+});
+
 export const editTranslation = ({ sbIndex, posIndex, mIndex}, index, translation) => ({
   type: actionTypes.EDIT_TRANSLATION,
   branch: { sbIndex, posIndex, mIndex },
@@ -193,6 +198,12 @@ export const setTranslation = ({ wordIndex, sbIndex, posIndex, mIndex }, index, 
   branch: { wordIndex, sbIndex, posIndex, mIndex },
   index,
   translation,
+});
+
+export const deleteTranslation = ({ wordIndex, sbIndex, posIndex, mIndex }, index) => ({
+  type: actionTypes.DELETE_TRANSLATION,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
+  index,
 });
 
 export const editElaboration = ({ sbIndex, posIndex, mIndex }, index, elaboration) => ({
@@ -209,44 +220,74 @@ export const setElaboration = ({ wordIndex, sbIndex, posIndex, mIndex }, index, 
   elaboration,
 });
 
-export const editExampleRemark = ({ sbIndex, posIndex, mIndex}, index, remark) => ({
+export const deleteElaboration= ({ wordIndex, sbIndex, posIndex, mIndex }, index) => ({
+  type: actionTypes.DELETE_ELABORATION,
+  branch: { wordIndex, sbIndex, posIndex, mIndex  },
+  index,
+});
+
+export const editExampleRemark = ({ sbIndex, posIndex, mIndex }, index, remark) => ({
   type: actionTypes.EDIT_EXAMPLE_REMARK,
   branch: { sbIndex, posIndex, mIndex},
   index,
   remark,
 });
 
-export const setExampleRemark = ({ wordIndex, sbIndex, posIndex, mIndex}, index, remark) => ({
+export const setExampleRemark = ({ wordIndex, sbIndex, posIndex, mIndex }, index, remark) => ({
   type: actionTypes.SET_EXAMPLE_REMARK,
   branch: { wordIndex, sbIndex, posIndex, mIndex},
   index,
   remark,
 });
 
-export const editExampleExpression = (branch, index, expression) => ({
+export const deleteExampleRemark = ({ wordIndex, sbIndex, posIndex, mIndex }, index ) => ({
+  type: actionTypes.DELETE_EXAMPLE_REMARK,
+  branch: { wordIndex, sbIndex, posIndex, mIndex},
+  index,
+});
+
+export const editExampleExpression = ({ wordIndex, sbIndex, posIndex, mIndex }, index, expression) => ({
   type: actionTypes.EDIT_EXAMPLE_EXPRESSION,
-  branch,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
   index,
   expression,
 });
 
-export const setExampleExpression = (branch, index, expression) => ({
+export const setExampleExpression = ({ wordIndex, sbIndex, posIndex, mIndex }, index, expression) => ({
   type: actionTypes.SET_EXAMPLE_EXPRESSION,
-  branch,
+  branch: { wordIndex, sbIndex, posIndex, mIndex},
   index,
   expression,
 });
 
-export const editExampleExplanation = (branch, index, explanation) => ({
+export const deleteExampleExpression = ({ wordIndex, sbIndex, posIndex, mIndex }, index) => ({
+  type: actionTypes.DELETE_EXAMPLE_EXPRESSION,
+  branch: { wordIndex, sbIndex, posIndex, mIndex},
+  index,
+});
+
+export const editExampleExplanation = ({ wordIndex, sbIndex, posIndex, mIndex }, index, explanation) => ({
   type: actionTypes.EDIT_EXAMPLE_EXPLANATION,
-  branch,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
   index,
   explanation,
 });
 
-export const setExampleExplanation = (branch, index, explanation) => ({
+export const setExampleExplanation = ({ wordIndex, sbIndex, posIndex, mIndex }, index, explanation) => ({
   type: actionTypes.SET_EXAMPLE_EXPLANATION,
-  branch,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
   index,
   explanation,
+});
+
+export const deleteExampleExplanation = ({ wordIndex, sbIndex, posIndex, mIndex }, index) => ({
+  type: actionTypes.DELETE_EXAMPLE_EXPLANATION,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
+  index,
+});
+
+export const deleteExample = ({ wordIndex, sbIndex, posIndex, mIndex }, index) => ({
+  type: actionTypes.DELETE_EXAMPLE,
+  branch: { wordIndex, sbIndex, posIndex, mIndex },
+  index,
 });

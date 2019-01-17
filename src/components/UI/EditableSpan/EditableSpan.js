@@ -80,9 +80,12 @@ class EditableSpan extends Component {
         char = this.state.value.charAt(i);
       } while (i++ < this.state.value.length && char === ' ');
 
-      while (i < this.state.value.length && char !== ' ') {
+      while (i < this.state.value.length && char !== ' ' && char !=='.') {
         char = this.state.value.charAt(i);
         i++;
+      }
+      if (char === '.') {
+        i--;
       }
       this.setState({ cursorPosition: Math.min(i, this.state.value.length) });
     };
