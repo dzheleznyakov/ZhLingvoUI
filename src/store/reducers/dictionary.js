@@ -55,7 +55,7 @@ const setWordName = (state, action) => {
 const addTranscription = (state) => {
   const branch = { wordIndex: state.selectedWordIndex };
   const transcriptionsPath = getWordPath(branch) + '.transcriptions';
-  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], ''));
+  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], '###'));
 };
 
 const deleteTranscription = (state, action) => {
