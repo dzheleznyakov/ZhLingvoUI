@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 
 import styles from './Transcriptions.module.scss';
 
-import PlusButton from '../../../UI/PlusButton/PlusButton';
-
 import Transcription from '../Transcription/Transcription';
+import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import * as actions from '../../../../store/actions/';
 
 const transcriptions = (props) => {
-  const addTranscriptionButton = props.editMode 
-    ? <PlusButton size="small" clicked={props.createTranscription} />
+  const addTranscriptionButton = props.editMode
+    ? <PromptSpan edited={props.createTranscription} prefix='[' postfix='] ' />
     : null;
 
   const transcriptionEntries = props.transcriptions || [];
@@ -37,7 +36,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createTranscription: () => dispatch(actions.addTranscription()),
+    createTranscription: (value) => dispatch(actions.createTranscription(value)),
     editTranscription: (transcription, index) => dispatch(actions.editTranscription(transcription, index)),
   };
 };

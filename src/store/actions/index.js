@@ -17,6 +17,7 @@ export {
   setEditMode,
   editWordName,
   setWordName,
+  createTranscription,
   addTranscription,
   deleteTranscription,
   editTranscription,

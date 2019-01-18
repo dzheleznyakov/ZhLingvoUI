@@ -82,7 +82,7 @@ export const loadDictionary = (languageCode) => {
         ],
         }, {
           word: 'do',
-          // transcriptions: ['duː'],
+          transcriptions: ['duː'],
         }, {
           word: 'dog',
           transcriptions: ['dɒɡ'],

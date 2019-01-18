@@ -52,10 +52,10 @@ const setWordName = (state, action) => {
   return setInDictionary(state, wordNamePath, action.wordName);
 };
 
-const addTranscription = (state) => {
+const addTranscription = (state, action) => {
   const branch = { wordIndex: state.selectedWordIndex };
   const transcriptionsPath = getWordPath(branch) + '.transcriptions';
-  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], '###'));
+  return updateInDictionary(state, transcriptionsPath, (tr) => _.concat(tr || [], action.transcription));
 };
 
 const deleteTranscription = (state, action) => {

@@ -61,11 +61,15 @@ export const setWordName = (wordName, wordIndex) => {
   };
 };
 
-export const addTranscription = () => {
-  return {
-    type: actionTypes.ADD_TRANSCRIPTION,
-  };
-};
+export const createTranscription = (transcription) => ({
+  type: actionTypes.CREATE_TRANSCRIPTION,
+  transcription
+});
+
+export const addTranscription = (transcription) => ({
+  type: actionTypes.ADD_TRANSCRIPTION,
+  transcription,
+});
 
 export const deleteTranscription = (index, wordIndex) => {
   return {

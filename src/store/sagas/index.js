@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import { loadLanguagesSaga, selectLanguageSaga } from './language';
@@ -6,6 +6,7 @@ import {
   loadDictionarySaga,
   loadPartsOfSpeechesSaga,
   editWordNameSaga,
+  createTranscriptionSaga,
   editTranscriptionSaga,
   createSemanticBlockSaga,
   removeSemanticBlockAndSaveDictionarySaga,
@@ -30,8 +31,10 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_DICTIONARY, loadDictionarySaga);
   yield takeEvery(actionTypes.LOAD_PARTS_OF_SPEECHES, loadPartsOfSpeechesSaga);
 
-  yield takeLatest(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
-  yield takeLatest(actionTypes.EDIT_TRANSCRIPTION, editTranscriptionSaga);
+  yield takeEvery(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
+
+  yield takeEvery(actionTypes.CREATE_TRANSCRIPTION, createTranscriptionSaga);
+  yield takeEvery(actionTypes.EDIT_TRANSCRIPTION, editTranscriptionSaga);
   
   yield takeEvery(actionTypes.CREATE_SEMANTIC_BLOCK, createSemanticBlockSaga);
   yield takeEvery(actionTypes.REMOVE_SEMANTIC_BLOCK_AND_SAVE_DICTIONARY, removeSemanticBlockAndSaveDictionarySaga);
