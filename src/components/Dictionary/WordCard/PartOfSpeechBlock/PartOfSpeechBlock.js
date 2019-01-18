@@ -34,7 +34,10 @@ const partOfSpeechBlock = (props) => {
         translations={meaning.translations} 
         remark={meaning.remark} 
         branch={{ ...props.branch, mIndex: i }} />
-      <Examples branch={{ ...props.branch, mIndex: i }} index={i} examples={meaning.examples} />
+      <Examples 
+        branch={{ ...props.branch, mIndex: i }} 
+        index={i} 
+        examples={meaning.examples} />
     </li>
   ));
 
