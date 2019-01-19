@@ -157,17 +157,19 @@ export const deletePartOfSpeech = (wordIndex, sbIndex, posIndex, partOfSpeech) =
   };
 };
 
-export const addMeaning = (sbIndex, posIndex) => {
+export const addMeaning = ({ sbIndex, posIndex }, translation) => {
   return {
     type: actionTypes.ADD_MEANING,
-    branch: { sbIndex, posIndex }
+    branch: { sbIndex, posIndex },
+    translation,
   };
 };
 
-export const createMeaning = ({ wordIndex, sbIndex, posIndex }) => {
+export const createMeaning = ({ wordIndex, sbIndex, posIndex }, translation) => {
   return {
     type: actionTypes.CREATE_MEANING,
     branch: { wordIndex, sbIndex, posIndex },
+    translation,
   };
 };
 

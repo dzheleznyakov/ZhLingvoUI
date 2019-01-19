@@ -1,14 +1,16 @@
 import classes from './PromptSpan.module.scss';
 import AbstractEditableSpan from '../AbstractEditableSpan/AbstractEditableSpan';
 
-const placeholder = '...';
-
 class PromptSpan extends AbstractEditableSpan {
-  state = {
-    value: placeholder,
-    cursorPosition: placeholder.length,
-    active: false,
-  };
+  constructor(props) {
+    super(props);
+    this.placeholder = props.placeholder || '...';
+    this.state = {
+      value: this.placeholder,
+      cursorPosition: this.placeholder.length,
+      active: false,
+    };
+  }
 
   componentWillReceiveProps() {
   }
@@ -23,7 +25,7 @@ class PromptSpan extends AbstractEditableSpan {
 
   onBlur = () => {
     const value = this.state.value;
-    this.setState({ active: false, value: placeholder, cursorPosition: placeholder.length });
+    this.setState({ active: false, value: this.placeholder, cursorPosition: this.placeholder.length });
     if (this.props.edited && value && value.trim().length > 0) {
       this.props.edited(value);
     }

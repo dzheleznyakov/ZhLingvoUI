@@ -90,7 +90,8 @@ const deletePartOfSpeech = (state, action) => {
 
 const createMeaning = (state, action) => {
   const meaningsPath = getPartOfSpeechPath(action.branch) + '.meanings';
-  return updateInDictionary(state, meaningsPath, (m) => _.concat(m || [], { translations: [] }));
+  return updateInDictionary(state, meaningsPath, 
+    (m) => _.concat(m || [], { translations: [{ translation: action.translation }] }));
 };
 
 const setMeaningRemark = (state, action) => {

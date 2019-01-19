@@ -1,16 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import classes from './Meanings.module.scss';
+
 import Remark from '../Remark/Remark';
 import Translation from '../Translation/Translation';
 import Elaboration from '../Elaboration/Elaboration';
+import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import * as actions from '../../../../store/actions/';
 
 const meanings = (props) => {
-  const remark = props.remark ? <Remark 
-    key={'remark'}
-    edited={(remark) => props.editRemark(props.branch, remark)}
-    postfix=' '>{props.remark}</Remark> : null;
+  const remark = props.remark ? (
+    <Remark 
+      key='remark'
+      edited={(remark) => props.editRemark(props.branch, remark)}
+      postfix=' '>{props.remark}
+    </Remark>
+   ) : props.editMode ? (
+     <PromptSpan 
+      key='remark' 
+      cssClasses={classes.RemarkPlaceholder}
+      edited={(newRemark) => props.editRemark(props.branch, newRemark)} 
+      postfix=' ' 
+      placeholder='##' />
+   ) : null;
 
   let meaning = null;
   if (props.translations) {
@@ -21,9 +34,15 @@ const meanings = (props) => {
       const length = tArray.length;
       const span = (<span key={`t${index}`}>
         <Translation edited={onTranslationEdited(index)}>{translation}</Translation>
-        {elaboration 
-          ? <Elaboration edited={onElaborationEdited(index)}>{elaboration}</Elaboration> 
-          : null}
+        {elaboration ? (
+          <Elaboration edited={onElaborationEdited(index)}>{elaboration}</Elaboration> 
+        ) : props.editMode ? (
+          <PromptSpan
+            cssClasses={classes.ElaborationPlaceholder}
+            edited={onElaborationEdited(index)}
+            prefix=" ("
+            postfix=")" />
+        ) : null}
         {index < length - 1 ? '; ' : ''}
       </span>);
       arr.push(span);

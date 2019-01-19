@@ -43,6 +43,7 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.REMOVE_PART_OF_SPEECH_AND_SAVE_DICTIONARY, removePartOfSpeechAndSaveDicitonarySaga);
 
   yield takeEvery(actionTypes.ADD_MEANING, addMeaningSaga);
+
   yield takeEvery(actionTypes.EDIT_MEANING_REMARK, editMeaningRemarkSaga);
   yield takeEvery(actionTypes.EDIT_TRANSLATION, editTranslationSaga);
   yield takeEvery(actionTypes.EDIT_ELABORATION, editElaborationSaga);

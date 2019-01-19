@@ -90,7 +90,7 @@ export function* removePartOfSpeechAndSaveDicitonarySaga(action) {
 export function* addMeaningSaga(action) {
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
-  yield put(actions.createMeaning(branch));
+  yield put(actions.createMeaning(branch, action.translation));
   yield* saveDictionarySaga();
 }
 

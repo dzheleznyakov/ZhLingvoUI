@@ -1,9 +1,9 @@
 @import "../../../../static/styles/classes";
 
-.Example {
-  color: grey;
-}
-
 .RemarkPlaceholder {
   color: map-get($colors, remark);
+}
+
+.ElaborationPlaceholder {
+  font-style: italic;
 }

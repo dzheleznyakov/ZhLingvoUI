@@ -5,6 +5,7 @@ import styles from './PartOfSpeechBlock.module.scss';
 
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
+import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import MinusButton from '../../../UI/MinusButton/MinusButton';
 import * as actions from '../../../../store/actions/';
 
@@ -41,6 +42,15 @@ const partOfSpeechBlock = (props) => {
     </li>
   ));
 
+  if (props.editMode) {
+    const index = meaningEntries.length;
+    meaningEntries.push((
+      <li className={styles.MeaningEntry} key={`m${index}`}>
+        <PromptSpan edited={translation => props.addMeaning(props.branch, translation)}/>
+      </li>
+    ));
+  }
+
   return (
     <li className={wrapperClasses.join(' ')}>
       <span className={styles.PartOfSpeech}>{props.partOfSpeech}</span>
@@ -52,16 +62,13 @@ const partOfSpeechBlock = (props) => {
   )
 };
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     editMode: state.dictionary.editMode,
-  };
-};
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     removePartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.removePartOfSpeechAndSaveDictionary(sbIndex, partOfSpeech)),
-  };
-};
+    addMeaning: (branch, translation) => dispatch(actions.addMeaning(branch, translation)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(partOfSpeechBlock);
