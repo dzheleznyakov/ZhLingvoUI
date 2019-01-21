@@ -21,7 +21,7 @@ const wordCard = (props) => {
   if (props.editMode) {
     semanticBlocks.push(<div 
       key="addSB" 
-      className={styles['plus-button-wrapper']}
+      className={styles.PlusButtonWrapper}
     >
       <PlusButton clicked={props.createSemanticBlock} />
     </div>)
@@ -29,10 +29,10 @@ const wordCard = (props) => {
 
   return (
     <div>
-      <div className={styles['word-card-wrapper']}>
+      <div className={styles.WordCardWrapper}>
         <WordCardControl />
-        <div className={styles['word-card-container']}>
-          <div className={styles['word-card']}>
+        <div className={styles.WordCardContainer}>
+          <div className={styles.WordCard}>
             <WordName>{entry.word}</WordName>
             <Transcriptions transcriptions={entry.transcriptions} />
             {semanticBlocks}

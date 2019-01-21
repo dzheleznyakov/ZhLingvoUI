@@ -1,11 +1,11 @@
 @import "../../../static/styles/variables";
 
-.word-card-wrapper {
+.WordCardWrapper {
   position: relative;
   display: inline-block;
 }
 
-.word-card-container {
+.WordCardContainer {
   position: relative;
   z-index: 10;
   border: $standard-border;
@@ -20,20 +20,13 @@
   border-radius: 3px;
 }
 
-.word-card {
+.WordCard {
   padding: 4px;
   display: flex;
   flex-flow: column;
 }
 
-.transcriptions {
-  margin: 4px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-}
-
-.plus-button-wrapper {
+.PlusButtonWrapper {
   margin: 4px;
   border-top: 1px solid #a39f9f;
 }
