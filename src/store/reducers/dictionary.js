@@ -94,6 +94,11 @@ const createMeaning = (state, action) => {
     (m) => _.concat(m || [], { translations: [{ translation: action.translation }] }));
 };
 
+const deleteMeaning = (state, action) => {
+  const meaningsPath = getPartOfSpeechPath(action.branch) + '.meanings';
+  return updateInDictionary(state, meaningsPath, meanings => removeFromArray(meanings, action.index));
+}
+
 const setMeaningRemark = (state, action) => {
   const remarkPath = getMeaningPath(action.branch) + '.remark';
   return setInDictionary(state, remarkPath, action.remark);
@@ -111,7 +116,10 @@ const setTranslation = (state, action) => {
 
 const deleteTranslation = (state, action) => {
   const translationsPath = getMeaningPath(action.branch) + '.translations';
-  return updateInDictionary(state, translationsPath, translations => removeFromArray(translations, action.index));
+  return updateInDictionary(state, translationsPath, translations => {
+    const updatedTranslations = removeFromArray(translations, action.index)
+    return updatedTranslations.length === 0 ? undefined : updatedTranslations;
+  });
 }
 
 const setElaboration = (state, action) => {
@@ -156,7 +164,10 @@ const deleteExampleExplanation = (state, action) => {
 
 const deleteExample = (state, action) => {
   const examplesPath = getMeaningPath(action.branch) + 'examples';
-  return updateInDictionary(state, examplesPath, examples => removeFromArray(examples, action.index));
+  return updateInDictionary(state, examplesPath, examples => {
+    const updatedExmaples = removeFromArray(examples, action.index);
+    return updatedExmaples.length === 0 ? undefined : updatedExmaples;
+  });
 };
 
 const reducer = (state = initialState, action) => {
@@ -175,6 +186,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SET_PART_OF_SPEECH: return setPartOfSpeech(state, action);
     case actionTypes.DELETE_PART_OF_SPEECH: return deletePartOfSpeech(state, action);
     case actionTypes.CREATE_MEANING: return createMeaning(state, action);
+    case actionTypes.DELETE_MEANING: return deleteMeaning(state, action);
     case actionTypes.SET_MEANING_REMARK: return setMeaningRemark(state, action);
     case actionTypes.DELETE_MEANING_REMARK: return deleteMeaningRemark(state, action);
     case actionTypes.SET_TRANSLATION: return setTranslation(state, action);

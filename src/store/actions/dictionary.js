@@ -165,13 +165,17 @@ export const addMeaning = ({ sbIndex, posIndex }, translation) => {
   };
 };
 
-export const createMeaning = ({ wordIndex, sbIndex, posIndex }, translation) => {
-  return {
+export const createMeaning = ({ wordIndex, sbIndex, posIndex }, translation) => ({
     type: actionTypes.CREATE_MEANING,
     branch: { wordIndex, sbIndex, posIndex },
     translation,
-  };
-};
+});
+
+export const deleteMeaning = ({ wordIndex, sbIndex, posIndex }, index) => ({
+  type: actionTypes.DELETE_MEANING,
+  branch: { wordIndex, sbIndex, posIndex },
+  index,
+});
 
 export const editMeaningRemark = ({ sbIndex, posIndex, mIndex }, remark) => {
   return {

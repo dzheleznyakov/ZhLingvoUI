@@ -32,6 +32,7 @@ export {
   deletePartOfSpeech,
   addMeaning,
   createMeaning,
+  deleteMeaning,
   editMeaningRemark,
   setMeaningRemark,
   deleteMeaningRemark,

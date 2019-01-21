@@ -6,7 +6,7 @@ import {
   saveDictionary, 
   loadPartsOfSpeech,
 } from '../../async/dictionary';
-import { getExamplePath } from '../../utils/branches';
+import { getExamplePath, getMeaningPath } from '../../utils/branches';
 import * as actions from '../actions/';
 
 export function* loadDictionarySaga() {
@@ -105,6 +105,14 @@ export function* editMeaningRemarkSaga(action) {
   yield* saveDictionarySaga();
 }
 
+function* deleteMeaningIfNecessarySaga(branch) {
+  const meaningPath = getMeaningPath(branch);
+    const meaning = yield select(store => _.get(store.dictionary.loadedDictionary, meaningPath));
+    if (!meaning.translations && !meaning.examples) {
+      yield put(actions.deleteMeaning(branch, branch.mIndex));
+    }
+}
+
 export function* editTranslationSaga(action) {
   const wordIndex = yield select(store => store.dictionary.selectedWordIndex);
   const branch = { ...action.branch, wordIndex };
@@ -112,6 +120,7 @@ export function* editTranslationSaga(action) {
     yield put(actions.setTranslation(branch, action.index, action.translation));
   } else {
     yield put(actions.deleteTranslation(branch, action.index));
+    yield* deleteMeaningIfNecessarySaga(branch);
   }
   yield* saveDictionarySaga();
 }
@@ -151,6 +160,7 @@ export function* editExampleExpressionSaga(action) {
   const explanation = yield select(store => _.get(store.dictionary.loadedDictionary, explanationPath));
   if (!expression && !explanation) {
     yield put(actions.deleteExample(branch, action.index));
+    yield* deleteMeaningIfNecessarySaga(branch);
   }
   yield* saveDictionarySaga();
 }
@@ -168,6 +178,7 @@ export function* editExampleExplanationSaga(action) {
   const expression = yield select(store => _.get(store.dictionary.loadedDictionary, expressionPath));
   if (!expression && !explanation) {
     yield put(actions.deleteExample(branch, action.index));
+    yield* deleteMeaningIfNecessarySaga(branch);
   }
   yield* saveDictionarySaga();
 }
