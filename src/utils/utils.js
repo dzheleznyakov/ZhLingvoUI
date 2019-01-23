@@ -11,6 +11,12 @@ export const updateArray = (oldArray, elementIndex, newElement) => {
   return newArray;
 };
 
+export const addToArray = (oldArray, index, element) => {
+  const newArray = oldArray.slice(0, index);
+  newArray.push(element);
+  return newArray.concat(oldArray.slice(index));
+};
+
 export const removeFromArray = (oldArray, elementInex) => {
   const prefix = oldArray.slice(0, elementInex);
   const postfix = oldArray.slice(elementInex + 1);

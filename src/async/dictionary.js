@@ -17,12 +17,15 @@ export const loadDictionary = (languageCode) => {
       const savedDictionary = JSON.parse(localStorage.getItem(ENGLISH_LOCAL_STORAGE_KEY));
       return resolveDictionary(savedDictionary, [
         {
+          id: 'aa1',
           word: 'a',
           transcriptions: ['ə', 'eɪ'],
         }, {
+          id: 'aa2',
           word: 'book',
           transcriptions: ['bʊk'],
         }, {
+          id: 'aa3',
           word: 'box',
           transcriptions: ['bɒks'],
           semanticBlocks: [
@@ -81,27 +84,35 @@ export const loadDictionary = (languageCode) => {
           }]
         ],
         }, {
+          id: 'aa4',
           word: 'do',
           transcriptions: ['duː'],
         }, {
+          id: 'aa5',
           word: 'dog',
           transcriptions: ['dɒɡ'],
         }, {
+          id: 'aa6',
           word: 'green',
           transcriptions: ['ɡriːn'],
         }, {
+          id: 'aa7',
           word: 'just',
           transcriptions: ['dʒʌst'],
         }, {
+          id: 'aa8',
           word: 'keep',
           transcriptions: ['kiːp'],
         }, {
+          id: 'aa9',
           word: 'key',
           transcriptions: ['kiː'],
         }, {
+          id: 'aa10',
           word: 'mother',
           transcriptions: ['ˈmʌðə'],
         }, {
+          id: 'aa11',
           word: 'xenomorph',
         },
       ]);
@@ -138,3 +149,11 @@ export const saveDictionary = (languageCode, dictionary) => {
     default: return Promise.resolve();
   }
 };
+
+let counter = 1;
+
+export const addWord = (wordName) => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(`bb${counter++}`);
+  }, 10);
+});

@@ -1,0 +1,42 @@
+@import "../../../static/styles//variables";
+
+.CardControlWrapper {
+  display: flex;
+  transition: $standard-animation-time;
+}
+
+.ButtonAtLeft {
+  flex-flow: row-reverse;
+}
+
+.CardControl {
+  background-color: white;
+  border: $standard-border;
+  border-radius: $standard-border-radius;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.CardControlEntry {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > * {
+    margin: 4px;
+  }
+}
+
+.OpenToRight {
+  transform: translateX(75%);
+}
+
+.OpenToLeft {
+  transform: translateX(-74%);
+}
+
+.ArrowButtonAtLeft {
+  transform: rotateZ(180deg);
+}

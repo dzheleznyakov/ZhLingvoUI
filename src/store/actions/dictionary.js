@@ -1,65 +1,57 @@
 import * as actionTypes from './actionTypes';
 
-export const loadDictionary = () => {
-  return {
-    type: actionTypes.LOAD_DICTIONARY,
-  };
-};
+export const loadDictionary = () => ({
+  type: actionTypes.LOAD_DICTIONARY,
+});
 
-export const setDictionary = (dictionary) => {
-  return {
-    type: actionTypes.SET_DICTIONARY,
-    dictionary,
-  };
-};
+export const setDictionary = (dictionary) => ({
+  type: actionTypes.SET_DICTIONARY,
+  dictionary,
+});
 
-export const removeDictionary = () => {
-  return {
-    type: actionTypes.REMOVE_DICTIONARY,
-  };
-};
+export const removeDictionary = () => ({
+  type: actionTypes.REMOVE_DICTIONARY,
+});
 
-export const loadPartsOfSpeeches = () => {
-  return {
-    type: actionTypes.LOAD_PARTS_OF_SPEECHES,
-  };
-};
+export const loadPartsOfSpeeches = () => ({
+  type: actionTypes.LOAD_PARTS_OF_SPEECHES,
+});
 
-export const storePartsOfSpeech = (partsOfSpeech) => {
-  return {
-    type: actionTypes.STORE_PARTS_OF_SPEECHES,
-    partsOfSpeech,
-  };
-};
+export const storePartsOfSpeech = (partsOfSpeech) => ({
+  type: actionTypes.STORE_PARTS_OF_SPEECHES,
+  partsOfSpeech,
+});
 
-export const selectWord = (index) => {
-  return {
-    type: actionTypes.SELECT_WORD,
-    index,
-  };
-};
+export const selectWord = (index) => ({
+  type: actionTypes.SELECT_WORD,
+  index,
+});
 
-export const setEditMode = (editMode) => {
-  return {
-    type: actionTypes.SET_EDIT_MODE,
-    editMode,
-  };
-};
+export const createWord = (wordName) => ({
+  type: actionTypes.CREATE_WORD,
+  wordName,
+});
 
-export const editWordName = (wordName) => {
-  return {
-    type: actionTypes.EDIT_WORD_NAME,
-    wordName,
-  }
-};
+export const setWord = ({ id, word }) => ({
+  type: actionTypes.SET_WORD,
+  wordEntry: { id, word },
+});
 
-export const setWordName = (wordName, wordIndex) => {
-  return {
-    type: actionTypes.SET_WORD_NAME,
-    branch: { wordIndex },
-    wordName,
-  };
-};
+export const setEditMode = (editMode) => ({
+  type: actionTypes.SET_EDIT_MODE,
+  editMode,
+});
+
+export const editWordName = (wordName) => ({
+  type: actionTypes.EDIT_WORD_NAME,
+  wordName,
+});
+
+export const setWordName = (wordName, wordIndex) => ({
+  type: actionTypes.SET_WORD_NAME,
+  branch: { wordIndex },
+  wordName,
+});
 
 export const createTranscription = (transcription) => ({
   type: actionTypes.CREATE_TRANSCRIPTION,
@@ -71,43 +63,33 @@ export const addTranscription = (transcription) => ({
   transcription,
 });
 
-export const deleteTranscription = (index, wordIndex) => {
-  return {
-    type: actionTypes.DELETE_TRANSCRIPTION,
-    index,
-    branch: { wordIndex },
-  };
-};
+export const deleteTranscription = (index, wordIndex) => ({
+  type: actionTypes.DELETE_TRANSCRIPTION,
+  index,
+  branch: { wordIndex },
+});
 
-export const editTranscription = (transcription, index) => {
-  return {
-    type: actionTypes.EDIT_TRANSCRIPTION,
-    transcription,
-    index,
-  };
-};
+export const editTranscription = (transcription, index) => ({
+  type: actionTypes.EDIT_TRANSCRIPTION,
+  transcription,
+  index,
+});
 
-export const setTranscription = (transcription, index, wordIndex) => {
-  return {
-    type: actionTypes.SET_TRANSCRIPTION,
-    branch: { wordIndex },
-    index,
-    transcription,
-  };
-};
+export const setTranscription = (transcription, index, wordIndex) => ({
+  type: actionTypes.SET_TRANSCRIPTION,
+  branch: { wordIndex },
+  index,
+  transcription,
+});
 
-export const createSemanticBlock = () => {
-  return {
-    type: actionTypes.CREATE_SEMANTIC_BLOCK,
-  };
-};
+export const createSemanticBlock = () => ({
+  type: actionTypes.CREATE_SEMANTIC_BLOCK,
+});
 
-export const addSemanticBlock = (wordIndex) => {
-  return {
-    type: actionTypes.ADD_SEMANTIC_BLOCK,
-    branch: { wordIndex },
-  };
-};
+export const addSemanticBlock = (wordIndex) => ({
+  type: actionTypes.ADD_SEMANTIC_BLOCK,
+  branch: { wordIndex },
+});
 
 export const removeSemanticBlockAndSaveDictionary = (index) => {
   return {

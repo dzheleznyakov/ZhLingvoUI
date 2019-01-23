@@ -5,6 +5,7 @@ import {
   loadDictionary, 
   saveDictionary, 
   loadPartsOfSpeech,
+  addWord,
 } from '../../async/dictionary';
 import { getExamplePath, getMeaningPath } from '../../utils/branches';
 import * as actions from '../actions/';
@@ -19,6 +20,13 @@ export function* loadPartsOfSpeechesSaga() {
   const languageCode = yield select(store => store.language.selectedLanguage.code);
   const partsOfSpeech = yield call(loadPartsOfSpeech, languageCode);
   yield put(actions.storePartsOfSpeech(partsOfSpeech));
+}
+
+export function* createWordSaga(action) {
+  const word = action.wordName;
+  const id = yield call(addWord, word);
+  yield put(actions.setWord({ id, word }));
+  yield* saveDictionarySaga();
 }
 
 function* saveDictionarySaga() {

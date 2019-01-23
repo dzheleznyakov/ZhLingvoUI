@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Toolbar.module.css';
+import styles from './Toolbar.module.scss';
 
 import NavigationItems from '../NavigationItems/NavigationItems';
 

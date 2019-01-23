@@ -1,14 +1,14 @@
 import React from 'react';
 
-import styles from './arrow-button.module.scss';
+import classes from './ArrowButton.module.scss';
 
 const arrowButton = (props) => {
-  const arrowClasses=[styles['arrow']];
+  const arrowClasses=[classes.Arrow];
   if (props.open) {
-    arrowClasses.push(styles['open']);
+    arrowClasses.push(classes.Open);
   }
 
-  const buttonClasses = [styles['arrow-button']];
+  const buttonClasses = [classes.ArrowButton];
   if (props.buttonStyle) {
     buttonClasses.push(props.buttonStyle);
   }

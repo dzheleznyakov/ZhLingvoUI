@@ -5,6 +5,7 @@ import { loadLanguagesSaga, selectLanguageSaga } from './language';
 import { 
   loadDictionarySaga,
   loadPartsOfSpeechesSaga,
+  createWordSaga,
   editWordNameSaga,
   createTranscriptionSaga,
   editTranscriptionSaga,
@@ -30,6 +31,8 @@ export function* watchLanguage() {
 export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_DICTIONARY, loadDictionarySaga);
   yield takeEvery(actionTypes.LOAD_PARTS_OF_SPEECHES, loadPartsOfSpeechesSaga);
+
+  yield takeEvery(actionTypes.CREATE_WORD, createWordSaga);
 
   yield takeEvery(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
 

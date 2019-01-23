@@ -12,6 +12,9 @@ export const LOAD_PARTS_OF_SPEECHES = 'LOAD_PARTS_OF_SPEECHES';
 export const STORE_PARTS_OF_SPEECHES = 'STORE_PARTS_OF_SPEECHES';
 
 export const SELECT_WORD = 'SELECT_WORD';
+export const CREATE_WORD = 'CREATE_WORD';
+export const SET_WORD = 'SET_WORD';
+
 export const SET_EDIT_MODE = 'SET_EDIT_MODE';
 
 export const EDIT_WORD_NAME = 'EDIT_WORD_NAME';

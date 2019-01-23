@@ -1,0 +1,37 @@
+@import "../../../../static//styles/variables";
+
+.NewWordPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-items: center;
+}
+
+.NewWordPanelPrompt {
+  display: inline-block;
+  margin: 16px;
+  padding: 16px;
+  border: $standard-border;
+  border-radius: $standard-border-radius;
+}
+
+.Input {
+  outline: none;
+  color: rgba(0,0,0,.87);
+  font-size: 1rem;
+  line-height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: $standard-border-radius;
+
+  &:focus {
+    border-top-color: $editable-span-border-color;
+    border-bottom-color: $editable-span-border-color;
+    border-left-color: white;
+    box-shadow: 0 1px 6px 0 rgba(#202124, 0.28);
+  }
+}
+
+.ButtonPane {
+  display: flex;
+  justify-content: space-between;
+}

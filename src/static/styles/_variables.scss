@@ -1,5 +1,10 @@
-$colors: (remark: #158918);
+$colors: (
+  remark: #158918,
+  main: #809fda,
+  danger: #944317
+);
 $standard-border: 2px solid gray;
+$standard-border-radius: 3px;
 $standard-animation-time: 0.3s;
 
 $editable-span-border-color: #dfe1e5;

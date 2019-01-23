@@ -1,10 +1,22 @@
+@import "../../../static//styles/variables";
+
 .DictionaryListWrapper {
-  border: 1px solid black;
-  width: 200px;
-  height: 100px;
-  overflow: scroll;
+  position: relative;
+  display: inline-block;
   grid-area: list;
   justify-self: right;
+}
+
+.DictionaryListContainer {
+  border: $standard-border;
+  border-radius: $standard-border-radius;
+  background-color: white;
+  position: relative;
+  z-index: 10;
+  width: 200px;
+  height: 500px;
+  overflow: scroll;
+  
 }
 
 .DictionaryList {

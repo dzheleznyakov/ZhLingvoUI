@@ -14,6 +14,8 @@ export {
   loadPartsOfSpeeches,
   storePartsOfSpeech,
   selectWord,
+  createWord,
+  setWord,
   setEditMode,
   editWordName,
   setWordName,

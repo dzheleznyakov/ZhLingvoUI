@@ -1,49 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './word-card-control.module.scss';
+import classes from './WordCardControl.module.scss';
 
 import ToggleButton from '../../../UI/ToggleButton/ToggleButton';
-import ArrowButton from '../../../UI/ArrowButton/ArrowButton';
+import ControlPanel from '../../../UI/ControlPanel/ControlPanel';
 import * as actions from '../../../../store/actions/';
 
-class WordCardControl extends Component {
-  state = {
-    showControlPanel: false,
+const wordCardControl = (props) => {
+  const onExpansionToggled = () => {
+    props.setEditMode(false);
   };
-
-  onExpansionToggled = () => {
-    this.setState({ 
-      showControlPanel: !this.state.showControlPanel, 
-    });
-    this.props.setEditMode(false);
+  const onEditToggled = () => {
+      props.setEditMode(!props.editMode);
   };
-
-  onEditToggled = () => {
-      this.props.setEditMode(!this.props.editMode);
-  };
-
-  render() {
-    const cardConrtrolStyle = [styles['word-card-control']];
-    if (this.state.showControlPanel) {
-      cardConrtrolStyle.push(styles['open']);
-    }
-
-    return (
-      <div className={cardConrtrolStyle.join(' ')}>
-        <ArrowButton 
-          buttonStyle={styles['arrow-button-style']} 
-          open={this.state.showControlPanel}
-          clicked={this.onExpansionToggled} 
-        />
-        <div className={styles['word-card-control-entry']}>
-            <label><strong>Edit</strong></label>
-            <ToggleButton checked={this.props.editMode} toggled={this.onEditToggled} />
-        </div>
-      </div>
-    );
-  }
-}
+  const entries = [{
+    label: 'Edit',
+    element: <ToggleButton checked={props.editMode} toggled={onEditToggled} />,
+  }];
+  return <ControlPanel 
+    type='Right'
+    className={classes.WordCardControl}
+    onExpansionToggled={onExpansionToggled}
+    entries={entries} />
+};
 
 const mapStateToProps = state => {
   return {
@@ -57,4 +37,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WordCardControl);
+export default connect(mapStateToProps, mapDispatchToProps)(wordCardControl);

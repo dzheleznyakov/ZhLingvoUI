@@ -1,12 +1,12 @@
 @import "../../../static/styles/variables";
 @import "../../../static/styles/classes";
 
-.arrow-button {
+.ArrowButton {
   padding: 0;
   cursor: pointer;
 }
 
-.arrow {
+.Arrow {
   width: 32px;
   height: 32px;
   padding: 0;
@@ -28,6 +28,6 @@
   }
 }
 
-.open {
+.Open {
   transform: rotateZ(180deg)
 }

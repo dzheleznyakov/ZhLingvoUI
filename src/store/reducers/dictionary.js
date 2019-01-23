@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import * as actionTypes from '../actions/actionTypes';
-import { updateObject, removeFromArray } from '../../utils/utils';
+import { updateObject, removeFromArray, addToArray } from '../../utils/utils';
 import { getWordPath, getSemanticBlockPath, getPartOfSpeechPath, getMeaningPath } from '../../utils/branches';
 
 const initialState = {
@@ -9,6 +9,22 @@ const initialState = {
   partsOfSpeech: [],
   selectedWordIndex: -1,
   editMode: false,
+};
+
+const findIndexOfTheNextWord = (state, wordName) => {
+  const dictionary = state.loadedDictionary;
+  let lo = 0, hi = dictionary.length - 1;
+  while (lo < hi) {
+    const mi = Math.floor((lo + hi) / 2);
+    if (wordName < dictionary[mi].word) {
+      hi = mi - 1;
+    } else if (wordName === dictionary[mi]) {
+      return mi;
+    } else {
+      lo = mi + 1;
+    }
+  }
+  return wordName < dictionary[lo].word ? lo : lo + 1;
 };
 
 const setDictionary = (state, action) => {
@@ -29,6 +45,17 @@ const storePartsOfSpeech = (state, action) => {
 
 const selectWord = (state, action) => {
   return updateObject(state, { selectedWordIndex: action.index });
+};
+
+const setWord = (state, action) => {
+  const { wordEntry } = action;
+  const index = findIndexOfTheNextWord(state, wordEntry.word);
+  const updatedDictionary = addToArray(state.loadedDictionary, index, wordEntry);
+  const updatedState = updateObject(state, { 
+    loadedDictionary: updatedDictionary, 
+    selectedWordIndex: index,
+  });
+  return updatedState;
 };
 
 const setEditMode = (state, action) => {
@@ -176,6 +203,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REMOVE_DICTIONARY: return removeDictionary(state, action);
     case actionTypes.STORE_PARTS_OF_SPEECHES: return storePartsOfSpeech(state, action);
     case actionTypes.SELECT_WORD: return selectWord(state, action);
+    case actionTypes.SET_WORD: return setWord(state, action);
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
     case actionTypes.ADD_TRANSCRIPTION: return addTranscription(state, action);

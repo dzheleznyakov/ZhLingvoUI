@@ -1,0 +1,40 @@
+@import "../../../static/styles/variables";
+
+.Button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+
+  &:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+
+  // &:first-of-type {
+  //   margin-left: 0;
+  //   padding-left: 0;
+  // }
+}
+
+.Success {
+  color: map-get($colors, main);
+  
+  &:hover{
+    border-bottom-color: map-get($colors, main);
+  }
+}
+
+.Danger {
+  color: map-get($colors, danger);
+
+  &:hover {
+    border-bottom-color: map-get($colors, danger);
+  }
+}
