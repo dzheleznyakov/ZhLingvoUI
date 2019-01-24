@@ -1,4 +1,6 @@
 const ENGLISH_LOCAL_STORAGE_KEY = 'EnglishDictionary';
+const SPANISH_LOCAL_STORAGE_KEY = 'SpanishDictionary';
+const RUSSIAN_LOCAL_STORAGE_KEY = 'RussianDictionary';
 
 const resolveDictionary = (savedDictionary, defaultDictionary) => new Promise(resolve => {
   setTimeout(() => {
@@ -12,9 +14,10 @@ const resolveDictionary = (savedDictionary, defaultDictionary) => new Promise(re
 });
 
 export const loadDictionary = (languageCode) => {
+  let savedDictionary;
   switch (languageCode) {
     case 'En':
-      const savedDictionary = JSON.parse(localStorage.getItem(ENGLISH_LOCAL_STORAGE_KEY));
+      savedDictionary = JSON.parse(localStorage.getItem(ENGLISH_LOCAL_STORAGE_KEY));
       return resolveDictionary(savedDictionary, [
         {
           id: 'aa1',
@@ -116,6 +119,12 @@ export const loadDictionary = (languageCode) => {
           word: 'xenomorph',
         },
       ]);
+    case 'Es':
+      savedDictionary = JSON.parse(localStorage.getItem(SPANISH_LOCAL_STORAGE_KEY));
+      return resolveDictionary(savedDictionary, []);
+    case 'Ru':
+      savedDictionary = JSON.parse(localStorage.getItem(RUSSIAN_LOCAL_STORAGE_KEY));
+      return resolveDictionary(savedDictionary, []);  
     default:
       return resolveDictionary([]);
   }
@@ -146,6 +155,8 @@ const resolveSavingDictionary = (key, dictionary) => new Promise(resolve => {
 export const saveDictionary = (languageCode, dictionary) => {
   switch (languageCode) {
     case 'En': return resolveSavingDictionary(ENGLISH_LOCAL_STORAGE_KEY, dictionary);
+    case 'Es': return resolveSavingDictionary(SPANISH_LOCAL_STORAGE_KEY, dictionary);
+    case 'Ru': return resolveSavingDictionary(RUSSIAN_LOCAL_STORAGE_KEY, dictionary);
     default: return Promise.resolve();
   }
 };

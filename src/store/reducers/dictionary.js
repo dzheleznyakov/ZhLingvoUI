@@ -13,6 +13,9 @@ const initialState = {
 
 const findIndexOfTheNextWord = (state, wordName) => {
   const dictionary = state.loadedDictionary;
+  if (!dictionary.length) {
+    return 0;
+  }
   let lo = 0, hi = dictionary.length - 1;
   while (lo < hi) {
     const mi = Math.floor((lo + hi) / 2);

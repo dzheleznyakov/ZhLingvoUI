@@ -10,6 +10,12 @@ import {
 import { getExamplePath, getMeaningPath } from '../../utils/branches';
 import * as actions from '../actions/';
 
+function* saveDictionarySaga() {
+  const languageCode = yield select(store => store.language.selectedLanguage.code);
+  const dictionary = yield select(store => store.dictionary.loadedDictionary);
+  yield saveDictionary(languageCode, dictionary);
+}
+
 export function* loadDictionarySaga() {
   const languageCode = yield select(store => store.language.selectedLanguage.code);
   const dictionary = yield call(loadDictionary, languageCode);
@@ -24,7 +30,7 @@ export function* loadPartsOfSpeechesSaga() {
 
 export function* createWordSaga(action) {
   const word = action.wordName;
-  if (word.trim().length) {
+  if (word && word.trim().length) {
     const id = yield call(addWord, word);
     yield put(actions.setWord({ id, word }));
     yield* saveDictionarySaga();
@@ -34,12 +40,6 @@ export function* createWordSaga(action) {
 export function* removeWordAndSaveDictionarySaga() {
   yield put(actions.deleteWord());
   yield* saveDictionarySaga();
-}
-
-function* saveDictionarySaga() {
-  const languageCode = yield select(store => store.language.selectedLanguage.code);
-  const dictionary = yield select(store => store.dictionary.loadedDictionary);
-  yield saveDictionary(languageCode, dictionary);
 }
 
 export function* editWordNameSaga(action) {
