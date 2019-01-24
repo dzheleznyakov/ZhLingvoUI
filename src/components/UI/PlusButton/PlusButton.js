@@ -5,7 +5,7 @@ import styles from './PlusButton.module.scss';
 
 const plusButton = (props) => {
   const size = props.size || 'large';
-  let classes = _.concat([styles.PlusButton, styles[size]], props.classes);
+  let classes = [styles.PlusButton, styles[size], props.classes];
   classes = _.compact(classes);
   return (
     <button className={classes.join(' ')} onClick={props.clicked} />

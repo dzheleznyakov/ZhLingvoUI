@@ -1,12 +1,5 @@
 @import "../../../../static//styles/variables";
 
-.NewWordPanel {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-items: center;
-}
-
 .NewWordPanelPrompt {
   display: inline-block;
   margin: 16px;
@@ -29,9 +22,4 @@
     border-left-color: white;
     box-shadow: 0 1px 6px 0 rgba(#202124, 0.28);
   }
-}
-
-.ButtonPane {
-  display: flex;
-  justify-content: space-between;
 }

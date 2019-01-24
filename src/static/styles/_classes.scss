@@ -18,3 +18,17 @@
   min-height: $size;
   max-height: $size;
 }
+
+@mixin largeButton {
+  width: map-get($sizes, large);
+  height: map-get($sizes, large);
+}
+
+@mixin smallButton {
+  width: map-get($sizes, small);
+  height: map-get($sizes, small);
+}
+
+@mixin mediumButton {
+  
+}

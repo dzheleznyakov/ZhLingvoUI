@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import classes from './NewWordPanel.module.scss';
 
-import Button from '../../../UI/Button/Button';
+import DialogPanel from '../../../UI/DialogPanel/DialogPanel';
 
 class NewWordPanel extends Component {
   state = {
@@ -38,7 +38,7 @@ class NewWordPanel extends Component {
     this.focus();
 
     return (
-      <div className={classes.NewWordPanel}>
+      <DialogPanel canceled={this.props.canceled} confirmed={this.onConfirmed}>
         <div className={classes.NewWordPanelPrompt}>
           <label><strong>Enter new word: </strong></label>
           <input 
@@ -48,11 +48,7 @@ class NewWordPanel extends Component {
             onKeyUp={this.onKeyUp}
             ref={input => { this.input = input }} />
         </div>
-        <div className={classes.ButtonPane}>
-          <Button btnType={'Danger'} clicked={this.props.canceled}>Cancel</Button>
-          <Button btnType={'Success'} clicked={this.onConfirmed}>OK</Button>
-        </div>
-      </div>
+      </DialogPanel>
     );
   }
 }

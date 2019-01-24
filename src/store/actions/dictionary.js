@@ -37,6 +37,14 @@ export const setWord = ({ id, word }) => ({
   wordEntry: { id, word },
 });
 
+export const removeWordAndSaveDictionary = () => ({
+  type: actionTypes.REMOVE_WORD_AND_SAVE_DICTIONARY,
+});
+
+export const deleteWord = () => ({
+  type: actionTypes.DELETE_WORD,
+});
+
 export const setEditMode = (editMode) => ({
   type: actionTypes.SET_EDIT_MODE,
   editMode,

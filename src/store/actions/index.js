@@ -16,6 +16,8 @@ export {
   selectWord,
   createWord,
   setWord,
+  removeWordAndSaveDictionary,
+  deleteWord,
   setEditMode,
   editWordName,
   setWordName,

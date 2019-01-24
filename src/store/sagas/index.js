@@ -7,6 +7,7 @@ import {
   loadPartsOfSpeechesSaga,
   createWordSaga,
   editWordNameSaga,
+  removeWordAndSaveDictionarySaga,
   createTranscriptionSaga,
   editTranscriptionSaga,
   createSemanticBlockSaga,
@@ -33,6 +34,7 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_PARTS_OF_SPEECHES, loadPartsOfSpeechesSaga);
 
   yield takeEvery(actionTypes.CREATE_WORD, createWordSaga);
+  yield takeEvery(actionTypes.REMOVE_WORD_AND_SAVE_DICTIONARY, removeWordAndSaveDictionarySaga);
 
   yield takeEvery(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
 

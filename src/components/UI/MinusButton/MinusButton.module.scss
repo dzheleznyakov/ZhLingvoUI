@@ -6,8 +6,8 @@
   background-color: #ccc;
   cursor: pointer;
   position: relative;
-  width: 20px;
-  height: 20px;
+  // width: 20px;
+  // height: 20px;
   border-radius: 50%;
 
   &::before {
@@ -24,4 +24,12 @@
   &:focus {
     outline: none;
   }
+}
+
+.large {
+  @include largeButton();
+}
+
+.small {
+  @include smallButton();
 }

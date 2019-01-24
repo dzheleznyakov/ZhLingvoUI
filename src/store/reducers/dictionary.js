@@ -54,8 +54,24 @@ const setWord = (state, action) => {
   const updatedState = updateObject(state, { 
     loadedDictionary: updatedDictionary, 
     selectedWordIndex: index,
+    editMode: true,
   });
   return updatedState;
+};
+
+const deleteWord = (state) => {
+  if (state.selectedWordIndex < 0) {
+    return state;
+  }
+  const newSelectedWordIndex = state.selectedWordIndex === state.loadedDictionary.length - 1
+    ? -1
+    : state.selectedWordIndex - 2;
+  const updatedDictionary = removeFromArray(state.loadedDictionary, state.selectedWordIndex);
+  return updateObject(state, { 
+    loadedDictionary: updatedDictionary,
+    selectedWordIndex: newSelectedWordIndex,
+    editMode: false,
+  });
 };
 
 const setEditMode = (state, action) => {
@@ -204,6 +220,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.STORE_PARTS_OF_SPEECHES: return storePartsOfSpeech(state, action);
     case actionTypes.SELECT_WORD: return selectWord(state, action);
     case actionTypes.SET_WORD: return setWord(state, action);
+    case actionTypes.DELETE_WORD: return deleteWord(state, action);
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
     case actionTypes.ADD_TRANSCRIPTION: return addTranscription(state, action);

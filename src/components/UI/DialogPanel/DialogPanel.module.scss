@@ -1,0 +1,11 @@
+.DialogPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-items: center;
+}
+
+.ButtonPane {
+  display: flex;
+  justify-content: space-between;
+}

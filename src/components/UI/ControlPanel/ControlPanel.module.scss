@@ -2,6 +2,7 @@
 
 .CardControlWrapper {
   display: flex;
+  align-items: flex-start;
   transition: $standard-animation-time;
 }
 
@@ -13,9 +14,8 @@
   background-color: white;
   border: $standard-border;
   border-radius: $standard-border-radius;
-  display: inline-flex;
-  justify-content: flex-end;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   border-radius: 3px;
 }
 

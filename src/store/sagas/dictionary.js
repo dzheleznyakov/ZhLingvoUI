@@ -24,8 +24,15 @@ export function* loadPartsOfSpeechesSaga() {
 
 export function* createWordSaga(action) {
   const word = action.wordName;
-  const id = yield call(addWord, word);
-  yield put(actions.setWord({ id, word }));
+  if (word.trim().length) {
+    const id = yield call(addWord, word);
+    yield put(actions.setWord({ id, word }));
+    yield* saveDictionarySaga();
+  }
+}
+
+export function* removeWordAndSaveDictionarySaga() {
+  yield put(actions.deleteWord());
   yield* saveDictionarySaga();
 }
 
