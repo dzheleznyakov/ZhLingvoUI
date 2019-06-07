@@ -1,13 +1,6 @@
-export const loadLanguagesFromServer = () => {
-  const languages = [
-    { code: 'En', name: 'English' }, 
-    { code: 'Es', name: 'Español' }, 
-    { code: 'Ru', name: 'Русский' },
-  ];
+import axios from './axios-api';
 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(languages);
-    }, 200);
-  });
-};
+export const loadLanguagesFromServer = () => axios.get('/languages')
+    .then(res => res.data)
+    .catch(err => console.error(err));
+    

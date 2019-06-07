@@ -1,3 +1,5 @@
+import axios from './axios-api';
+
 const ENGLISH_LOCAL_STORAGE_KEY = 'EnglishDictionary';
 const SPANISH_LOCAL_STORAGE_KEY = 'SpanishDictionary';
 const RUSSIAN_LOCAL_STORAGE_KEY = 'RussianDictionary';
@@ -130,19 +132,10 @@ export const loadDictionary = (languageCode) => {
   }
 };
 
-const resolvePartsOfSpeeches = (partsOfSpeeches) => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(partsOfSpeeches);
-  });
-});
-
 export const loadPartsOfSpeech = (languageCode) => {
-  switch (languageCode) {
-    case 'En':
-      return resolvePartsOfSpeeches(['noun', 'verb', 'adj']);
-    default: 
-      return resolvePartsOfSpeeches([]);
-  }
+  return axios.get(`/partsOfSpeeches/${languageCode}`)
+    .then(res => res.data)
+    .catch(err => console.error(err));
 };
 
 const resolveSavingDictionary = (key, dictionary) => new Promise(resolve => {
