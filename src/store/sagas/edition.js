@@ -112,3 +112,11 @@ export function* editExampleRemarkSaga(action) {
   const payload = { data: remark };
   yield* updateWordSaga(PUT, url, payload, CONTENT_TYPE_APPLICATION_JSON);
 }
+
+export function* removeWordAndSaveDictionarySaga() {
+  const url = (lang, id) => `/words/${lang}/${id}`;
+  yield* updateWordSaga(DELETE, url);
+  yield put(actions.loadDictionary());
+  // yield put(actions.deleteWord());
+  // yield* saveDictionarySaga();
+}

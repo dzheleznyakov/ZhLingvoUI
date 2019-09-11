@@ -45,8 +45,3 @@ export function* saveWordSaga(action) {
   const upatedWordEntry = yield call(saveWord, wordEntry, languageCode);
   yield put(actions.setFetchedWord(upatedWordEntry));
 }
-
-export function* removeWordAndSaveDictionarySaga() {
-  yield put(actions.deleteWord());
-  yield* saveDictionarySaga();
-}

@@ -8,7 +8,6 @@ import {
   createWordSaga,
   fetchWordSaga,
   saveWordSaga,
-  removeWordAndSaveDictionarySaga,
 } from './dictionary';
 import {
   editWordNameSaga,
@@ -25,6 +24,7 @@ import {
   editExampleRemarkSaga,
   editExampleExpressionSaga,
   editExampleExplanationSaga,
+  removeWordAndSaveDictionarySaga,
 } from './edition';
 import { loadConfigSaga } from './config';
 
