@@ -10,7 +10,7 @@ import MinusButton from '../../../UI/MinusButton/MinusButton';
 import * as actions from '../../../../store/actions/';
 
 const semanticBlock = (props) => {
-  const block = props.loadedDictionary[props.wordIndex].semanticBlocks[props.index];
+  const block = props.fetchedWord.semanticBlocks[props.index];
   const partOfSpeeches = block.map((pos, i) => 
     <PartOfSpeechBlock 
       key={pos.type} 
@@ -56,7 +56,7 @@ const semanticBlock = (props) => {
 
 const mapStateToProps = state => {
   return {
-    loadedDictionary: state.dictionary.loadedDictionary,
+    fetchedWord: state.dictionary.fetchedWord,
     wordIndex: state.dictionary.selectedWordIndex,
   };
 };

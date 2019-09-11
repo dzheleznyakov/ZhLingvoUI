@@ -29,8 +29,9 @@ const wordEntry = (props) => {
     classes.push(styles.selected)
   }
 
-  const clicked = () => {
+  const clicked = () => {    
     props.selectWord(props.pos);
+    props.fetchWord(props.wordId);
     props.setEditModeFalse();
   };
 
@@ -47,6 +48,7 @@ const wordEntry = (props) => {
 
 const mapStateToDispatch = dispatch => {
   return {
+    fetchWord: (id) => dispatch(actions.fetchWord(id)),
     selectWord: (position) => dispatch(actions.selectWord(position)),
     setEditModeFalse: () => dispatch(actions.setEditMode(false))
   };

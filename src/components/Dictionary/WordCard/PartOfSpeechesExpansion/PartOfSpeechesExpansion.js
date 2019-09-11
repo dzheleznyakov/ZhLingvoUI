@@ -18,7 +18,7 @@ class PartOfSpeechesExpansion extends Component {
 
   onOptionClicked = (partOfSpeech) => {
     this.setState({ dropped: false });
-    this.props.addPartOfSpeech(this.props.semanticBlockIndex, partOfSpeech);
+    this.props.createPartOfSpeech(this.props.semanticBlockIndex, partOfSpeech);
   }
 
   render() {
@@ -46,7 +46,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.addPartOfSpeech(sbIndex, partOfSpeech)),
+    createPartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.createPartOfSpeech(sbIndex, partOfSpeech)),
   };
 };
 

@@ -46,7 +46,7 @@ const partOfSpeechBlock = (props) => {
     const index = meaningEntries.length;
     meaningEntries.push((
       <li className={styles.MeaningEntry} key={`m${index}`}>
-        <PromptSpan edited={translation => props.addMeaning(props.branch, translation)}/>
+        <PromptSpan edited={translation => props.createMeaning(props.branch, translation)}/>
       </li>
     ));
   }
@@ -68,7 +68,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     removePartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.removePartOfSpeechAndSaveDictionary(sbIndex, partOfSpeech)),
-    addMeaning: (branch, translation) => dispatch(actions.addMeaning(branch, translation)),
+    createMeaning: (branch, translation) => dispatch(actions.createMeaning(branch, translation)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(partOfSpeechBlock);

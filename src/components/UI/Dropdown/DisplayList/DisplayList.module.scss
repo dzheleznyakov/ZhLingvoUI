@@ -1,4 +1,8 @@
 .DisplayList {
   width: 100%;
   overflow: scroll;
+
+  li {
+    cursor: pointer;
+  }
 }

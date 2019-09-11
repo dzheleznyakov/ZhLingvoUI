@@ -12,13 +12,14 @@ import * as actions  from '../../../store/actions/';
 
 const wordCard = (props) => {
   const entry = props.wordEntry;
+  const { editMode } = props;
 
   let semanticBlocks = [];
   if (entry.semanticBlocks && entry.semanticBlocks.length) {
     semanticBlocks = entry.semanticBlocks
-      .map((sb, i) => <SemanticBlock key={i} index={i} editMode={props.editMode} />)
+      .map((sb, i) => <SemanticBlock key={`sb${i}`} index={i} editMode={editMode} />)
   }
-  if (props.editMode) {
+  if (editMode) {
     semanticBlocks.push(<div 
       key="addSB" 
       className={styles.PlusButtonWrapper}

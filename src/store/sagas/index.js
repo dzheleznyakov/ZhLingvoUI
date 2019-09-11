@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
 import { loadLanguagesSaga, selectLanguageSaga } from './language';
@@ -6,22 +6,26 @@ import {
   loadDictionarySaga,
   loadPartsOfSpeechesSaga,
   createWordSaga,
-  editWordNameSaga,
+  fetchWordSaga,
+  saveWordSaga,
   removeWordAndSaveDictionarySaga,
+} from './dictionary';
+import {
+  editWordNameSaga,
   createTranscriptionSaga,
   editTranscriptionSaga,
   createSemanticBlockSaga,
-  removeSemanticBlockAndSaveDictionarySaga,
-  addPartOfSpeechSaga,
-  removePartOfSpeechAndSaveDicitonarySaga,
-  addMeaningSaga,
+  deleteSemanticBlockSaga,
+  createPartOfSpeechSaga,
+  deletePartOfSpeech,
+  createMeaningSaga,
   editMeaningRemarkSaga,
   editTranslationSaga,
   editElaborationSaga,
   editExampleRemarkSaga,
   editExampleExpressionSaga,
   editExampleExplanationSaga,
-} from './dictionary';
+} from './edition';
 import { loadConfigSaga } from './config';
 
 export function* watchLanguage() {
@@ -34,6 +38,8 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_PARTS_OF_SPEECHES, loadPartsOfSpeechesSaga);
 
   yield takeEvery(actionTypes.CREATE_WORD, createWordSaga);
+  yield takeLatest(actionTypes.FETCH_WORD, fetchWordSaga);
+  yield takeEvery(actionTypes.SAVE_WORD, saveWordSaga)
   yield takeEvery(actionTypes.REMOVE_WORD_AND_SAVE_DICTIONARY, removeWordAndSaveDictionarySaga);
 
   yield takeEvery(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
@@ -42,12 +48,12 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.EDIT_TRANSCRIPTION, editTranscriptionSaga);
   
   yield takeEvery(actionTypes.CREATE_SEMANTIC_BLOCK, createSemanticBlockSaga);
-  yield takeEvery(actionTypes.REMOVE_SEMANTIC_BLOCK_AND_SAVE_DICTIONARY, removeSemanticBlockAndSaveDictionarySaga);
+  yield takeEvery(actionTypes.DELETE_SEMANTIC_BLOCK, deleteSemanticBlockSaga);
 
-  yield takeEvery(actionTypes.ADD_PART_OF_SPEECH, addPartOfSpeechSaga);
-  yield takeEvery(actionTypes.REMOVE_PART_OF_SPEECH_AND_SAVE_DICTIONARY, removePartOfSpeechAndSaveDicitonarySaga);
+  yield takeEvery(actionTypes.CREATE_PART_OF_SPEECH, createPartOfSpeechSaga);
+  yield takeEvery(actionTypes.DELETE_PART_OF_SPEECH, deletePartOfSpeech);
 
-  yield takeEvery(actionTypes.ADD_MEANING, addMeaningSaga);
+  yield takeEvery(actionTypes.CREATE_MEANING, createMeaningSaga);
 
   yield takeEvery(actionTypes.EDIT_MEANING_REMARK, editMeaningRemarkSaga);
   yield takeEvery(actionTypes.EDIT_TRANSLATION, editTranslationSaga);

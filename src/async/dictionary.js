@@ -1,21 +1,9 @@
 import axios from './axios-api';
 
-const ENGLISH_LOCAL_STORAGE_KEY = 'EnglishDictionary';
-const SPANISH_LOCAL_STORAGE_KEY = 'SpanishDictionary';
-const RUSSIAN_LOCAL_STORAGE_KEY = 'RussianDictionary';
-
-const resolveDictionary = (savedDictionary, defaultDictionary) => new Promise(resolve => {
-  setTimeout(() => {
-    if (savedDictionary) {
-      resolve(savedDictionary);
-    } else {
-      localStorage.setItem(ENGLISH_LOCAL_STORAGE_KEY, JSON.stringify(defaultDictionary));
-      resolve(defaultDictionary);
-    }
-  }, 50);
-});
-
 export const loadDictionary = (languageCode) => {
+  return axios.get(`/dictionaries/${languageCode}`)
+    .then(res => (res.data && res.data.words) || []);
+  /*
   let savedDictionary;
   switch (languageCode) {
     case 'En':
@@ -130,6 +118,7 @@ export const loadDictionary = (languageCode) => {
     default:
       return resolveDictionary([]);
   }
+  */
 };
 
 export const loadPartsOfSpeech = (languageCode) => {
@@ -138,26 +127,8 @@ export const loadPartsOfSpeech = (languageCode) => {
     .catch(err => console.error(err));
 };
 
-const resolveSavingDictionary = (key, dictionary) => new Promise(resolve => {
-  setTimeout(() => {
-    localStorage.setItem(key, JSON.stringify(dictionary));
-    resolve();
-  }, 50);
-});
-
 export const saveDictionary = (languageCode, dictionary) => {
-  switch (languageCode) {
-    case 'En': return resolveSavingDictionary(ENGLISH_LOCAL_STORAGE_KEY, dictionary);
-    case 'Es': return resolveSavingDictionary(SPANISH_LOCAL_STORAGE_KEY, dictionary);
-    case 'Ru': return resolveSavingDictionary(RUSSIAN_LOCAL_STORAGE_KEY, dictionary);
-    default: return Promise.resolve();
-  }
+  return axios.put(`/dictionaries/${languageCode}`, dictionary)
+    .then(res => console.log('RESULT', res))
+    .catch(err => console.log('ERROR', err));
 };
-
-let counter = 1;
-
-export const addWord = (wordName) => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(`bb${counter++}`);
-  }, 10);
-});

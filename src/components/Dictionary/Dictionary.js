@@ -24,8 +24,9 @@ class Dictionary extends Component {
   renderWordCard = () => {
     if (this.props.dictionary && this.props.selectedWordIndex >= 0) {
       const index = this.props.selectedWordIndex;
+      const fetchedWord = this.props.fetchedWord;
       const wordEntry = this.props.dictionary[index];
-      return <WordCard wordEntry={wordEntry} />;
+      return <WordCard wordEntry={fetchedWord || wordEntry} />;
     }
     return null;
   };
@@ -46,6 +47,7 @@ const mapStateToProps = state => {
   return {
     dictionary: state.dictionary.loadedDictionary,
     selectedWordIndex: state.dictionary.selectedWordIndex,
+    fetchedWord: state.dictionary.fetchedWord,
   };
 };
 

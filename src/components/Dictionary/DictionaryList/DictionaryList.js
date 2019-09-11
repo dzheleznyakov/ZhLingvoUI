@@ -18,7 +18,8 @@ class DictionaryList extends Component {
                 key={index}
                 pos={index}
                 numberOfPos={this.props.dictionary.length}
-                word={entry.word} 
+                word={entry.word}
+                wordId={entry.id}
                 selected={index === this.props.selectedWordIndex}
               />)}
           </ul>
