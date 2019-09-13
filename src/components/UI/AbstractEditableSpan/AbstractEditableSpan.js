@@ -12,7 +12,7 @@ class AbstractEditableSpan extends Component {
       active: false,
     };
 
-  componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({ value: nextProps.value });
   }
 

@@ -9,7 +9,7 @@ const DELETE = 'delete';
 
 const CONTENT_TYPE_APPLICATION_JSON = { 'Content-Type': 'application/json' };
 
-export function* updateWordSaga(method, url, payload, headers = {}) {
+function* updateWordSaga(method, url, payload, headers = {}) {
   const languageCode = yield select(store => store.language.selectedLanguage.code);
   const wordId = yield select(store => store.dictionary.fetchedWord.id);
   const textAxiosConfig = { headers: { 'Content-Type': 'text/plain', ...headers } };
@@ -113,10 +113,25 @@ export function* editExampleRemarkSaga(action) {
   yield* updateWordSaga(PUT, url, payload, CONTENT_TYPE_APPLICATION_JSON);
 }
 
+export function* createWordSaga(action) {
+  const { wordName } = action;
+  if (wordName && wordName.trim().length) {
+    const lang = yield select(store => store.language.selectedLanguage.code);
+    const id = (yield call(axios.post, `/words/${lang}`, { data: wordName })).data;
+    yield put(actions.loadDictionary());
+    yield put(actions.setWord({ id, word: wordName }));
+    const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);
+    yield put(actions.selectWord(selectedWordIndex));
+    yield put(actions.fetchWord(id));
+  }
+}
+
 export function* removeWordAndSaveDictionarySaga() {
-  const url = (lang, id) => `/words/${lang}/${id}`;
-  yield* updateWordSaga(DELETE, url);
-  yield put(actions.loadDictionary());
-  // yield put(actions.deleteWord());
-  // yield* saveDictionarySaga();
+  const lang = yield select(store => store.language.selectedLanguage.code);
+  let wordId = yield select(store => store.dictionary.fetchedWord.id);
+  yield call(axios[DELETE], `/words/${lang}/${wordId}`);
+  yield put(actions.deleteWord());
+  const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);  
+  const selectedWordId = yield select(store => store.dictionary.loadedDictionary[selectedWordIndex].id);
+  yield put(actions.fetchWord(selectedWordId));
 }

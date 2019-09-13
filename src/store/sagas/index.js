@@ -5,7 +5,6 @@ import { loadLanguagesSaga, selectLanguageSaga } from './language';
 import { 
   loadDictionarySaga,
   loadPartsOfSpeechesSaga,
-  createWordSaga,
   fetchWordSaga,
   saveWordSaga,
 } from './dictionary';
@@ -24,6 +23,7 @@ import {
   editExampleRemarkSaga,
   editExampleExpressionSaga,
   editExampleExplanationSaga,
+  createWordSaga,
   removeWordAndSaveDictionarySaga,
 } from './edition';
 import { loadConfigSaga } from './config';

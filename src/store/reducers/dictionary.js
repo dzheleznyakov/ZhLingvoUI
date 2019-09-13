@@ -11,8 +11,7 @@ const initialState = {
   editMode: false,
 };
 
-const findIndexOfTheNextWord = (state, wordName) => {
-  const dictionary = state.loadedDictionary;
+const findWordIndexByName = (dictionary, wordName) => {
   if (!dictionary.length) {
     return 0;
   }
@@ -27,6 +26,12 @@ const findIndexOfTheNextWord = (state, wordName) => {
       lo = mi + 1;
     }
   }
+  return lo;
+};
+
+const findIndexOfTheNextWord = (state, wordName) => {
+  const dictionary = state.loadedDictionary;
+  const lo = findWordIndexByName(dictionary, wordName)
   return wordName < dictionary[lo].word ? lo : lo + 1;
 };
 
@@ -56,8 +61,9 @@ const setFetchedWord = (state, action) => {
 
 const setWord = (state, action) => {
   const { wordEntry } = action;
+  const dictionary = state.loadedDictionary;
   const index = findIndexOfTheNextWord(state, wordEntry.word);
-  const updatedDictionary = addToArray(state.loadedDictionary, index, wordEntry);
+  const updatedDictionary = addToArray(dictionary, index, wordEntry);
   const updatedState = updateObject(state, { 
     loadedDictionary: updatedDictionary, 
     selectedWordIndex: index,
@@ -71,8 +77,8 @@ const deleteWord = (state) => {
     return state;
   }
   const newSelectedWordIndex = state.selectedWordIndex === state.loadedDictionary.length - 1
-    ? -1
-    : state.selectedWordIndex - 2;
+    ? state.selectedWordIndex - 2
+    : state.selectedWordIndex;
   const updatedDictionary = removeFromArray(state.loadedDictionary, state.selectedWordIndex);
   return updateObject(state, { 
     loadedDictionary: updatedDictionary,

@@ -12,7 +12,7 @@ class PromptSpan extends AbstractEditableSpan {
     };
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
   }
 
   onSpanClicked = () => {

@@ -126,9 +126,3 @@ export const loadPartsOfSpeech = (languageCode) => {
     .then(res => res.data)
     .catch(err => console.error(err));
 };
-
-export const saveDictionary = (languageCode, dictionary) => {
-  return axios.put(`/dictionaries/${languageCode}`, dictionary)
-    .then(res => console.log('RESULT', res))
-    .catch(err => console.log('ERROR', err));
-};
