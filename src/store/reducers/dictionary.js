@@ -72,12 +72,12 @@ const setWord = (state, action) => {
   return updatedState;
 };
 
-const deleteWord = (state) => {
+const removeWordFromList = (state) => {
   if (state.selectedWordIndex < 0) {
     return state;
   }
   const newSelectedWordIndex = state.selectedWordIndex === state.loadedDictionary.length - 1
-    ? state.selectedWordIndex - 2
+    ? state.selectedWordIndex - 1
     : state.selectedWordIndex;
   const updatedDictionary = removeFromArray(state.loadedDictionary, state.selectedWordIndex);
   return updateObject(state, { 
@@ -110,7 +110,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SELECT_WORD: return selectWord(state, action);
     case actionTypes.SET_FETCHED_WORD: return setFetchedWord(state, action);
     case actionTypes.SET_WORD: return setWord(state, action);
-    case actionTypes.DELETE_WORD: return deleteWord(state, action);
+    case actionTypes.REMOVE_WORD_FROM_LIST: return removeWordFromList(state, action);
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);
     case actionTypes.SET_WORD_NAME: return setWordName(state, action);
     default: return state;

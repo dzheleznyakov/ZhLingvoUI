@@ -17,8 +17,8 @@ export const SAVE_WORD = 'SAVE_WORD';
 export const SELECT_WORD = 'SELECT_WORD';
 export const CREATE_WORD = 'CREATE_WORD';
 export const SET_WORD = 'SET_WORD';
-export const REMOVE_WORD_AND_SAVE_DICTIONARY = 'REMOVE_WORD_AND_SAVE_DICTIONARY';
-export const DELETE_WORD = 'DELETE_WORD';
+export const REMOVE_WORD = 'REMOVE_WORD';
+export const REMOVE_WORD_FROM_LIST = 'REMOVE_WORD_FROM_LIST';
 
 export const SET_EDIT_MODE = 'SET_EDIT_MODE';
 

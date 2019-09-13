@@ -52,12 +52,12 @@ export const setWord = ({ id, word }) => ({
   wordEntry: { id, word },
 });
 
-export const removeWordAndSaveDictionary = () => ({
-  type: actionTypes.REMOVE_WORD_AND_SAVE_DICTIONARY,
+export const removeWord = () => ({
+  type: actionTypes.REMOVE_WORD,
 });
 
-export const deleteWord = () => ({
-  type: actionTypes.DELETE_WORD,
+export const removeWordFromList = () => ({
+  type: actionTypes.REMOVE_WORD_FROM_LIST,
 });
 
 export const setEditMode = (editMode) => ({

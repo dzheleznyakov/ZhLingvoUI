@@ -104,7 +104,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createWord: (wordName) => dispatch(actions.createWord(wordName)),
-  removeWord: () => dispatch(actions.removeWordAndSaveDictionary()),
+  removeWord: () => dispatch(actions.removeWord()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DictionaryListControl);

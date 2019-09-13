@@ -126,11 +126,11 @@ export function* createWordSaga(action) {
   }
 }
 
-export function* removeWordAndSaveDictionarySaga() {
+export function* removeWordSaga() {
   const lang = yield select(store => store.language.selectedLanguage.code);
   let wordId = yield select(store => store.dictionary.fetchedWord.id);
   yield call(axios[DELETE], `/words/${lang}/${wordId}`);
-  yield put(actions.deleteWord());
+  yield put(actions.removeWordFromList());
   const selectedWordIndex = yield select(store => store.dictionary.selectedWordIndex);  
   const selectedWordId = yield select(store => store.dictionary.loadedDictionary[selectedWordIndex].id);
   yield put(actions.fetchWord(selectedWordId));

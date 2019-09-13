@@ -24,7 +24,7 @@ import {
   editExampleExpressionSaga,
   editExampleExplanationSaga,
   createWordSaga,
-  removeWordAndSaveDictionarySaga,
+  removeWordSaga,
 } from './edition';
 import { loadConfigSaga } from './config';
 
@@ -40,7 +40,7 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.CREATE_WORD, createWordSaga);
   yield takeLatest(actionTypes.FETCH_WORD, fetchWordSaga);
   yield takeEvery(actionTypes.SAVE_WORD, saveWordSaga)
-  yield takeEvery(actionTypes.REMOVE_WORD_AND_SAVE_DICTIONARY, removeWordAndSaveDictionarySaga);
+  yield takeEvery(actionTypes.REMOVE_WORD, removeWordSaga);
 
   yield takeEvery(actionTypes.EDIT_WORD_NAME, editWordNameSaga);
 
