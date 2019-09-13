@@ -34,9 +34,11 @@ class NewWordPanel extends Component {
     }
   };
 
-  render() {
+  componentDidMount() {
     this.focus();
+  }
 
+  render() {
     return (
       <DialogPanel canceled={this.props.canceled} confirmed={this.onConfirmed}>
         <div className={classes.NewWordPanelPrompt}>
