@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './NavigationItems.module.css';
+import classes from './NavigationItems.module.scss';
 
 import NavigationItem from './NavigationItem';
 import LanguageIcon from '../../Language/elements/LanguageIcon';
@@ -19,7 +19,7 @@ const navigationItems = (props) => {
   }
 
   return (
-    <ul className={styles.NavigationItems}>
+    <ul className={classes.NavigationItems}>
       {/* <NavigationItem link='/auth'>Auth</NavigationItem> */}
       <NavigationItem link='/language'>Language</NavigationItem>
       {learningPages}

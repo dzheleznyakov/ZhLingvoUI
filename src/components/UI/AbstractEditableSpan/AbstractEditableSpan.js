@@ -12,10 +12,6 @@ class AbstractEditableSpan extends Component {
       active: false,
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.value });
-  }
-
   onInterceptorCreated = (interceptor) => {
     this.interceptor = interceptor;
     if (interceptor) {

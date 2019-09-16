@@ -1,0 +1,19 @@
+.NavigationItem {
+  margin: 10px 0;
+  box-sizing: border-box;
+  padding: 0 8px;
+
+  a {
+    color: black;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+
+    &:hover,
+    &:Active, 
+    &.Active {
+      color: white;
+    }
+  }
+}
