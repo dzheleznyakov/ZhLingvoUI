@@ -7,8 +7,8 @@
 }
 
 .Arrow {
-  width: 32px;
-  height: 32px;
+  width: map-get($sizes, large);
+  height: map-get($sizes, large);
   padding: 0;
   position: relative;
   transition: $standard-animation-time;

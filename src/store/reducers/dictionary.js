@@ -8,6 +8,7 @@ const initialState = {
   partsOfSpeech: [],
   selectedWordIndex: -1,
   fetchedWord: null,
+  fetchedWordForms: null,
   editMode: false,
 };
 
@@ -55,9 +56,14 @@ const selectWord = (state, action) => {
   return updateObject(state, { selectedWordIndex: action.index });
 };
 
-const setFetchedWord = (state, action) => {
-  return updateObject(state, { fetchedWord: action.wordEntry });
-};
+const setFetchedWord = (state, action) => updateObject(state, { 
+  fetchedWord: action.wordEntry,
+  fetchedWordForms: null,
+});
+
+const setFetchedWordForms = (state, action) => updateObject(state, {
+  fetchedWordForms: action.forms,
+});
 
 const setWord = (state, action) => {
   const { wordEntry } = action;
@@ -109,6 +115,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.STORE_PARTS_OF_SPEECHES: return storePartsOfSpeech(state, action);
     case actionTypes.SELECT_WORD: return selectWord(state, action);
     case actionTypes.SET_FETCHED_WORD: return setFetchedWord(state, action);
+    case actionTypes.SET_FETCHED_WORD_FORMS: return setFetchedWordForms(state, action);
     case actionTypes.SET_WORD: return setWord(state, action);
     case actionTypes.REMOVE_WORD_FROM_LIST: return removeWordFromList(state, action);
     case actionTypes.SET_EDIT_MODE: return setEditMode(state, action);

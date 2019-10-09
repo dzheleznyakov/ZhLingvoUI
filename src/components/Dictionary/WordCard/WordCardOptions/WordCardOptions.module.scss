@@ -1,0 +1,19 @@
+@import "../../../../static/styles/variables";
+
+.WordFormsWrapper {
+  display: flex;
+  margin: 3px;
+  padding: 3px 3px 6px;
+  border-bottom: 1px solid gray;
+}
+
+@mixin setGeometry() {
+  width: map-get($sizes, large);
+  height: map-get($sizes, large);
+}
+
+.WordFormsButton {
+  @include setGeometry();
+  font-size: 16px;
+  font-weight: bold;
+}

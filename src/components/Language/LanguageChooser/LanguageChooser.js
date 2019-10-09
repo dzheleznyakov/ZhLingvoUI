@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import Language from '../elements/Language';
 import Dropdown from '../../UI/Dropdown/Dropdown';
@@ -7,65 +8,50 @@ import Spinner from '../../UI/Spinner/Spinner';
 import * as actions from '../../../store/actions/';
 import styles from './LanguageChooser.module.css';
 
-class LanguageChooser extends Component {
-  componentDidMount() {
-    this.props.loadLanguages();
-  }
+const languageChooser = props => {
+  const dispath = useDispatch();
 
-  renderDropdown = () => {
-    if (this.props.languages.length) {
-      const options = this.props.languages.map(lang => {
-        return (
-          <Language 
-            key={lang.code}
-            onclicked={() => this.props.onLanguageSelected(lang)}
-            code={lang.code}
-            name={lang.name}
-            size='Medium'
-          />
-        );
-      });
-      return <Dropdown options={options} select='language' />
-    }
+  const languages = useSelector(state => _.get(state, 'language.languages', []));
+  const selectedLanguage = useSelector(state => _.get(state, 'language.selectedLanguage'));
 
-    return <Spinner />
-  };
+  useEffect(() => {
+    dispath(actions.loadLanguages());
+  }, []);
 
-  render() {
-    const currentLanguage = this.props.selectedLanguage;
-    let currentLanguageMessage = <div>No language selected</div>;
-    if (currentLanguage) {
-      currentLanguageMessage = (<div>
-        Selected language:
+  let dropdown = <Spinner />;
+  if (languages.length) {
+    const options = languages.map(lang => {
+      return (
         <Language 
-          code={currentLanguage.code}
-          name={currentLanguage.name}
+          key={lang.code}
+          onclicked={() => dispath(actions.selectLanguage(lang.code, lang.name))}
+          code={lang.code}
+          name={lang.name}
           size='Medium'
         />
-      </div>);
-    }
+      );
+    });
+    dropdown = <Dropdown options={options} select='language' />
+  }
 
-    return (
-      <div className={styles.LanguageChooser}>
-        {currentLanguageMessage}
-        {this.renderDropdown()}
-      </div>
-    );
-  };
-}
+  let currentLanguageMessage = <div>No language selected</div>;
+  if (selectedLanguage) {
+    currentLanguageMessage = (<div>
+      Selected language:
+      <Language 
+        code={selectedLanguage.code}
+        name={selectedLanguage.name}
+        size='Medium'
+      />
+    </div>);
+  }
 
-const mapStateToProps = state => {
-  return {
-    languages: state.language.languages,
-    selectedLanguage: state.language.selectedLanguage,
-  };
+  return (
+    <div className={styles.LanguageChooser}>
+      {currentLanguageMessage}
+      {dropdown}
+    </div>
+  );
 };
 
-const mapDispatchToProps = dispath => {
-  return {
-    loadLanguages: () => dispath(actions.loadLanguages()),
-    onLanguageSelected: ({ code, name }) => dispath(actions.selectLanguage(code, name)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageChooser);
+export default languageChooser;

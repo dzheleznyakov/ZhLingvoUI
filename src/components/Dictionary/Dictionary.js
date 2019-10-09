@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import styles from './Dictionary.module.scss';
 
@@ -8,54 +9,35 @@ import Spinner from '../UI/Spinner/Spinner';
 import DictionaryList from './DictionaryList/DictionaryList';
 import WordCard from './WordCard/WordCard';
 
-class Dictionary extends Component {
-  componentDidMount() {
-    this.props.loadDictionary();
-    this.props.loadPartsOfSpeeches();
+const dictionary = props => {
+  const dispatch = useDispatch();
+
+  const dictionary = useSelector(state => _.get(state, 'dictionary.loadedDictionary'));
+  const selectedWordIndex = useSelector(state => _.get(state, 'dictionary.selectedWordIndex'));
+  const fetchedWord = useSelector(state => _.get(state, 'dictionary.fetchedWord'));
+
+  useEffect(() => {
+    dispatch(actions.loadDictionary());
+    dispatch(actions.loadPartsOfSpeeches())
+  }, []);
+
+  const dictionaryList = dictionary
+    ? <DictionaryList dictionary={dictionary} />
+    : <Spinner />;
+
+  let wordCard = null;
+  if (dictionary && selectedWordIndex >= 0) {
+    const index = selectedWordIndex;
+    const wordEntry = dictionary[index];
+    wordCard = <WordCard wordEntry={fetchedWord || wordEntry} />;
   }
 
-  renderDictionaryList = () => {
-    if (this.props.dictionary) {
-      return <DictionaryList dictionary={this.props.dictionary} />
-    }
-    return <Spinner />;
-  };
-
-  renderWordCard = () => {
-    if (this.props.dictionary && this.props.selectedWordIndex >= 0) {
-      const index = this.props.selectedWordIndex;
-      const fetchedWord = this.props.fetchedWord;
-      const wordEntry = this.props.dictionary[index];
-      return <WordCard wordEntry={fetchedWord || wordEntry} />;
-    }
-    return null;
-  };
-
-  render() {
-      const list = this.renderDictionaryList();
-      const card = this.renderWordCard();
-      return (
-        <div className={styles.Dictionary}>
-          {list}
-          {card}
-        </div>
-      );
-  }
+  return (
+    <div className={styles.Dictionary}>
+      {dictionaryList}
+      {wordCard}
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    dictionary: state.dictionary.loadedDictionary,
-    selectedWordIndex: state.dictionary.selectedWordIndex,
-    fetchedWord: state.dictionary.fetchedWord,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    loadDictionary: () => dispatch(actions.loadDictionary()),
-    loadPartsOfSpeeches: () => dispatch(actions.loadPartsOfSpeeches()),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dictionary);
+export default dictionary;

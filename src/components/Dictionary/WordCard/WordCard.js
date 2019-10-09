@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './WordCard.module.scss';
+import classes from './WordCard.module.scss';
 
 import WordCardControl from './WordCardControl/WordCardControl';
+import WordCardOptions from './WordCardOptions/WordCardOptions';
 import WordName from './WordName/WordName';
 import Transcriptions from './Transcriptions/Transcriptions';
 import SemanticBlock from './SemanticBlock/SemanticBlock';
@@ -22,7 +23,7 @@ const wordCard = (props) => {
   if (editMode) {
     semanticBlocks.push(<div 
       key="addSB" 
-      className={styles.PlusButtonWrapper}
+      className={classes.PlusButtonWrapper}
     >
       <PlusButton clicked={props.createSemanticBlock} />
     </div>)
@@ -30,13 +31,16 @@ const wordCard = (props) => {
 
   return (
     <div>
-      <div className={styles.WordCardWrapper}>
+      <div className={classes.WordCardWrapper}>
         <WordCardControl />
-        <div className={styles.WordCardContainer}>
-          <div className={styles.WordCard}>
-            <WordName>{entry.word}</WordName>
-            <Transcriptions transcriptions={entry.transcriptions} />
-            {semanticBlocks}
+        <div className={classes.WordCardContainer}>
+          <WordCardOptions />
+          <div className={classes.WordCardViewer}>
+            <div className={classes.WordCard}>
+              <WordName>{entry.word}</WordName>
+              <Transcriptions transcriptions={entry.transcriptions} />
+              {semanticBlocks}
+            </div>
           </div>
         </div>
       </div>

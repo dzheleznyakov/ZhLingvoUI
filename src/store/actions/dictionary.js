@@ -40,7 +40,17 @@ export const fetchWord = (id) => ({
 export const setFetchedWord = (wordEntry) => ({
   type: actionTypes.SET_FETCHED_WORD,
   wordEntry,
-})
+});
+
+export const getFetchedWordForms = (pos) => ({
+  type: actionTypes.GET_FETCHED_WORD_FORMS,
+  pos,
+});
+
+export const setFetchedWordForms = (forms) => ({
+  type: actionTypes.SET_FETCHED_WORD_FORMS,
+  forms,
+});
 
 export const saveWord = (wordEntry) => ({
   type: actionTypes.SAVE_WORD,
