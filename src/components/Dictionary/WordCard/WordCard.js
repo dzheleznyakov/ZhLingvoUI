@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 
 import classes from './WordCard.module.scss';
 
@@ -11,9 +12,11 @@ import SemanticBlock from './SemanticBlock/SemanticBlock';
 import PlusButton from '../../UI/PlusButton/PlusButton';
 import * as actions  from '../../../store/actions/';
 
-const wordCard = (props) => {
+const WordCard = (props) => {
+  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const dispatch = useDispatch();
+
   const entry = props.wordEntry;
-  const { editMode } = props;
 
   let semanticBlocks = [];
   if (entry.semanticBlocks && entry.semanticBlocks.length) {
@@ -25,7 +28,7 @@ const wordCard = (props) => {
       key="addSB" 
       className={classes.PlusButtonWrapper}
     >
-      <PlusButton clicked={props.createSemanticBlock} />
+      <PlusButton clicked={() => dispatch(actions.createSemanticBlock())} />
     </div>)
   }
 
@@ -48,16 +51,4 @@ const wordCard = (props) => {
   )
 };
 
-const mapStateToProps = state => {
-  return {
-    editMode: state.dictionary.editMode,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createSemanticBlock: () => dispatch(actions.createSemanticBlock()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(wordCard);
+export default WordCard;

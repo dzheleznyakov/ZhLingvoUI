@@ -28,7 +28,7 @@ const twoDimensions = ([d1, d2], wordForms) => {
   );
   const getTableLineData = (d2Key) => d1.map(({ first }) => first)
     .map(d1Key => ({ key: d1Key, valueKey: `${d1Key};${d2Key}` }))
-    .map(({ key, valueKey }) => ({ [key]: wordForms[valueKey] }))
+    .map(({ key, valueKey }) => ({ [key]: (wordForms && wordForms[valueKey]) || '' }))
     .reduce((acc, obj) => ({ ...acc, ...obj }), {});
   const data = d2.map(({ first, second }, index) => ({
     formName: second,
@@ -39,12 +39,14 @@ const twoDimensions = ([d1, d2], wordForms) => {
 };
 
 const wordWormsTable = (props) => {
-  const wordForms = useSelector(state => _.get(state, 'dictionary.fetchedWordForms'));
+  const wordForms = useSelector(state => _.get(state, 'dictionary.fetchedWordForms'), _.isEqual);
   const { pos } = props;
   const dispatch = useDispatch();
 
-  if (!wordForms)
+  if (!wordForms) {
     dispatch(actions.getFetchedWordForms(pos));
+    return null;
+  }
 
   const dimensions = props.dimensions
     .filter(dimension => Array.isArray(dimension))

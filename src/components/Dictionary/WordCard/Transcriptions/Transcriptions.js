@@ -1,21 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
-import styles from './Transcriptions.module.scss';
+import classes from './Transcriptions.module.scss';
 
 import Transcription from '../Transcription/Transcription';
 import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import * as actions from '../../../../store/actions/';
 
-const transcriptions = (props) => {
-  const addTranscriptionButton = props.editMode
-    ? <PromptSpan edited={props.createTranscription} prefix='[' postfix='] ' />
+const Transcriptions = props => {
+  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const dispatch = useDispatch();
+
+  const addTranscriptionButton = editMode
+    ? <PromptSpan
+      edited={transcription => dispatch(actions.createTranscription(transcription))}
+      prefix='['
+      postfix='] ' />
     : null;
 
   const transcriptionEntries = props.transcriptions || [];
-  const transcriptionEdited = (index) => (value) => props.editTranscription(value, index);
+  const transcriptionEdited = index => transcription => dispatch(actions.editTranscription(transcription, index));
   const transcriptions = (
-    <span className={styles.Transcriptions}>
+    <span className={classes.Transcriptions}>
       {transcriptionEntries.map((tr, i) => 
         <span key={`tr${i}`}>
           <Transcription edited={transcriptionEdited(i)}>
@@ -28,17 +35,4 @@ const transcriptions = (props) => {
   return transcriptions;
 };
 
-const mapStateToProps = state => {
-  return {
-    editMode: state.dictionary.editMode,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createTranscription: (value) => dispatch(actions.createTranscription(value)),
-    editTranscription: (transcription, index) => dispatch(actions.editTranscription(transcription, index)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(transcriptions);
+export default Transcriptions;

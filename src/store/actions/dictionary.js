@@ -101,7 +101,7 @@ export const createSemanticBlock = () => ({
   type: actionTypes.CREATE_SEMANTIC_BLOCK,
 });
 
-export const removeSemanticBlockAndSaveDictionary = (index) => {
+export const deleteSemanticBlock = (index) => {
   return {
     type: actionTypes.DELETE_SEMANTIC_BLOCK,
     index,
@@ -116,7 +116,7 @@ export const createPartOfSpeech = (semanticBlockIndex, partOfSpeech) => {
   };
 };
 
-export const removePartOfSpeechAndSaveDictionary = (semanticBlockIndex, partOfSpeech) => {
+export const deletePartOfSpeech = (semanticBlockIndex, partOfSpeech) => {
   return {
     type: actionTypes.DELETE_PART_OF_SPEECH,
     semanticBlockIndex,

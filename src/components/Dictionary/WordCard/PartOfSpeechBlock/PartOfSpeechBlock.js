@@ -1,7 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
-import styles from './PartOfSpeechBlock.module.scss';
+import classes from './PartOfSpeechBlock.module.scss';
 
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
@@ -9,28 +10,31 @@ import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import MinusButton from '../../../UI/MinusButton/MinusButton';
 import * as actions from '../../../../store/actions/';
 
-const partOfSpeechBlock = (props) => {
-  const wrapperClasses = [styles.PartOfSpeechWrapper];
-  if (props.editMode) {
-    wrapperClasses.push(styles.EditMode);
+const PartOfSpeechBlock = props => {
+  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const dispatch = useDispatch();
+
+  const wrapperClasses = [classes.PartOfSpeechWrapper];
+  if (editMode) {
+    wrapperClasses.push(classes.EditMode);
   }
 
   const meanings = props.meanings || [];
 
   let partOfSpeechEdit = null
-  if (props.editMode) {
-    const posRemoveButton = <MinusButton 
-      clicked={() => props.removePartOfSpeech(props.branch.sbIndex, props.partOfSpeech)}
+  if (editMode) {
+    const posRemoveButton = <MinusButton
+      clicked={() => dispatch(actions.deletePartOfSpeech(props.branch.sbIndex, props.partOfSpeech))}
     />;
     partOfSpeechEdit = (
-      <div className={styles.PartOfSpeechEdit}>
+      <div className={classes.PartOfSpeechEdit}>
         {posRemoveButton}
       </div>
     );
   }
 
   const meaningEntries = meanings.map((meaning, i) => (
-    <li className={styles.MeaningEntry} key={`m${i}`}>
+    <li className={classes.MeaningEntry} key={`m${i}`}>
       <Meanings 
         translations={meaning.translations} 
         remark={meaning.remark} 
@@ -42,33 +46,24 @@ const partOfSpeechBlock = (props) => {
     </li>
   ));
 
-  if (props.editMode) {
+  if (editMode) {
     const index = meaningEntries.length;
     meaningEntries.push((
-      <li className={styles.MeaningEntry} key={`m${index}`}>
-        <PromptSpan edited={translation => props.createMeaning(props.branch, translation)}/>
+      <li className={classes.MeaningEntry} key={`m${index}`}>
+        <PromptSpan edited={translation => dispatch(actions.createMeaning(props.branch, translation))}/>
       </li>
     ));
   }
 
   return (
     <li className={wrapperClasses.join(' ')}>
-      <span className={styles.PartOfSpeech}>{props.partOfSpeech}</span>
+      <span className={classes.PartOfSpeech}>{props.partOfSpeech}</span>
       {partOfSpeechEdit}
-      <ol className={styles.MeaningWrapper}>
+      <ol className={classes.MeaningWrapper}>
         {meaningEntries}
       </ol>
     </li>
   )
 };
 
-const mapStateToProps = state => ({
-    editMode: state.dictionary.editMode,
-});
-
-const mapDispatchToProps = dispatch => ({
-    removePartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.removePartOfSpeechAndSaveDictionary(sbIndex, partOfSpeech)),
-    createMeaning: (branch, translation) => dispatch(actions.createMeaning(branch, translation)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(partOfSpeechBlock);
+export default PartOfSpeechBlock;

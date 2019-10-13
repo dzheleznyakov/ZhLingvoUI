@@ -29,6 +29,10 @@ const dictionary = props => {
   if (dictionary && selectedWordIndex >= 0) {
     const index = selectedWordIndex;
     const wordEntry = dictionary[index];
+    const fetchedWordId = _.get(fetchedWord, 'id');
+    const wordId = _.get(wordEntry, 'id');
+    if (fetchedWordId !== wordId)
+      dispatch(actions.fetchWord(wordId));
     wordCard = <WordCard wordEntry={fetchedWord || wordEntry} />;
   }
 

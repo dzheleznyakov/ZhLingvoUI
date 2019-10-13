@@ -1,7 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 
-import styles from './SemanticBlock.module.scss';
+import classes from './SemanticBlock.module.scss';
 
 import { toRoman } from '../../../../utils/utils';
 import PartOfSpeechBlock from '../PartOfSpeechBlock/PartOfSpeechBlock';
@@ -9,8 +10,12 @@ import PartOfSpeechesExpansion from '../PartOfSpeechesExpansion/PartOfSpeechesEx
 import MinusButton from '../../../UI/MinusButton/MinusButton';
 import * as actions from '../../../../store/actions/';
 
-const semanticBlock = (props) => {
-  const block = props.fetchedWord.semanticBlocks[props.index];
+const SemanticBlock = props => {
+  const fetchedWord = useSelector(state => _.get(state, 'dictionary.fetchedWord'));
+  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const dispatch = useDispatch();
+
+  const block = fetchedWord.semanticBlocks[props.index];
   const partOfSpeeches = block.map((pos, i) => 
     <PartOfSpeechBlock 
       key={pos.type} 
@@ -19,7 +24,7 @@ const semanticBlock = (props) => {
       meanings={pos.meanings} 
     />
   );
-  if (props.editMode) {
+  if (editMode) {
     partOfSpeeches.push(<PartOfSpeechesExpansion 
       key='3_dots_btn' 
       setPartsOfSpeech={block.map(pos => pos.type)}
@@ -27,44 +32,31 @@ const semanticBlock = (props) => {
     />);
   }
   const partOfSpeechBlocks = (
-    <ol className={styles.PartOfSpeechBlockList}>
+    <ol className={classes.PartOfSpeechBlockList}>
       {partOfSpeeches}
     </ol>
   );
 
   let semanticBlockMinusButton = null
-  if (props.editMode) {
+  if (editMode) {
     semanticBlockMinusButton = <MinusButton 
-      classes={styles.MinusButton}
-      clicked={() => props.removeSemanticBlock(props.index)}
+      classes={classes.MinusButton}
+      clicked={() => dispatch(actions.deleteSemanticBlock(props.index))}
     />;
   }
 
-  const classes = [styles.SemanticBlock];
-  if (props.editMode) {
-    classes.push(styles.active);
+  const classNames = [classes.SemanticBlock];
+  if (editMode) {
+    classNames.push(classes.active);
   }
 
   return (
-    <div className={classes.join(' ')}>
-      <span className={styles.BlockNumber}>{toRoman(props.index + 1)}</span>
+    <div className={classNames.join(' ')}>
+      <span className={classes.BlockNumber}>{toRoman(props.index + 1)}</span>
       {semanticBlockMinusButton}
       {partOfSpeechBlocks}
     </div>
   )
 };
 
-const mapStateToProps = state => {
-  return {
-    fetchedWord: state.dictionary.fetchedWord,
-    wordIndex: state.dictionary.selectedWordIndex,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    removeSemanticBlock: (index) => dispatch(actions.removeSemanticBlockAndSaveDictionary(index)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(semanticBlock);
+export default SemanticBlock;

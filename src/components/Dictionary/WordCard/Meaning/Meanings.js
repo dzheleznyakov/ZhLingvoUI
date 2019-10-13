@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 
 import classes from './Meanings.module.scss';
 
@@ -9,30 +10,38 @@ import Elaboration from '../Elaboration/Elaboration';
 import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import * as actions from '../../../../store/actions/';
 
-const meanings = (props) => {
+const Meanings = (props) => {
+  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const dispatch = useDispatch();
+
+  const { branch } = props;
+  const onRemarkEdited = remark => dispatch(actions.editMeaningRemark(branch, remark));
+  const onTranslationEdited = index => translation => dispatch(actions.editTranslation(branch, index, translation));
+  const onElaborationEdited = index => elaboration => dispatch(actions.editElaboration(branch, index, elaboration));
+  
   const remark = props.remark ? (
     <Remark 
       key='remark'
-      edited={(remark) => props.editRemark(props.branch, remark)}
-      postfix=' '>{props.remark}
+      edited={onRemarkEdited}
+      postfix=' '
+    >
+      {props.remark}
     </Remark>
-   ) : props.editMode ? (
+   ) : editMode ? (
      <PromptSpan 
       key='remark' 
       cssClasses={classes.RemarkPlaceholder}
-      edited={(newRemark) => props.editRemark(props.branch, newRemark)} 
+      edited={onRemarkEdited} 
       postfix=' ' 
       placeholder='##' />
    ) : null;
 
-  const onTranslationEdited = (index) => (value) => props.editTranslation(props.branch, index, value);
-  const onElaborationEdited = (index) => (value) => props.editElaboration(props.branch, index, value);
   let meaning = [];
   if (props.translations) {    
     const getElaboration = (elaboration, index) => (
       elaboration ? (
         <Elaboration edited={onElaborationEdited(index)}>{elaboration}</Elaboration> 
-      ) : props.editMode ? (
+      ) : editMode ? (
         <PromptSpan
           cssClasses={classes.ElaborationPlaceholder}
           edited={onElaborationEdited(index)}
@@ -53,7 +62,7 @@ const meanings = (props) => {
     }, (remark ? [remark] : []));
   }
 
-  if (props.editMode) {
+  if (editMode) {
     const index = props.translations.length;
     meaning.push((
       <span key='prompt-translation'>
@@ -66,18 +75,4 @@ const meanings = (props) => {
   return <span>{meaning}</span>;
 };
 
-const mapStateToProps = state => {
-  return {
-    editMode: state.dictionary.editMode,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    editRemark: (branch, remark) => dispatch(actions.editMeaningRemark(branch, remark)),
-    editTranslation: (branch, index, translation) => dispatch(actions.editTranslation(branch, index, translation)),
-    editElaboration: (branch, index, elaboration) => dispatch(actions.editElaboration(branch, index, elaboration)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(meanings);
+export default Meanings;

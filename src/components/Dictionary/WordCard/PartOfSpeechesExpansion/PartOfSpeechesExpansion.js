@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import styles from './PartOfSpeechesExpansion.module.scss';
 
@@ -7,47 +8,33 @@ import ThreeDotsButton from '../../../UI/ThreeDotsButton/ThreeDotsButton';
 import DisplayList from '../../../UI/Dropdown/DisplayList/DisplayList';
 import * as actions from '../../../../store/actions/';
 
-class PartOfSpeechesExpansion extends Component {
-  state = {
-    dropped: false,
-  }
+const PartOfSpeechesExpansion = props => {
+  const [dropped, setDropped] = useState(false);
+  const partsOfSpeech = useSelector(state => _.get(state, 'dictionary.partsOfSpeech'));
+  const dispatch = useDispatch();
 
-  onButtonClicked = () => {
-    this.setState({ dropped: !this.state.dropped })
+  const onButtonClicked = () => {
+    setDropped(!dropped);
   };
 
-  onOptionClicked = (partOfSpeech) => {
-    this.setState({ dropped: false });
-    this.props.createPartOfSpeech(this.props.semanticBlockIndex, partOfSpeech);
+  const onOptionClicked = (partOfSpeech) => {
+    setDropped(false);
+    dispatch(actions.createPartOfSpeech(props.semanticBlockIndex, partOfSpeech));
   }
 
-  render() {
-    const availablePartsOfSpeech = this.props.partsOfSpeech
-      .filter(partOfS => !this.props.setPartsOfSpeech.find(setPartOfS => setPartOfS === partOfS));
+  const availablePartsOfSpeech = partsOfSpeech
+    .filter(pos => !props.setPartsOfSpeech.find(setPos => setPos === pos));
 
-    return (
-      <dl className={styles.PartOfSpeechesExpansion}>
-        <dt><ThreeDotsButton clicked={this.onButtonClicked}/></dt>
-        <dd><DisplayList 
-          dropped={this.state.dropped}
-          options={availablePartsOfSpeech}
-          clicked={this.onOptionClicked}
-        /></dd>
-      </dl>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    partsOfSpeech: state.dictionary.partsOfSpeech,
-  };
+  return (
+    <dl className={styles.PartOfSpeechesExpansion}>
+      <dt><ThreeDotsButton clicked={onButtonClicked}/></dt>
+      <dd><DisplayList 
+        dropped={dropped}
+        options={availablePartsOfSpeech}
+        clicked={onOptionClicked}
+      /></dd>
+    </dl>
+  );
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createPartOfSpeech: (sbIndex, partOfSpeech) => dispatch(actions.createPartOfSpeech(sbIndex, partOfSpeech)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PartOfSpeechesExpansion);
+export default PartOfSpeechesExpansion;
