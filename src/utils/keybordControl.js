@@ -1,4 +1,5 @@
 export const isEnter = (event) => event.keyCode === 13;
+export const isEscape = (event) => event.keyCode === 27;
 const isLeftArrow = (event) => event.keyCode === 37;
 const isRightArrow = (event) => event.keyCode === 39;
 const isUpArrow = (event) => event.keyCode === 38;

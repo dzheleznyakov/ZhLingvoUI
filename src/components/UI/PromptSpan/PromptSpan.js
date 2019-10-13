@@ -1,45 +1,72 @@
+import React, { useState, useRef, useEffect } from 'react';
+
 import classes from './PromptSpan.module.scss';
-import AbstractEditableSpan from '../AbstractEditableSpan/AbstractEditableSpan';
 
-class PromptSpan extends AbstractEditableSpan {
-  constructor(props) {
-    super(props);
-    this.placeholder = props.placeholder || '...';
-    this.state = {
-      value: this.placeholder,
-      cursorPosition: this.placeholder.length,
-      active: false,
-    };
+import { isEnter, isEscape } from '../../../utils/keybordControl';
+
+const PromptSpan = ({ prefix = '', postfix = '', placeholder = '...',
+                      edited, cssClasses }) => {
+  const [active, setActive] = useState(false);
+  const [value, setValue] = useState(placeholder);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (inputRef.current)
+      inputRef.current.focus();
+  }, [active]);
+
+  const classNames = cssClasses ? [cssClasses] : [];
+  if (!active) {
+    classNames.push(classes.Dimmed);
   }
 
-  UNSAFE_componentWillReceiveProps() {
-  }
-
-  onSpanClicked = () => {
-    this.setState({ 
-      active: true, 
-      value: '',
-      cursorPosition: 0,
-    });
+  const blur = () => {
+    inputRef.current && inputRef.current.blur();
   };
 
-  onBlur = () => {
-    const value = this.state.value;
-    this.setState({ active: false, value: this.placeholder, cursorPosition: this.placeholder.length });
-    if (this.props.edited && value && value.trim().length > 0) {
-      this.props.edited(value);
+  const onSpanClicked = () => {
+    setValue('');
+    setActive(true);
+  };
+
+  const onBlur = () => {
+    setActive(false);
+    setValue(placeholder);
+  };
+
+  const onKeyDown = (event) => {
+    if (isEnter(event)) {
+      event.preventDefault();
+      if (edited && value && value.trim().length > 0) {
+        blur();
+        edited(value);
+      }
+    } else if (isEscape(event)) {
+      event.preventDefault();
+      blur();
     }
   };
 
-  getClassNames = () => {
-    const cssClasses = this.props.cssClasses ? [this.props.cssClasses] : [];
-    if (!this.state.active) {
-      cssClasses.push(classes.Dimmed);
-    }
-    return cssClasses;
-  };
-
-  isInEditMode = () => true;
-}
+  return active 
+  ? (
+    <div>
+      {prefix}
+      <input 
+        type="text"
+        value={value}
+        ref={inputRef}
+        onChange={event => setValue(event.target.value)}
+        onKeyDown={onKeyDown}
+        onBlur={onBlur} />
+      {postfix}
+    </div>
+  )
+  : (
+    <span
+      className={classNames.join(' ')}
+      onClick={onSpanClicked}
+    >{prefix}{value}{postfix}</span>
+  );
+};
 
 export default PromptSpan;
