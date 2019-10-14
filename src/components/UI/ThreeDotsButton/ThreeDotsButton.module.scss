@@ -20,7 +20,7 @@ $dot-size: 3px;
   }
 }
 
-.dot {
+.Dot {
   margin: 2px;
   @include square($dot-size);
   border-radius: 50%;

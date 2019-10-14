@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './DisplayList.module.scss';
+import classes from './DisplayList.module.scss';
 
 const displayList = (props) => {
   const displayStyle = {
@@ -8,7 +8,7 @@ const displayList = (props) => {
   };
 
   return (
-    <ul className={styles.DisplayList} style={displayStyle}>
+    <ul className={classes.DisplayList} style={displayStyle}>
       {props.options.map((html, index) => (
         <li 
           key={index}

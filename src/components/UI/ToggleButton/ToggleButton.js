@@ -1,11 +1,11 @@
 import React from 'react';
 
-import styles from './toggle-button.module.scss';
+import classes from './ToggleButton.module.scss';
 
 const toggleButton = (props) => (
-  <label className={styles['switch']}>
+  <label className={classes.Switch}>
     <input type='checkbox' checked={props.checked} onChange={props.toggled} />
-    <span className={styles['slider']}></span>
+    <span className={classes.Slider}></span>
   </label>
 );
 

@@ -1,17 +1,17 @@
 import React from 'react';
 
-import styles from './ThreeDotsButton.module.scss';
+import classes from './ThreeDotsButton.module.scss';
 
 const threeDotsButton = (props) => {
-  const classes = [styles.ThreeDotsButton];
+  const classNames = [classes.ThreeDotsButton];
   if (props.classes) {
-    classes.push(props.classes);
+    classNames.push(props.classes);
   }
   return (
-    <button className={classes.join(' ')} onClick={props.clicked}>
-      <div className={styles.dot} />
-      <div className={styles.dot} />
-      <div className={styles.dot} />
+    <button className={classNames.join(' ')} onClick={props.clicked}>
+      <div className={classes.Dot} />
+      <div className={classes.Dot} />
+      <div className={classes.Dot} />
     </button>
   );
 };

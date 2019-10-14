@@ -1,14 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 
-import styles from './MinusButton.module.scss';
+import classes from './MinusButton.module.scss';
 
 const minusButton = (props) => {
   const size = props.size || 'small';
-  let classes = [styles.MinusButton, styles[size], props.classes];
-  classes = _.compact(classes);
+  let classNames = [classes.MinusButton, classes[size], props.classes];
+  classNames = _.compact(classNames);
   return (
-    <button className={classes.join(' ')} onClick={props.clicked} />
+    <button className={classNames.join(' ')} onClick={props.clicked} />
   );
 }
 

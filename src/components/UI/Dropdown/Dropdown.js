@@ -1,43 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-import styles from './dropdown.module.scss';
+import classes from './dropdown.module.scss';
 
 import DisplayList from './DisplayList/DisplayList';
 
-class Dropdown extends Component {
-  state = {
-    dropped: false,
-  }
+const Dropdown = props => {
+  const [dropped, setDropped] = useState(false);
 
-  onDropDownButtonClicked = () => {
-    const dropped = this.state.dropped;
-    this.setState({ dropped: !dropped })
+  const onDropDownButtonClicked = () => {
+    setDropped(!dropped);
   };
 
-  itemClickedHandler = (onclick) => {
-    if (onclick) {
-      onclick() 
-    }
-    this.onDropDownButtonClicked();
+  const itemClickedHandler = (onclick) => {
+    onclick && onclick();
+    onDropDownButtonClicked();
   };
 
-  render() {
-    const selectMessage = 'Please select' +
-      (this.props.select ? ` ${this.props.select}` : '...');
+  const selectMessage = 'Please select' +
+    (props.select ? ` ${props.select}` : '...');
 
-    return (
-        <dl className={styles.Dropdown}>
-          <dt><div onClick={this.onDropDownButtonClicked}><span>{selectMessage}</span></div></dt>
-          <dd>
-            <DisplayList 
-              dropped={this.state.dropped} 
-              options={this.props.options} 
-              clicked={(html) => this.itemClickedHandler(html.props.onclicked)}
-            />
-          </dd>
-        </dl>
-    );
-  }
-}
+  return (
+      <dl className={classes.Dropdown}>
+        <dt><div onClick={onDropDownButtonClicked}><span>{selectMessage}</span></div></dt>
+        <dd>
+          <DisplayList 
+            dropped={dropped} 
+            options={props.options} 
+            clicked={html => itemClickedHandler(html.props.onclicked)}
+          />
+        </dd>
+      </dl>
+  );
+};
 
 export default Dropdown;
