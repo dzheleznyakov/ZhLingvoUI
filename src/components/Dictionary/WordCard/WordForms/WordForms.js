@@ -6,6 +6,7 @@ import _ from 'lodash';
 import 'react-tabs/style/react-tabs.css';
 
 import Modal from '../../../UI/Modal/Modal';
+import WordFormsWrapper from './WordFormsWrapper/WordFormsWrapper';
 import WordFormsTable from './WordFormsTable/WordFormsTable';
 import * as actions from '../../../../store/actions';
 
@@ -47,12 +48,14 @@ const WordForms = (props) => {
 
   return (
     <Modal show modalClosed={props.closed}>
-      <Tabs>
-        <TabList>
-          {tabs}
-        </TabList>
-        {tabPanels}
-      </Tabs>
+      <WordFormsWrapper>
+        <Tabs>
+          <TabList>
+            {tabs}
+          </TabList>
+          {tabPanels}
+        </Tabs>
+      </WordFormsWrapper>
     </Modal>
   );
 };

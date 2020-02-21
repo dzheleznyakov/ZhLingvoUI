@@ -1,38 +1,32 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import classes from './DictionaryList.module.scss';
 
 import WordEntry from './WordEntry/WordEntry';
 import DictionaryListControl from './DictionaryListControl/DictionaryListControl';
 
-class DictionaryList extends Component {
-  render() {
-    return (
-      <div className={classes.DictionaryListWrapper}>
-        <DictionaryListControl />
-        <div className={classes.DictionaryListContainer}>
-          <ul className={classes.DictionaryList}>
-            {this.props.dictionary
-              .map((entry, index) => <WordEntry 
-                key={index}
-                pos={index}
-                numberOfPos={this.props.dictionary.length}
-                word={entry.word}
-                wordId={entry.id}
-                selected={index === this.props.selectedWordIndex}
-              />)}
-          </ul>
-        </div>
+const DictionaryList = props => {
+  const selectedWordIndex = useSelector(state => _.get(state, 'dictionary.selectedWordIndex'));
+  return (
+    <div className={classes.DictionaryListWrapper}>
+      <DictionaryListControl />
+      <div className={classes.DictionaryListContainer}>
+        <ul className={classes.DictionaryList}>
+          {props.dictionary
+            .map((entry, index) => <WordEntry 
+              key={index}
+              pos={index}
+              numberOfPos={props.dictionary.length}
+              word={entry.word}
+              wordId={entry.id}
+              selected={index === selectedWordIndex}
+            />)}
+        </ul>
       </div>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    selectedWordIndex: state.dictionary.selectedWordIndex,
-  };
+    </div>
+  );
 };
 
-export default connect(mapStateToProps)(DictionaryList);
+export default DictionaryList;

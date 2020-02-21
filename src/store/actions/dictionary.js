@@ -52,6 +52,12 @@ export const setFetchedWordForms = (forms) => ({
   forms,
 });
 
+export const updateWordForms = (pos, forms) => ({
+  type: actionTypes.UPDATE_FORD_FORMS,
+  pos,
+  forms,
+});
+
 export const saveWord = (wordEntry) => ({
   type: actionTypes.SAVE_WORD,
   wordEntry,

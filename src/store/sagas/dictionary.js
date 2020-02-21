@@ -40,6 +40,18 @@ export function* getFetchedWordFormsSaga(action) {
     const { data } = yield call(axios.get, `/words/forms/${languageCode}/${pos}/${wordId}`);
     if (data) yield put(actions.setFetchedWordForms(data));
   } catch (error) {
-    console.log(error);
+    console.log(error); // TODO
+  }
+}
+
+export function* updateWordFormsSaga(action) {
+  const { pos, forms } = action;
+  const languageCode = yield select(store => _.get(store, 'language.selectedLanguage.code'));
+  const wordId = yield select(store => _.get(store, 'dictionary.fetchedWord.id'));
+  try {
+    const { data } = yield call(axios.put, `/words/forms/${languageCode}/${pos}/${wordId}`, forms);
+    if (data) yield put(actions.setFetchedWordForms(data));
+  } catch (error) {
+    console.log(error); // TODO
   }
 }

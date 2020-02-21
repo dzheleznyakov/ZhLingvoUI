@@ -22,6 +22,7 @@ export function* watchDictionary() {
   yield takeEvery(actionTypes.REMOVE_WORD, edition.removeWordSaga);
 
   yield takeEvery(actionTypes.GET_FETCHED_WORD_FORMS, dictionary.getFetchedWordFormsSaga);
+  yield takeEvery(actionTypes.UPDATE_FORD_FORMS, dictionary.updateWordFormsSaga);
 
   yield takeEvery(actionTypes.EDIT_WORD_NAME, edition.editWordNameSaga);
 

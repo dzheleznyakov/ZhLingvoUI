@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
 
 import classes from './DictionaryListControl.module.scss';
 
@@ -16,95 +17,80 @@ const panelTypes = {
   removeWord: 'removeWord',
 };
 
-class DictionaryListControl extends Component {
-  state = {
-    showModal: false,
-    panelType: null,
+const DictionaryListControl = props => {
+  const selectedWordIndex = useSelector(state => _.get(state, 'dictionary.selectedWordIndex'));
+  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
+  const [panelType, setPanelType] = useState(null);
+
+  const onNewWordButtonClicked = () => {
+    setShowModal(true);
+    setPanelType(panelTypes.newWord)
   };
 
-  onNewWordButtonClicked = () => {
-    this.setState({ 
-      showModal: true,
-      panelType: panelTypes.newWord,
-    });
-  };
-
-  onRemoveWordButtonClicked = () => {
-    if (this.props.selectedWordIndex >= 0) {
-      this.setState({
-        showModal: true,
-        panelType: panelTypes.removeWord,
-      });
+  const onRemoveWordButtonClicked = () => {
+    if (selectedWordIndex >= 0) {
+      setShowModal(true);
+      setPanelType(panelTypes.removeWord);
     }
   };
 
-  closeModal = () => {
-    this.setState({ showModal: false });
+  const closeModal = () => {
+    setShowModal(false);
   };
 
-  onNewWordConfirmed = (wordName) => {
-    this.props.createWord(wordName);
-    this.setState({ panelType: null });
+  const onNewWordConfirmed = (wordName) => {
+    dispatch(actions.createWord(wordName))
+    setPanelType(null);
   }
 
-  onRemoveWordConfirmed = () => {
-    this.props.removeWord();
-    this.setState({ panelType: null });
+  const onRemoveWordConfirmed = () => {
+    dispatch(actions.removeWord())
+    setPanelType(null);
   };
 
-  renderModalPanel = () => {
-    switch (this.state.panelType) {
+  const renderModalPanel = () => {
+    switch (panelType) {
       case panelTypes.newWord: return (
         <NewWordPanel 
-          canceled={this.closeModal} 
-          confirmed={this.onNewWordConfirmed}
-          closed={this.closeModal} />
+          canceled={closeModal} 
+          confirmed={onNewWordConfirmed}
+          closed={closeModal} />
       );
-      case panelTypes.removeWord: return this.props.selectedWordIndex >= 0 
+      case panelTypes.removeWord: return selectedWordIndex >= 0 
         ? (
           <RemoveWordPanel
-            canceled={this.closeModal}
-            confirmed={this.onRemoveWordConfirmed} />
+            canceled={closeModal}
+            confirmed={onRemoveWordConfirmed} />
         ) : null;
       default: return null;
     }
   };
 
-  render() {
-    const entries = [{
-      label: 'New',
-      element: <PlusButton size='large' clicked={this.onNewWordButtonClicked} />,
-    }, {
-      label: 'Remove',
-      element: <MinusButton size='large' clicked={this.onRemoveWordButtonClicked} />,
-    }];
+  const entries = [{
+    label: 'New',
+    element: <PlusButton size='large' clicked={onNewWordButtonClicked} />,
+  }, {
+    label: 'Remove',
+    element: <MinusButton size='large' clicked={onRemoveWordButtonClicked} />,
+  }];
 
-    const modalPanel = this.renderModalPanel();
-    const modal = modalPanel ? (
-      <Modal show={this.state.showModal} modalClosed={this.closeModal}>
-        {modalPanel}
-      </Modal>
-    ) : null;
-  
-    return (
-      <React.Fragment>
-        {modal}
-        <ControlPanel 
-          type='Left'
-          className={classes.DictionaryListControl}
-          entries={entries} />
-      </React.Fragment>
-    );
-  }
+  const modalPanel = renderModalPanel();
+  const modal = modalPanel ? (
+    <Modal show={showModal} modalClosed={closeModal}>
+      {modalPanel}
+    </Modal>
+  ) : null;    
+
+  return (
+    <React.Fragment>
+      {modal}
+      <ControlPanel 
+        type='Left'
+        className={classes.DictionaryListControl}
+        entries={entries} />
+    </React.Fragment>
+  );
 };
 
-const mapStateToProps = state => ({
-  selectedWordIndex: state.dictionary.selectedWordIndex,
-});
-
-const mapDispatchToProps = dispatch => ({
-  createWord: (wordName) => dispatch(actions.createWord(wordName)),
-  removeWord: () => dispatch(actions.removeWord()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DictionaryListControl);
+export default DictionaryListControl;
