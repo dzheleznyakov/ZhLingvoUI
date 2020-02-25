@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 
+import styles from './LanguageChooser.module.scss';
+
 import Language from '../elements/Language';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 import Spinner from '../../UI/Spinner/Spinner';
 import * as actions from '../../../store/actions/';
-import styles from './LanguageChooser.module.css';
 
 const languageChooser = props => {
   const dispath = useDispatch();

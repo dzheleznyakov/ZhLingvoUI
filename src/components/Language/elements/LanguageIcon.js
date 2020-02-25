@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './LanguageIcon.module.css';
+import classes from './LanguageIcon.module.scss';
 
 const languageIcon = (props) => {
   const style = { 
@@ -8,7 +8,7 @@ const languageIcon = (props) => {
     borderColor: props.color || 'black',
   };
 
-  const classNames = [styles.LanguageIcon, styles[props.size]];
+  const classNames = [classes.LanguageIcon, classes[props.size]];
 
   return (
     <div 

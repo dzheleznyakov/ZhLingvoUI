@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Language.module.css';
+import styles from './Language.module.scss';
 
 import LanguageIcon from './LanguageIcon';
 

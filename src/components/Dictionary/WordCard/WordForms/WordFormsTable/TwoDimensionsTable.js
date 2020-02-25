@@ -40,7 +40,7 @@ const TwoDimensions = props => {
     .map(({ key, valueKey }) => ({ [key]: (wordForms && wordForms[valueKey]) || '' }))
     .reduce((acc, obj) => ({ ...acc, ...obj }), {});
   const data = d2.map(({ first, second }, index) => ({
-    formName: second,
+    formName: d2.length > 1 ? second : '',
     ...getTableLineData(first),
     key: first + index
   }));

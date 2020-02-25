@@ -32,6 +32,10 @@ const WordCard = (props) => {
     </div>)
   }
 
+  const transcriptions = entry.transcriptions && entry.transcriptions.length
+    ? <Transcriptions transcriptions={entry.transcriptions} />
+    : null;
+
   return (
     <div>
       <div className={classes.WordCardWrapper}>
@@ -41,7 +45,7 @@ const WordCard = (props) => {
           <div className={classes.WordCardViewer}>
             <div className={classes.WordCard}>
               <WordName>{entry.word}</WordName>
-              <Transcriptions transcriptions={entry.transcriptions} />
+              {transcriptions}
               {semanticBlocks}
             </div>
           </div>

@@ -37,7 +37,7 @@ const WordEntry = (props) => {
   };
 
   return (
-    <li 
+    <li
       className={classes.join(' ')}
       ref={focusIfSelected}
       tabIndex={props.pos}
