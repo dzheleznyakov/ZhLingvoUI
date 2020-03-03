@@ -5,7 +5,6 @@ import { updateObject, removeFromArray, addToArray } from '../../utils/utils';
 
 const initialState = {
   loadedDictionary: [],
-  partsOfSpeech: [],
   selectedWordIndex: -1,
   fetchedWord: null,
   fetchedWordForms: null,
@@ -33,7 +32,7 @@ const findWordIndexByName = (dictionary, wordName) => {
 const findIndexOfTheNextWord = (state, wordName) => {
   const dictionary = state.loadedDictionary;
   const lo = findWordIndexByName(dictionary, wordName)
-  return wordName < dictionary[lo].word ? lo : lo + 1;
+  return !dictionary[lo] || wordName < dictionary[lo].word ? lo : lo + 1;
 };
 
 const setDictionary = (state, action) => {
@@ -46,10 +45,6 @@ const removeDictionary = (state) => {
     partsOfSpeech: [],
     selectedWordIndex: -1, 
   });
-};
-
-const storePartsOfSpeech = (state, action) => {
-  return updateObject(state, { partsOfSpeech: action.partsOfSpeech });
 };
 
 const selectWord = (state, action) => {
@@ -112,7 +107,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_DICTIONARY: return setDictionary(state, action);
     case actionTypes.REMOVE_DICTIONARY: return removeDictionary(state, action);
-    case actionTypes.STORE_PARTS_OF_SPEECHES: return storePartsOfSpeech(state, action);
     case actionTypes.SELECT_WORD: return selectWord(state, action);
     case actionTypes.SET_FETCHED_WORD: return setFetchedWord(state, action);
     case actionTypes.SET_FETCHED_WORD_FORMS: return setFetchedWordForms(state, action);

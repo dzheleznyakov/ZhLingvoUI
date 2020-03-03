@@ -14,7 +14,7 @@ export function* watchLanguage() {
 
 export function* watchDictionary() {
   yield takeEvery(actionTypes.LOAD_DICTIONARY, dictionary.loadDictionarySaga);
-  yield takeEvery(actionTypes.LOAD_PARTS_OF_SPEECHES, dictionary.loadPartsOfSpeechesSaga);
+  yield takeEvery(actionTypes.LOAD_LANGUAGE_CONSTANTS, dictionary.loadLanguageConstantsSaga);
 
   yield takeEvery(actionTypes.CREATE_WORD, edition.createWordSaga);
   yield takeLatest(actionTypes.FETCH_WORD, dictionary.fetchWordSaga);
@@ -28,6 +28,7 @@ export function* watchDictionary() {
 
   yield takeEvery(actionTypes.CREATE_TRANSCRIPTION, edition.createTranscriptionSaga);
   yield takeEvery(actionTypes.EDIT_TRANSCRIPTION, edition.editTranscriptionSaga);
+  yield takeEvery(actionTypes.EDIT_GENDER, edition.editGenderSaga);
   
   yield takeEvery(actionTypes.CREATE_SEMANTIC_BLOCK, edition.createSemanticBlockSaga);
   yield takeEvery(actionTypes.DELETE_SEMANTIC_BLOCK, edition.deleteSemanticBlockSaga);

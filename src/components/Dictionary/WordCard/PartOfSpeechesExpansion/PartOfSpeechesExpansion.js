@@ -10,7 +10,8 @@ import * as actions from '../../../../store/actions/';
 
 const PartOfSpeechesExpansion = props => {
   const [dropped, setDropped] = useState(false);
-  const partsOfSpeech = useSelector(state => _.get(state, 'dictionary.partsOfSpeech'));
+  const partsOfSpeechNamings = useSelector(state => _.get(state, 'language.languageConstants.pos', []));
+  const partsOfSpeech = Object.keys(partsOfSpeechNamings).map(key => partsOfSpeechNamings[key]);
   const dispatch = useDispatch();
 
   const onButtonClicked = () => {

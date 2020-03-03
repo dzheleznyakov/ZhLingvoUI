@@ -44,7 +44,6 @@ const TwoDimensions = props => {
     ...getTableLineData(first),
     key: first + index
   }));
-  console.log('data', data);
   
   return <Table columns={columns} data={data} prefixCls={classes.WordFormsTable} />;
 };

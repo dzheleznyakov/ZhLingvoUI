@@ -35,3 +35,8 @@ export const setChangeModel = (pos, changeModel) => ({
   pos,
   changeModel,
 });
+
+export const storeLanguageConstants = (languageConstants) => ({
+  type: actionTypes.STORE_LANGUAGE_CONSTANTS,
+  languageConstants,
+});

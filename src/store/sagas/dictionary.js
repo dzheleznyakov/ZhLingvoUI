@@ -12,10 +12,10 @@ export function* loadDictionarySaga() {
   yield put(actions.setDictionary(dictionary));
 }
 
-export function* loadPartsOfSpeechesSaga() {
+export function* loadLanguageConstantsSaga() {
   const languageCode = yield select(store => store.language.selectedLanguage.code);
-  const partsOfSpeech = yield call(loadPartsOfSpeech, languageCode);
-  yield put(actions.storePartsOfSpeech(partsOfSpeech));
+  const languageConstants = yield call(loadPartsOfSpeech, languageCode);
+  yield put(actions.storeLanguageConstants(languageConstants));
 }
 
 export function* fetchWordSaga(action) {

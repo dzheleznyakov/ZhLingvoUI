@@ -20,6 +20,7 @@ const SemanticBlock = props => {
     <PartOfSpeechBlock 
       key={pos.type} 
       partOfSpeech={pos.type} 
+      gender={pos.gender}
       branch={{ sbIndex: props.index, posIndex: i }}
       meanings={pos.meanings} 
     />

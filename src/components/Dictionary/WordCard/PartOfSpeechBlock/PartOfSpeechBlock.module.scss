@@ -14,6 +14,11 @@
   color: map-get($colors, remark);
 }
 
+.Gender {
+  color: map-get($colors, remarl);
+  font-style: italic;
+}
+
 .MeaningWrapper {
   list-style: none;
   counter-reset: meanings-counter;

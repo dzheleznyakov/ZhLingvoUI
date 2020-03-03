@@ -81,6 +81,16 @@ export function* editTranslationSaga(action) {
   yield* updateWordSaga(PUT, url, payload, CONTENT_TYPE_APPLICATION_JSON);
 }
 
+export function* editGenderSaga(action) {
+  const { sbIndex, posIndex } = action.branch;
+  const { gender } = action;
+  const genderNamings = yield select(state => state.language.languageConstants.genders);  
+  const genderKey = Object.keys(genderNamings).filter(key => genderNamings[key] === gender)[0];
+  const url = (lang, id) => `/words/${lang}/${id}/${sbIndex}/${posIndex}/gender`
+  const payload = { data: genderKey };
+  yield* updateWordSaga(PUT, url, payload, CONTENT_TYPE_APPLICATION_JSON);
+}
+
 export function* editElaborationSaga(action) {
   const { sbIndex, posIndex, mIndex } = action.branch;
   const { index, elaboration } = action;

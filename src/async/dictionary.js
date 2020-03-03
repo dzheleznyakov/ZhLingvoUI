@@ -122,7 +122,7 @@ export const loadDictionary = (languageCode) => {
 };
 
 export const loadPartsOfSpeech = (languageCode) => {
-  return axios.get(`/partsOfSpeeches/${languageCode}`)
+  return axios.get(`/languages/constants/${languageCode}`)
     .then(res => res.data)
     .catch(err => console.error(err));
 };
