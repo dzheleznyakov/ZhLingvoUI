@@ -65,7 +65,8 @@ const PartOfSpeechBlock = props => {
 
   let gender;
   const pos = Object.keys(posNamings).filter(key => posNamings[key] === partOfSpeech)[0];
-  const shouldHaveGender = POS_WITH_GENDER.indexOf(pos) >= 0;
+  const genderNamingsKeys = Object.keys(genderNamings);
+  const shouldHaveGender = genderNamingsKeys.length && POS_WITH_GENDER.indexOf(pos) >= 0;
   if (!shouldHaveGender) {
     gender = null;
   } else if (shouldHaveGender && !editMode) {
@@ -75,7 +76,7 @@ const PartOfSpeechBlock = props => {
     gender = (
       <select defaultValue={currentGenderValue || ''} onChange={changed}>
         <option></option>
-        {Object.keys(genderNamings).map(key => (
+        {genderNamingsKeys.map(key => (
           <option key={key}>{genderNamings[key]}</option>
         ))}
       </select>
