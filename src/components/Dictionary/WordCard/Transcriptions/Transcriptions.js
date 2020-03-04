@@ -1,15 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import classes from './Transcriptions.module.scss';
 
+import useSelectEditMode from '../../../../hooks/useSelectEditMode';
 import Transcription from '../Transcription/Transcription';
 import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import * as actions from '../../../../store/actions/';
 
 const Transcriptions = props => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const dispatch = useDispatch();
 
   const addTranscriptionButton = editMode

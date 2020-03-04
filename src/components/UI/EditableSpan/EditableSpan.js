@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import _ from 'lodash';
 
+import useSelectEditMode from '../../../hooks/useSelectEditMode';
 import { isEnter, isEscape } from '../../../utils/keybordControl';
 
 const EditableSpan = ({ value = '', prefix = '', postfix = '',
                         edited, cssClasses }) => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const [active, setActive] = useState(false);
   const [inputValue, setInputValue] = useState(value);
   const [persistedValue, setPersistedValue] = useState(value);

@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux'
 
 import classes from './Meanings.module.scss';
 
+import useSelectEditMode from '../../../../hooks/useSelectEditMode';
 import Remark from '../Remark/Remark';
 import Translation from '../Translation/Translation';
 import Elaboration from '../Elaboration/Elaboration';
@@ -11,7 +11,7 @@ import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import * as actions from '../../../../store/actions/';
 
 const Meanings = (props) => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const dispatch = useDispatch();
 
   const { branch } = props;

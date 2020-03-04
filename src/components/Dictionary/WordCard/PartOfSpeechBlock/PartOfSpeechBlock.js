@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import classes from './PartOfSpeechBlock.module.scss';
 
+import useSelectEditMode from '../../../../hooks/useSelectEditMode';
 import Meanings from '../Meaning/Meanings';
 import Examples from '../Examples/Examples';
 import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
@@ -13,7 +14,7 @@ import * as actions from '../../../../store/actions/';
 const POS_WITH_GENDER = ['NOUN'];
 
 const PartOfSpeechBlock = props => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const posNamings = useSelector(state => _.get(state, 'language.languageConstants.pos'));
   const genderNamings = useSelector(state => _.get(state, 'language.languageConstants.genders'));
   const dispatch = useDispatch();

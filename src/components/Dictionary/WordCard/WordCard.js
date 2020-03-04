@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import classes from './WordCard.module.scss';
 
+import useSelectEditMode  from '../../../hooks/useSelectEditMode';
 import WordCardControl from './WordCardControl/WordCardControl';
 import WordCardOptions from './WordCardOptions/WordCardOptions';
 import WordName from './WordName/WordName';
@@ -13,7 +13,7 @@ import PlusButton from '../../UI/PlusButton/PlusButton';
 import * as actions  from '../../../store/actions/';
 
 const WordCard = (props) => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const dispatch = useDispatch();
 
   const entry = props.wordEntry;
@@ -21,7 +21,7 @@ const WordCard = (props) => {
   let semanticBlocks = [];
   if (entry.semanticBlocks && entry.semanticBlocks.length) {
     semanticBlocks = entry.semanticBlocks
-      .map((sb, i) => <SemanticBlock key={`sb${i}`} index={i} editMode={editMode} />)
+      .map((sb, i) => <SemanticBlock key={`sb${i}`} total={entry.semanticBlocks.length} index={i} />)
   }
   if (editMode) {
     semanticBlocks.push(<div 

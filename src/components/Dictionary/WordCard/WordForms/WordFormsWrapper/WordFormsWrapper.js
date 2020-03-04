@@ -1,15 +1,15 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import classes from './WordFormsWrapper.module.scss';
 
+import useSelectEditMode from '../../../../../hooks/useSelectEditMode';
 import ToggleButton from '../../../../UI/ToggleButton/ToggleButton';
 import * as actions from '../../../../../store/actions';
 
 const WordFormsWrapper = props => {
   const dispatch = useDispatch();
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const setEditMode = () => dispatch(actions.setEditMode(!editMode));
 
   return (

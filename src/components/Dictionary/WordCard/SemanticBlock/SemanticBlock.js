@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import classes from './SemanticBlock.module.scss';
 
+import useSelectEditMode from '../../../../hooks/useSelectEditMode';
 import { toRoman } from '../../../../utils/utils';
 import PartOfSpeechBlock from '../PartOfSpeechBlock/PartOfSpeechBlock';
 import PartOfSpeechesExpansion from '../PartOfSpeechesExpansion/PartOfSpeechesExpansion';
@@ -12,8 +13,12 @@ import * as actions from '../../../../store/actions/';
 
 const SemanticBlock = props => {
   const fetchedWord = useSelector(state => _.get(state, 'dictionary.fetchedWord'));
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const dispatch = useDispatch();
+
+  const semBlockNumber = props.total && props.total > 1
+    ? <span className={classes.BlockNumber}>{toRoman(props.index + 1)}</span>
+    : null;
 
   const block = fetchedWord.semanticBlocks[props.index];
   const partOfSpeeches = block.map((pos, i) => 
@@ -53,7 +58,7 @@ const SemanticBlock = props => {
 
   return (
     <div className={classNames.join(' ')}>
-      <span className={classes.BlockNumber}>{toRoman(props.index + 1)}</span>
+      {semBlockNumber}
       {semanticBlockMinusButton}
       {partOfSpeechBlocks}
     </div>

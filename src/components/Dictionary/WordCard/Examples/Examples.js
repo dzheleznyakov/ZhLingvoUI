@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import classes from './Examples.module.scss';
 
+import useSelectEditMode from '../../../../hooks/useSelectEditMode';
 import EditableSpan from '../../../UI/EditableSpan/EditableSpan';
 import PromptSpan from '../../../UI/PromptSpan/PromptSpan';
 import Remark from '../Remark/Remark';
@@ -12,7 +12,7 @@ import * as actions from '../../../../store/actions/';
 const emDash = '\u2014';
 
 const Examples = (props) => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+  const editMode = useSelectEditMode();
   const dispatch = useDispatch();
 
   let exampleBlock = [];

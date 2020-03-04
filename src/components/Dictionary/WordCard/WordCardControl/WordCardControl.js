@@ -1,15 +1,15 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
+import { useDispatch } from 'react-redux';
 
 import classes from './WordCardControl.module.scss';
 
+import useSelectEditMode from '../../../../hooks/useSelectEditMode';
 import ToggleButton from '../../../UI/ToggleButton/ToggleButton';
 import ControlPanel from '../../../UI/ControlPanel/ControlPanel';
 import * as actions from '../../../../store/actions/';
 
-const WordCardControl = (props) => {
-  const editMode = useSelector(state => _.get(state, 'dictionary.editMode'));
+const WordCardControl = () => {
+  const editMode = useSelectEditMode();
   const dispatch = useDispatch();
 
   const setEditMode = value => dispatch(actions.setEditMode(value));
