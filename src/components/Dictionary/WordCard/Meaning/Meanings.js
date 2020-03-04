@@ -72,7 +72,7 @@ const Meanings = (props) => {
     ));
   }
   
-  return <span>{meaning}</span>;
+  return <span className={classes.Meaning}>{meaning}</span>;
 };
 
 export default Meanings;
